@@ -69,7 +69,6 @@ export default function Main() {
           style={{}}
         ></ObjectList>
       </Stack>
-      <button>button selin</button>
     </Stack>
   );
 }
