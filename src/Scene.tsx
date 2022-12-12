@@ -3,7 +3,7 @@ import * as React from "react";
 import { useRef, useState } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import ModelGLB from "./ModelLoaders/ModelGLB";
-import Cube from "./3D-Objects/Cube";
+import BoxGeometrie from "./3D-Objects/BoxGeometrie";
 import {
   PerspectiveCamera,
   OrthographicCamera,
@@ -15,34 +15,20 @@ import { BoxGeometryValue } from "./UI-Elemente/3DObjektListe/ObjektListe";
 const deg2rad = (degrees: number) => degrees * (Math.PI / 180);
 
 export default function Scene(props: {
-  style: React.CSSProperties;
-  modell: string[];
-  object: BoxGeometryValue[];
+  models: string[];
+  objects: BoxGeometryValue[];
 }) {
   // orbitControl wird deaktiviert wenn ein Objekt via pivotControl verschoben wird
-  // damit die sich die Camera nicht mitdreht beim bewegen
+  // damit die sich die Camera nicht mitdreht beim verschieben
   const [isOrbitControl, setIsOrbitControl] = useState<boolean>(true);
 
   return (
-    <div style={props.style}>
+    <>
       {/* Canvas nimmt größe von parent container */}
+      {/* Canvas richtet eine Szene & Kamera ein */}
       <Canvas>
-        {/* Licht */}
-        <ambientLight intensity={0.3} />
-        <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} />
-        <pointLight position={[-10, -10, -10]} />
-
-        {/* ein 3D Modell als Test 
-        <ModelGLB
-          scale={1}
-          pfad="./ModelsGLB/SheenChair.glb"
-          isDraggable={true}
-          onDrag={() => setIsOrbitControl(false)}
-          onDragEnd={() => setIsOrbitControl(true)}
-        ></ModelGLB>*/}
-
         {/* Modelle die durch + Add eingfügt wurden  */}
-        {props.modell.map((pfad) => (
+        {props.models.map((pfad) => (
           <ModelGLB
             scale={1}
             pfad={pfad}
@@ -51,27 +37,47 @@ export default function Scene(props: {
             onDragEnd={() => setIsOrbitControl(true)}
           ></ModelGLB>
         ))}
-
         {/* Objekte die durch + Add eingfügt wurden  */}
-        {props.object.map((geometrie: BoxGeometryValue) => (
-          <Cube
+        {props.objects.map((geometrie: BoxGeometryValue) => (
+          <BoxGeometrie
             geometrie={geometrie}
-            verschiebbar={true}
+            editable={true}
             onDrag={() => setIsOrbitControl(false)}
             onDragEnd={() => setIsOrbitControl(true)}
-          ></Cube>
+          ></BoxGeometrie>
         ))}
-
+        {/* testen */}
+        <BoxGeometrie
+          geometrie={{ positionXYZ: [0, 0, 0], scaleXYZ: [1, 1, 1] }}
+          editable={true}
+          onDrag={() => setIsOrbitControl(false)}
+          onDragEnd={() => setIsOrbitControl(true)}
+        ></BoxGeometrie>
+        {/* Raum */} {/* TODO: eigene Komponete für den Raum */}
         {/* Boden */}
-        <Cube
-          verschiebbar={false}
-          geometrie={{ positionXYZ: [0, 0, 0], scaleXYZ: [7, 0.01, 7] }}
-        ></Cube>
-
+        <BoxGeometrie
+          geometrie={{ positionXYZ: [0, 0, 0], scaleXYZ: [7, 0.001, 7] }}
+          editable={false}
+        ></BoxGeometrie>
+        {/* Wand Links */}
+        <BoxGeometrie
+          geometrie={{ positionXYZ: [-3.5, 1.5, 0], scaleXYZ: [0.001, 3, 7] }}
+          editable={false}
+        ></BoxGeometrie>
+        {/* Wand Rechts */}
+        <BoxGeometrie
+          geometrie={{ positionXYZ: [3.5, 1.5, 0], scaleXYZ: [0.001, 3, 7] }}
+          editable={false}
+        ></BoxGeometrie>
+        {/* Wand Hinten */}
+        <BoxGeometrie
+          geometrie={{ positionXYZ: [0, 1.5, -3.5], scaleXYZ: [7, 3, 0.001] }}
+          editable={false}
+        ></BoxGeometrie>
         {/* Scene Movement */}
-        {isOrbitControl ? <OrbitControls /> : null}
+        {isOrbitControl ? <OrbitControls makeDefault /> : null}
       </Canvas>
-    </div>
+    </>
   );
 }
 

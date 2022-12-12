@@ -5,7 +5,7 @@ import ModelGLB from "../../ModelLoaders/ModelGLB";
 import { PerspectiveCamera } from "@react-three/drei";
 import { OrbitControls } from "@react-three/drei"; //https://drei.pmnd.rs/?path=/story/controls-mapcontrols--map-controls-scene-st
 import { BoxGeometryValue } from "./ObjektListe";
-import Ground from "../../3D-Objects/Cube";
+import BoxGeometrie from "../../3D-Objects/BoxGeometrie";
 
 export default function ObjektAnsicht(props: {
   style: React.CSSProperties;
@@ -31,7 +31,10 @@ export default function ObjektAnsicht(props: {
         <pointLight position={[-10, -10, -10]} />
 
         {/* 3D Modell */}
-        <Ground geometrie={props.geometrie} verschiebbar={false}></Ground>
+        <BoxGeometrie
+          geometrie={props.geometrie}
+          editable={false}
+        ></BoxGeometrie>
 
         {/* Scene Movement */}
         {<OrbitControls />}

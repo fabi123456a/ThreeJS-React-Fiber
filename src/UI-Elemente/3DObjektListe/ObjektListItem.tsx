@@ -4,7 +4,7 @@ import Typography from "@mui/material/Typography";
 import { Button } from "@mui/material";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { BoxGeometryValue } from "./ObjektListe";
-import Ground from "../../3D-Objects/Cube";
+import BoxGeometrie from "../../3D-Objects/BoxGeometrie";
 import ObjektAnsicht from "./ObjektAnsicht";
 
 export default function ObjectListItem(props: {
@@ -36,7 +36,10 @@ export default function ObjectListItem(props: {
       </Stack>
 
       <Stack direction={"row"}>
-        <ObjektAnsicht style={{ height: "150px", width: "150px", border: "1px solid black" }} geometrie={props.geometrie}></ObjektAnsicht>
+        <ObjektAnsicht
+          style={{ height: "150px", width: "150px", border: "1px solid black" }}
+          geometrie={props.geometrie}
+        ></ObjektAnsicht>
         {border ? <p>borderColor</p> : <p>none</p>}
       </Stack>
     </Stack>
