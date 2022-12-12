@@ -6,7 +6,7 @@ import {
   Html,
   TransformControls,
 } from "@react-three/drei";
-import { BoxGeometryValue } from "../UI-Elemente/3DObjektListe/ObjektListe";
+import { BoxGeometryValue } from "../UI-Elemente/3DObjekt-Liste/ObjektListe";
 import { Label } from "@mui/icons-material";
 import { Button } from "@mui/material";
 import EditObjectHTML from "./EditObjectHTML";
@@ -32,8 +32,9 @@ function BoxGeometrie(props: {
   // ref zum pivotcontrol
   const pivot = useRef<Group>(null);
 
-  // flag zum editieren
-  const [isEditMode, setEditMode] = useState<boolean>();
+  // flags zum editieren
+  const [isScaleMode, setIsScaleMode] = useState<boolean>();
+  const [isTranslateMode, setIsTranslateMode] = useState<boolean>();
 
   return (
     <>
@@ -42,7 +43,9 @@ function BoxGeometrie(props: {
         // PivotControl zum Verschieben & Rotieren
         <PivotControls
           ref={pivot}
-          activeAxes={isEditMode ? [true, true, true] : [false, false, false]}
+          activeAxes={
+            isTranslateMode ? [true, true, true] : [false, false, false]
+          }
           lineWidth={2}
           onDrag={() => {
             if (props.onDrag) props.onDrag();
@@ -54,9 +57,9 @@ function BoxGeometrie(props: {
           {/* TransformControl zum skalieren */}
           <TransformControls
             mode="scale"
-            showX={isEditMode ? true : false}
-            showY={isEditMode ? true : false}
-            showZ={isEditMode ? true : false}
+            showX={isScaleMode ? true : false}
+            showY={isScaleMode ? true : false}
+            showZ={isScaleMode ? true : false}
           >
             <mesh
               ref={ref}
@@ -66,18 +69,21 @@ function BoxGeometrie(props: {
                 props.geometrie.positionXYZ[2],
               ]}
             >
-              <EditObjectHTML changeEditMode={setEditMode} />
+              <EditObjectHTML
+                changeScaleMode={setIsScaleMode}
+                changeTranslateMode={setIsTranslateMode}
+              />
               <boxBufferGeometry args={props.geometrie.scaleXYZ} />
 
               {/* zeichnet umrandungen */}
               <Edges
                 scale={1.005}
                 color={"black"}
-                visible={isEditMode ? true : false}
+                visible={isScaleMode || isTranslateMode ? true : false}
               />
 
               {/* wenn Editierbar dann nur Wireframe anzeigen, damit die sicht auf das PivotControl nicht behindert wird */}
-              {isEditMode ? (
+              {isScaleMode || isTranslateMode ? (
                 <meshStandardMaterial wireframe />
               ) : (
                 <meshBasicMaterial color={"red"} />

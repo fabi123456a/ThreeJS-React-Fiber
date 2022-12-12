@@ -2,7 +2,7 @@ import * as React from "react";
 import { useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import ModelGLB from "../../ModelLoaders/ModelGLB";
-import { PerspectiveCamera } from "@react-three/drei";
+import { PerspectiveCamera, PresentationControls } from "@react-three/drei";
 import { OrbitControls } from "@react-three/drei"; //https://drei.pmnd.rs/?path=/story/controls-mapcontrols--map-controls-scene-st
 
 export default function ModelAnsicht(props: {
@@ -20,25 +20,18 @@ export default function ModelAnsicht(props: {
         onMouseEnter={props.onMouseEnter}
         onMouseLeave={props.onMouseLeave}
       >
-        {/* Kameras */}
-        <PerspectiveCamera position={[0, 1, 2]} fov={110} makeDefault={true} />
-
         {/* Licht */}
         <ambientLight intensity={0.3} />
-        <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} />
-        <pointLight position={[-10, -10, -10]} />
-
-        {/* 3D Modell */}
-        <ModelGLB
-          scale={2}
-          pfad={props.pfad}
-          isDraggable={false}
-          onDrag={() => setIsOrbitControl(false)}
-          onDragEnd={() => setIsOrbitControl(true)}
-        ></ModelGLB>
-
-        {/* Scene Movement */}
-        {<OrbitControls />}
+        <PresentationControls global snap>
+          {/* 3D Modell */}
+          <ModelGLB
+            scale={2}
+            pfad={props.pfad}
+            isDraggable={false}
+            onDrag={() => setIsOrbitControl(false)}
+            onDragEnd={() => setIsOrbitControl(true)}
+          ></ModelGLB>
+        </PresentationControls>
       </Canvas>
     </div>
   );

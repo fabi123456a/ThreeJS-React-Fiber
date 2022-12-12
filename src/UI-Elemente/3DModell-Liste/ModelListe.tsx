@@ -10,7 +10,7 @@ export default function ModelList(props: {
   const [actModel, setActModel] = React.useState<string>();
 
   return (
-    <Stack style={props.style}>
+    <Stack direction={"row"} style={props.style}>
       {props.names.map((item) => (
         <ModelListItem
           modelName={getNameFromPfad(item)}
@@ -19,7 +19,7 @@ export default function ModelList(props: {
           onBtnAddClick={props.onAdd}
         ></ModelListItem>
       ))}
-      {actModel ? <p>{actModel}</p> : <p>kein Model selektiert</p>}
+      {actModel ? <p>Ausgewählt: {actModel}</p> : <p>kein Model selektiert</p>}
     </Stack>
   );
 }

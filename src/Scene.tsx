@@ -10,7 +10,7 @@ import {
   MapControls,
 } from "@react-three/drei";
 import { OrbitControls } from "@react-three/drei"; //https://drei.pmnd.rs/?path=/story/controls-mapcontrols--map-controls-scene-st
-import { BoxGeometryValue } from "./UI-Elemente/3DObjektListe/ObjektListe";
+import { BoxGeometryValue } from "./UI-Elemente/3DObjekt-Liste/ObjektListe";
 
 const deg2rad = (degrees: number) => degrees * (Math.PI / 180);
 
@@ -26,7 +26,7 @@ export default function Scene(props: {
     <>
       {/* Canvas nimmt größe von parent container */}
       {/* Canvas richtet eine Szene & Kamera ein */}
-      <Canvas>
+      <Canvas style={{ border: "4px solid black" }}>
         {/* Licht */}
         <ambientLight />
         {/* Modelle die durch + Add eingfügt wurden  */}
@@ -48,18 +48,6 @@ export default function Scene(props: {
             onDragEnd={() => setIsOrbitControl(true)}
           ></BoxGeometrie>
         ))}
-        {/* testen */}
-        <BoxGeometrie
-          geometrie={{ positionXYZ: [0, 0, 0], scaleXYZ: [1, 1, 1] }}
-          editable={true}
-          onDrag={() => setIsOrbitControl(false)}
-          onDragEnd={() => setIsOrbitControl(true)}
-        ></BoxGeometrie>
-        <ModelGLB
-          scale={1}
-          isDraggable={true}
-          pfad={"/ModelsGLB/SheenChair.glb"}
-        ></ModelGLB>
         {/* Raum */} {/* TODO: eigene Komponete für den Raum */}
         {/* Boden */}
         <BoxGeometrie

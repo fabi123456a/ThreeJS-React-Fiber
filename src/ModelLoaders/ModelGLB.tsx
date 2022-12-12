@@ -9,6 +9,7 @@ import {
 import { GLTF, GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import * as THREE from "three";
 import { PivotControls } from "@react-three/drei";
+import { Flag } from "@mui/icons-material";
 
 const deg2rad = (degrees: number) => degrees * (Math.PI / 180);
 
@@ -20,22 +21,31 @@ function ModelGLB(props: {
   onDragEnd?: () => void;
 }) {
   const ref = useRef<THREE.Mesh>(null!);
-  const flag = useRef<boolean>(false);
+
+  const [flag, setFlag] = useState<boolean>();
+
   //const gltf: GLTF = useLoader(GLTFLoader, "./ModelsGLB/SheenChair.glb");
   const gltf: GLTF = useLoader(GLTFLoader, props.pfad);
+
 
   return (
     <>
       {props.isDraggable ? (
         <PivotControls
+          lineWidth={2}
+          activeAxes={flag ? [true, true, true] : [false, false, false]}
           onDrag={() => {
             if (props.onDrag) props.onDrag();
           }}
           onDragEnd={() => {
             if (props.onDragEnd) props.onDragEnd();
+            setFlag(false);
           }}
         >
           <primitive
+            onPointerOver={() => {
+              setFlag(true);
+            }}
             ref={ref}
             object={gltf.scene.clone(true)}
             scale={props.scale}
@@ -47,7 +57,7 @@ function ModelGLB(props: {
           ref={ref}
           object={gltf.scene.clone(true)}
           scale={props.scale}
-          position={[0, 0.2, 0]}
+          position={[0, -1, 0]}
         />
       )}
     </>

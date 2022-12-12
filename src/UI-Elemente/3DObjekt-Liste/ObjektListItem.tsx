@@ -23,7 +23,7 @@ export default function ObjectListItem(props: {
     >
       <Stack direction={"row"}>
         <Typography variant="body2" gutterBottom>
-          {"xName"}
+          {"BoxGeometrie"}
         </Typography>
         <Button
           startIcon={<AddCircleOutlineIcon />}

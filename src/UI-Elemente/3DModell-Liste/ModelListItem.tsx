@@ -39,12 +39,23 @@ export default function ModelListItem(props: {
           onMouseEnter={() => setBorder(true)}
           onMouseLeave={() => setBorder(false)}
           pfad={props.pfad}
-          style={{ height: "150px", width: "150px", border: "1px solid black" }}
+          style={
+            border
+              ? {
+                  height: "150px",
+                  width: "150px",
+                  border: "2px solid blue",
+                  margin: "6px",
+                }
+              : {
+                  height: "150px",
+                  width: "150px",
+                  border: "1px solid black",
+                  margin: "6px",
+                }
+          }
         ></ModelAnsicht>
-        {border ? <p>borderColor</p> : <p>none</p>}
       </Stack>
     </Stack>
   );
 }
-
-

@@ -5,7 +5,7 @@ import { useState } from "react";
 import ModelList from "./UI-Elemente/3DModell-Liste/ModelListe";
 import ObjectList, {
   BoxGeometryValue,
-} from "./UI-Elemente/3DObjektListe/ObjektListe";
+} from "./UI-Elemente/3DObjekt-Liste/ObjektListe";
 
 export default function Main() {
   // beinhaltet alle 3D-Modelle die in der Scene vorhanden sind
@@ -14,8 +14,7 @@ export default function Main() {
   // beinhaltet alle Box-Geometrien (Wände, Boden, ...) die in der Scene vorhanden sind
   const [boxGeos, setBoxGeos] = useState<BoxGeometryValue[]>([]);
 
-  
-  const handleModellAdd = (pfad: string) => {
+  const handleModelAdd = (pfad: string) => {
     setModels([...models, pfad]);
   };
 
@@ -28,7 +27,21 @@ export default function Main() {
       direction="column"
       style={{ height: "100%", background: "lightGray", overflowY: "scroll" }}
     >
-      <Scene models={[]} objects={[]}></Scene>
+      <Scene models={models} objects={boxGeos}></Scene>
+      <ModelList
+        onAdd={handleModelAdd}
+        style={{}}
+        names={[
+          "/ModelsGLB/SheenChair.glb",
+          "/ModelsGLB/Avocado.glb",
+          "/ModelsGLB/Duck.glb",
+        ]}
+      ></ModelList>
+      <ObjectList
+        onAdd={handleBoxAdd}
+        style={{}}
+        boxGeometries={[{ positionXYZ: [0, 0, 0], scaleXYZ: [1, 1, 1] }]}
+      ></ObjectList>
     </Stack>
   );
 }
