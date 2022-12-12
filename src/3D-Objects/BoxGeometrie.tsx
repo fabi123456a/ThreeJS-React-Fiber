@@ -33,7 +33,7 @@ function BoxGeometrie(props: {
   const pivot = useRef<Group>(null);
 
   // flag zum editieren
-  const [editMode, setEdidMode] = useState<boolean>();
+  const [isEditMode, setEditMode] = useState<boolean>();
 
   return (
     <>
@@ -42,7 +42,7 @@ function BoxGeometrie(props: {
         // PivotControll zum Verschieben & Rotieren
         <PivotControls
           ref={pivot}
-          activeAxes={editMode ? [true, true, true] : [false, false, false]}
+          activeAxes={isEditMode ? [true, true, true] : [false, false, false]}
           lineWidth={2}
           onDrag={() => {
             if (props.onDrag) props.onDrag();
@@ -53,9 +53,9 @@ function BoxGeometrie(props: {
         >
           <TransformControls
             mode="scale"
-            showX={editMode ? true : false}
-            showY={editMode ? true : false}
-            showZ={editMode ? true : false}
+            showX={isEditMode ? true : false}
+            showY={isEditMode ? true : false}
+            showZ={isEditMode ? true : false}
           >
             <mesh
               ref={ref}
@@ -65,14 +65,14 @@ function BoxGeometrie(props: {
                 props.geometrie.positionXYZ[2],
               ]}
             >
-              <EditObjectHTML changeEditMode={setEdidMode} />
+              <EditObjectHTML changeEditMode={setEditMode} />
               <boxBufferGeometry args={props.geometrie.scaleXYZ} />
 
               {/* zeichnet umrandungen */}
               <Edges />
 
               {/* wenn Editierbar dann nur Wireframe anzeigen, damit die sicht auf das PivotControl nicht behindert wird */}
-              {editMode ? (
+              {isEditMode ? (
                 <meshNormalMaterial wireframe />
               ) : (
                 <meshNormalMaterial />
