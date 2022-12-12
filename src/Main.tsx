@@ -52,7 +52,7 @@ export default function Main() {
               border: "2px solid black",
               margin: "12px",
               padding: "6px",
-              background: "red"
+              background: "red",
             }}
             onAdd={handleAdd}
           ></ModelList>
