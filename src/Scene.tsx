@@ -27,6 +27,8 @@ export default function Scene(props: {
       {/* Canvas nimmt größe von parent container */}
       {/* Canvas richtet eine Szene & Kamera ein */}
       <Canvas>
+        {/* Licht */}
+        <ambientLight />
         {/* Modelle die durch + Add eingfügt wurden  */}
         {props.models.map((pfad) => (
           <ModelGLB
@@ -53,6 +55,11 @@ export default function Scene(props: {
           onDrag={() => setIsOrbitControl(false)}
           onDragEnd={() => setIsOrbitControl(true)}
         ></BoxGeometrie>
+        <ModelGLB
+          scale={1}
+          isDraggable={true}
+          pfad={"/ModelsGLB/SheenChair.glb"}
+        ></ModelGLB>
         {/* Raum */} {/* TODO: eigene Komponete für den Raum */}
         {/* Boden */}
         <BoxGeometrie

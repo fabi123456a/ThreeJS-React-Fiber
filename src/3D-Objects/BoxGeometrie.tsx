@@ -39,7 +39,7 @@ function BoxGeometrie(props: {
     <>
       {/* wenn Editierbar dann PivotControls um das Mesh, wenn nicht dann nur das Mesh */}
       {props.editable ? (
-        // PivotControll zum Verschieben & Rotieren
+        // PivotControl zum Verschieben & Rotieren
         <PivotControls
           ref={pivot}
           activeAxes={isEditMode ? [true, true, true] : [false, false, false]}
@@ -51,6 +51,7 @@ function BoxGeometrie(props: {
             if (props.onDragEnd) props.onDragEnd();
           }}
         >
+          {/* TransformControl zum skalieren */}
           <TransformControls
             mode="scale"
             showX={isEditMode ? true : false}
@@ -69,13 +70,17 @@ function BoxGeometrie(props: {
               <boxBufferGeometry args={props.geometrie.scaleXYZ} />
 
               {/* zeichnet umrandungen */}
-              <Edges />
+              <Edges
+                scale={1.005}
+                color={"black"}
+                visible={isEditMode ? true : false}
+              />
 
               {/* wenn Editierbar dann nur Wireframe anzeigen, damit die sicht auf das PivotControl nicht behindert wird */}
               {isEditMode ? (
-                <meshNormalMaterial wireframe />
+                <meshStandardMaterial wireframe />
               ) : (
-                <meshNormalMaterial />
+                <meshBasicMaterial color={"red"} />
               )}
             </mesh>
           </TransformControls>
