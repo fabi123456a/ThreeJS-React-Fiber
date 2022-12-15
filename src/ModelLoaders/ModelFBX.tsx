@@ -8,10 +8,11 @@ import {
   ThreeEvent,
   useThree,
 } from "@react-three/fiber";
-import { GLTF,  GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
+import { GLTF, GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import * as THREE from "three";
 import { PivotControls } from "@react-three/drei";
 import { Flag } from "@mui/icons-material";
+import { MeshStandardMaterial } from "three";
 
 const deg2rad = (degrees: number) => degrees * (Math.PI / 180);
 
@@ -33,9 +34,9 @@ function ModelFBX(props: {
     <>
       {props.isDraggable ? (
         <PivotControls
-          // anchor ist gleich die position des PivotControls
-          // standard mäßig ist das bei der Position 0, 0, 0
-          // aber das Modelle manchmal ihren mittelpunkt NICHT bei 0, 0, 0 haben
+          // anchor ist gleich die position des PivotControl
+          // standard mäßig ist die Position 0, 0, 0
+          // aber da Modelle manchmal ihren mittelpunkt NICHT bei 0, 0, 0 haben
           // wird das PivotControl an die Position des FBX-Modles positioniert
           anchor={[fbx.position.x, fbx.position.y, fbx.position.z]}
           lineWidth={2}
