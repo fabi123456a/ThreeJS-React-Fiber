@@ -20,6 +20,7 @@ function ModelFBX(props: {
   scale: number;
   pfad: string;
   isDraggable: boolean;
+  setCurrentObject: (obj: THREE.Mesh) => void;
   onDrag?: () => void;
   onDragEnd?: () => void;
 }) {
@@ -34,7 +35,7 @@ function ModelFBX(props: {
     <>
       {props.isDraggable ? (
         <PivotControls
-          // anchor ist gleich die position des PivotControl
+          // anchor gibt die position des PivotControl an
           // standard mäßig ist die Position 0, 0, 0
           // aber da Modelle manchmal ihren mittelpunkt NICHT bei 0, 0, 0 haben
           // wird das PivotControl an die Position des FBX-Modles positioniert
@@ -52,6 +53,7 @@ function ModelFBX(props: {
           <primitive
             onPointerOver={() => {
               setFlag(true);
+              // props.setCurrentObject(ref);
             }}
             ref={ref}
             object={fbx.clone(true)}

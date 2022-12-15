@@ -1,6 +1,6 @@
 import * as THREE from "three";
 import * as React from "react";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import ModelGLB from "./ModelLoaders/ModelGLB";
 import BoxGeometrie from "./3D-Objects/BoxGeometrie";
@@ -12,16 +12,28 @@ import {
 import { OrbitControls } from "@react-three/drei"; //https://drei.pmnd.rs/?path=/story/controls-mapcontrols--map-controls-scene-st
 import { BoxGeometryValue } from "./UI-Elemente/3DObjekt-Liste/ObjektListe";
 import ModelFBX from "./ModelLoaders/ModelFBX";
+import SceneObject, {
+  TypeCurrentObjectProps,
+} from "./ModelLoaders/SceneObject";
 
 const deg2rad = (degrees: number) => degrees * (Math.PI / 180);
 
 export default function Scene(props: {
   models: string[];
   objects: BoxGeometryValue[];
+  setMainCurrentObj: (props: TypeCurrentObjectProps) => void;
 }) {
   // orbitControl wird deaktiviert wenn ein Objekt via pivotControl verschoben wird
-  // damit die sich die Camera nicht mitdreht beim verschieben
+  // damit sich die Camera nicht mitdreht beim verschieben
   const [isOrbitControl, setIsOrbitControl] = useState<boolean>(true);
+
+  // TODO
+  const [currentObjProps, setCurrentObjProps] =
+    useState<TypeCurrentObjectProps>(null!);
+
+  useEffect(() => {
+    props.setMainCurrentObj(currentObjProps);
+  }, [currentObjProps]);
 
   return (
     <>
@@ -49,14 +61,19 @@ export default function Scene(props: {
             onDragEnd={() => setIsOrbitControl(true)}
           ></BoxGeometrie>
         ))}
-        {/* Test FBX Model */}
-        <ModelFBX
-          isDraggable={true}
-          pfad={"./ModelsFBX/mercedes.fbx"}
-          scale={0.02}
-        ></ModelFBX>
+        {/* Test set CurrentObject */}
+        <SceneObject
+          setCurrentObjectProps={setCurrentObjProps}
+          pfadToFBX={"./ModelsFBX/mercedes.fbx"}
+          position={{ x: 0, y: 0, z: 0 }}
+          scale={{ x: 0.02, y: 0.02, z: 0.02 }}
+        ></SceneObject>
         {/* Raum */} {/* TODO: eigene Komponete für den Raum */}
         {/* Boden */}
+        <BoxGeometrie
+          geometrie={{ positionXYZ: [0, 0, 0], scaleXYZ: [0.5, 0.5, 0.5] }}
+          editable={false}
+        ></BoxGeometrie>
         <BoxGeometrie
           geometrie={{ positionXYZ: [0, 0, 0], scaleXYZ: [7, 0.001, 7] }}
           editable={false}
