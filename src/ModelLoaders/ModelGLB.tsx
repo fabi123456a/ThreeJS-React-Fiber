@@ -27,7 +27,6 @@ function ModelGLB(props: {
   //const gltf: GLTF = useLoader(GLTFLoader, "./ModelsGLB/SheenChair.glb");
   const gltf: GLTF = useLoader(GLTFLoader, props.pfad);
 
-
   return (
     <>
       {props.isDraggable ? (

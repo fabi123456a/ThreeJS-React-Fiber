@@ -6,6 +6,7 @@ import ModelList from "./UI-Elemente/3DModell-Liste/ModelListe";
 import ObjectList, {
   BoxGeometryValue,
 } from "./UI-Elemente/3DObjekt-Liste/ObjektListe";
+import { Typography } from "@mui/material";
 
 export default function Main() {
   // beinhaltet alle 3D-Modelle die in der Scene vorhanden sind
@@ -42,6 +43,8 @@ export default function Main() {
         style={{}}
         boxGeometries={[{ positionXYZ: [0, 0, 0], scaleXYZ: [1, 1, 1] }]}
       ></ObjectList>
+      <Typography></Typography>
     </Stack>
   );
 }
+

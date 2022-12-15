@@ -11,6 +11,7 @@ import {
 } from "@react-three/drei";
 import { OrbitControls } from "@react-three/drei"; //https://drei.pmnd.rs/?path=/story/controls-mapcontrols--map-controls-scene-st
 import { BoxGeometryValue } from "./UI-Elemente/3DObjekt-Liste/ObjektListe";
+import ModelFBX from "./ModelLoaders/ModelFBX";
 
 const deg2rad = (degrees: number) => degrees * (Math.PI / 180);
 
@@ -48,6 +49,12 @@ export default function Scene(props: {
             onDragEnd={() => setIsOrbitControl(true)}
           ></BoxGeometrie>
         ))}
+        {/* Test FBX Model */}
+        <ModelFBX
+          isDraggable={true}
+          pfad={"./ModelsFBX/mercedes.fbx"}
+          scale={0.02}
+        ></ModelFBX>
         {/* Raum */} {/* TODO: eigene Komponete für den Raum */}
         {/* Boden */}
         <BoxGeometrie
