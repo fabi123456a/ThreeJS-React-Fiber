@@ -34,9 +34,9 @@ export type TypeScale = {
 
 // gibt an welche achse bei dem Transformcontrol aktiv ist
 export type TypeScaleMode = {
-  xAxis: boolean;
-  yAxis: boolean;
-  zAxis: boolean;
+  x: boolean;
+  y: boolean;
+  z: boolean;
 };
 
 type TypeShowPivotAxis = {
@@ -73,14 +73,14 @@ function SceneObject(props: {
   const [position, setPosition] = useState<TypePosition>(props.position);
   const [scale, setScale] = useState<TypeScale>(props.scale);
   const [showPivotAxis, setPivotAxis] = useState<TypeShowPivotAxis>({
-    x: true,
-    y: true,
-    z: true,
+    x: false,
+    y: false,
+    z: false,
   });
   const [scaleMode, setScaleMode] = useState<TypeScaleMode>({
-    xAxis: false,
-    yAxis: false,
-    zAxis: false,
+    x: false,
+    y: false,
+    z: false,
   });
 
   useEffect(() => {
@@ -114,55 +114,56 @@ function SceneObject(props: {
       y: axis.y,
       z: axis.z,
     });
-
-    // dient zur Erinnerung, kann nur ein kleiner fehler sein
-    if (axis.x || axis.y || axis.z)
-      alert("TODO: Pivotcontrol anzeigen geht nicht mehr");
   };
 
   const showScaleAxis = (axis: TypeScaleMode) => {
     setScaleMode({
-      xAxis: axis.xAxis,
-      yAxis: axis.yAxis,
-      zAxis: axis.zAxis,
+      x: axis.x,
+      y: axis.y,
+      z: axis.z,
+    });
+  };
+
+  const sendCurrentObjectDataToControls = () => {
+    let v: Vector3 = new Vector3();
+    refMesh.current?.getWorldPosition(v);
+
+    props.setCurrentObjectProps({
+      position: { x: v.x, y: v.y, z: v.z },
+      setPosition: setPosition,
+      showWireFrame: showWireframe,
+      showNormalTexture: showNormalTexture,
+      showPivotControlAxis: showPivotControlAxis,
+      showScaleAxis: showScaleAxis,
     });
   };
 
   return (
     <>
       <PivotControls
-        onDrag={() => {}}
+        onDrag={() => {
+          sendCurrentObjectDataToControls();
+        }}
         lineWidth={2}
         // TODO PivotControl anzeigen geht nicht mehr
         activeAxes={
-          [true, true, true] // geht nicht ??
-          // showPivotAxis
-          //   ? [showPivotAxis.x, showPivotAxis.y, showPivotAxis.z]
-          //   : [false, false, false]
+          showPivotAxis
+            ? [showPivotAxis.x, showPivotAxis.y, showPivotAxis.z]
+            : [false, false, false]
         }
-        anchor={[0, 0, 0]}
+        //anchor={[0, 0, 0]}
       >
         <TransformControls
           mode="scale"
-          showX={scaleMode.xAxis}
-          showY={scaleMode.yAxis}
-          showZ={scaleMode.zAxis}
+          showX={scaleMode.x}
+          showY={scaleMode.y}
+          showZ={scaleMode.z}
           // TODO position={}
           // Transform control in center des Meshes/Objects positionieren
         >
           <primitive
             onClick={() => {
-              let v: Vector3 = new Vector3();
-              refMesh.current?.getWorldPosition(v);
-
-              props.setCurrentObjectProps({
-                position: { x: v.x, y: v.y, z: v.z },
-                setPosition: setPosition,
-                showWireFrame: showWireframe,
-                showNormalTexture: showNormalTexture,
-                showPivotControlAxis: showPivotControlAxis,
-                showScaleAxis: showScaleAxis,
-              });
+              sendCurrentObjectDataToControls();
             }}
             onPointerOver={() => {}}
             onPointerLeave={() => {

@@ -19,6 +19,11 @@ function ToolBar(props: { objProps: TypeCurrentObjectProps }) {
         onClick={() => {
           props.objProps.showWireFrame();
           props.objProps.showPivotControlAxis({ x: true, y: true, z: true });
+          props.objProps.showScaleAxis({
+            x: false,
+            y: false,
+            z: false,
+          });
         }}
       >
         <OpenWithIcon></OpenWithIcon>
@@ -27,10 +32,11 @@ function ToolBar(props: { objProps: TypeCurrentObjectProps }) {
       <IconButton
         onClick={() => {
           props.objProps.showWireFrame();
+          props.objProps.showPivotControlAxis({ x: false, y: false, z: false });
           props.objProps.showScaleAxis({
-            xAxis: true,
-            yAxis: true,
-            zAxis: true,
+            x: true,
+            y: true,
+            z: true,
           });
         }}
       >
@@ -41,9 +47,9 @@ function ToolBar(props: { objProps: TypeCurrentObjectProps }) {
         onClick={() => {
           props.objProps.showNormalTexture();
           props.objProps.showScaleAxis({
-            xAxis: false,
-            yAxis: false,
-            zAxis: false,
+            x: false,
+            y: false,
+            z: false,
           });
           props.objProps.showPivotControlAxis({ x: false, y: false, z: false });
         }}
