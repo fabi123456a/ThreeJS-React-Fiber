@@ -69,6 +69,7 @@ function BoxGeometrie(props: {
                 props.geometrie.positionXYZ[2],
               ]}
             >
+              {/* HTML an das Objekt dran hängen, bzw React-MUI */}
               <EditObjectHTML
                 changeScaleMode={setIsScaleMode}
                 changeTranslateMode={setIsTranslateMode}
