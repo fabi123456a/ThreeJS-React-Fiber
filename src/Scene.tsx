@@ -2,7 +2,7 @@ import * as THREE from "three";
 import * as React from "react";
 import { useRef, useState, useEffect } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import ModelGLB from "./ModelLoaders/ModelGLB";
+import ModelGLB from "./ModelLoaders/old/ModelGLB";
 import BoxGeometrie from "./3D-Objects/BoxGeometrie";
 import {
   PerspectiveCamera,
@@ -11,7 +11,7 @@ import {
 } from "@react-three/drei";
 import { OrbitControls } from "@react-three/drei"; //https://drei.pmnd.rs/?path=/story/controls-mapcontrols--map-controls-scene-st
 import { BoxGeometryValue } from "./UI-Elemente/3DObjekt-Liste/ObjektListe";
-import ModelFBX from "./ModelLoaders/ModelFBX";
+import ModelFBX from "./ModelLoaders/old/ModelFBX";
 import SceneObject, {
   TypeCurrentObjectProps,
 } from "./ModelLoaders/SceneObject";

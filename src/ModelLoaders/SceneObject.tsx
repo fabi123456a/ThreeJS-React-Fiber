@@ -47,6 +47,7 @@ type TypeShowPivotAxis = {
   z: boolean;
 };
 
+// TODO: scale & rotierung hinzufügen
 export type TypeCurrentObjectProps = {
   position: TypePosition;
   setPosition: (pos: TypePosition) => void;
@@ -91,6 +92,10 @@ function SceneObject(props: {
     setPosition(props.position);
   }, [props.position]);
 
+  // Test
+  const fbx2 = fbx;
+  // Test Ende
+
   // zeigt nur das wireframe des FBX-Models an
   const showWireframe = () => {
     let wirefremaMaterial = new THREE.MeshStandardMaterial({
@@ -110,6 +115,17 @@ function SceneObject(props: {
     alert(
       "TODO: Normale Texture anzeigen (Wireframe entfernen und Standard Material wieder setzen)"
     );
+
+    // Geht nicht
+    fbx.children.forEach((mesh, i) => {
+      if (mesh instanceof THREE.Mesh) {
+        let originalMesh = fbx2.children[i];
+
+        if (originalMesh instanceof THREE.Mesh) {
+          mesh.material = originalMesh.material;
+        }
+      }
+    });
   };
 
   // zeigt x,y,z Achsen des PivotControls an, je nachdem was übergeben wird
@@ -171,6 +187,9 @@ function SceneObject(props: {
           <mesh>
             <primitive
               onClick={() => {
+                // TODO: Object markieren
+                // highlightObject();
+
                 sendCurrentObjectDataToControls();
               }}
               onPointerOver={() => {}}

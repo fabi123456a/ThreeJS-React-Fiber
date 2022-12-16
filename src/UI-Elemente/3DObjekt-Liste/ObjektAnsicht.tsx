@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useState } from "react";
 import { Canvas } from "@react-three/fiber";
-import ModelGLB from "../../ModelLoaders/ModelGLB";
+import ModelGLB from "../../ModelLoaders/old/ModelGLB";
 import { PerspectiveCamera } from "@react-three/drei";
 import { OrbitControls } from "@react-three/drei"; //https://drei.pmnd.rs/?path=/story/controls-mapcontrols--map-controls-scene-st
 import { BoxGeometryValue } from "./ObjektListe";
