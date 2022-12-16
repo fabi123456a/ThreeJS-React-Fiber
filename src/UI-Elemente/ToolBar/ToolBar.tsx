@@ -12,7 +12,10 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 // dann sieht man alle Komponenten, mit beispielen, von MUI die man verwenden kann
 
 // in objProps stehen die properties des currentObjects + funktionen wie z.B showPivotControlAxis
-function ToolBar(props: { objProps: TypeCurrentObjectProps }) {
+function ToolBar(props: {
+  objProps: TypeCurrentObjectProps;
+  setFrontalView: (flag: boolean) => void;
+}) {
   const checkIfAObjectIsSelected = (): boolean => {
     if (!props.objProps) return false;
     return true;
@@ -83,7 +86,11 @@ function ToolBar(props: { objProps: TypeCurrentObjectProps }) {
       </IconButton>
       <Divider orientation="vertical" flexItem />
       {/* Ansicht switchen (3d, Top-Down) */}
-      <IconButton onClick={() => {}}>
+      <IconButton
+        onClick={() => {
+          props.setFrontalView(true);
+        }}
+      >
         <VisibilityIcon></VisibilityIcon>
       </IconButton>
     </Stack>

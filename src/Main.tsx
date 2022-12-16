@@ -22,6 +22,9 @@ export default function Main() {
   const [currentObjectProps, setMainCurrentObjectProps] =
     useState<TypeCurrentObjectProps>(null!);
 
+  // beinhaltet alle Box-Geometrien (Wände, Boden, ...) die in der Scene vorhanden sind
+  const [frontalView, setFrontalView] = useState<boolean>(false);
+
   const handleModelAdd = (pfad: string) => {
     setModels([...models, pfad]);
   };
@@ -43,8 +46,12 @@ export default function Main() {
         setMainCurrentObj={setMainCurrentObjectProps}
         models={models}
         objects={boxGeos}
+        frontalView={frontalView}
       ></Scene>
-      <ToolBar objProps={currentObjectProps}></ToolBar>
+      <ToolBar
+        objProps={currentObjectProps}
+        setFrontalView={setFrontalView}
+      ></ToolBar>
       {/* <ModelList
         onAdd={handleModelAdd}
         style={{}}

@@ -22,6 +22,7 @@ export default function Scene(props: {
   models: string[];
   objects: BoxGeometryValue[];
   setMainCurrentObj: (props: TypeCurrentObjectProps) => void;
+  frontalView: boolean;
 }) {
   // orbitControl wird deaktiviert wenn ein Objekt via pivotControl verschoben wird
   // damit sich die Camera nicht mitdreht beim verschieben
@@ -40,6 +41,10 @@ export default function Scene(props: {
       {/* Canvas nimmt größe von parent container */}
       {/* Canvas richtet eine Szene & Kamera ein */}
       <Canvas style={{ border: "4px solid black" }}>
+        {/* frontalView */}
+        {props.frontalView ? (
+          <OrthographicCamera makeDefault></OrthographicCamera>
+        ) : null}
         {/* Licht */}
         <ambientLight />
         {/* Modelle die durch + Add eingfügt wurden  */}
