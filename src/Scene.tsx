@@ -42,6 +42,7 @@ export default function Scene(props: {
       {/* Canvas richtet eine Szene & Kamera ein */}
       <Canvas style={{ border: "4px solid black" }}>
         {/* frontalView */}
+        {/* auf Normal Kamera switchen geht noch nicht ist aber in Bearbeitung */}
         {props.frontalView ? (
           <OrthographicCamera makeDefault></OrthographicCamera>
         ) : null}

@@ -85,7 +85,8 @@ function ToolBar(props: {
         <LockIcon></LockIcon>
       </IconButton>
       <Divider orientation="vertical" flexItem />
-      {/* Ansicht switchen (3d, Top-Down) */}
+      {/* Ansicht switchen (3d, Top-Down, frontal, ...) */}
+      {/* auf Normal Kamera switchen geht noch nicht ist aber in Bearbeitung */}
       <IconButton
         onClick={() => {
           props.setFrontalView(true);
