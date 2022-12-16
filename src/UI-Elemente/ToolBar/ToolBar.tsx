@@ -14,7 +14,7 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 // in objProps stehen die properties des currentObjects + funktionen wie z.B showPivotControlAxis
 function ToolBar(props: {
   objProps: TypeCurrentObjectProps;
-  setFrontalView: (flag: boolean) => void;
+  setFrontalView: () => void;
 }) {
   const checkIfAObjectIsSelected = (): boolean => {
     if (!props.objProps) return false;
@@ -90,7 +90,7 @@ function ToolBar(props: {
       <IconButton
         onClick={() => {
           // TODO: wenn frontalView == true dann muss frontalView = false & andersrum
-          props.setFrontalView(true);
+          props.setFrontalView();
         }}
       >
         <VisibilityIcon></VisibilityIcon>

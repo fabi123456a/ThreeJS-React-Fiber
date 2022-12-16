@@ -50,7 +50,9 @@ export default function Main() {
       ></Scene>
       <ToolBar
         objProps={currentObjectProps}
-        setFrontalView={setFrontalView}
+        setFrontalView={() => {
+          setFrontalView(!frontalView);
+        }}
       ></ToolBar>
       {/* <ModelList
         onAdd={handleModelAdd}

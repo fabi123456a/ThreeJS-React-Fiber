@@ -48,6 +48,10 @@ type TypeShowPivotAxis = {
   z: boolean;
 };
 
+type X = `${number}_${string}`;
+
+let x: X = "0_c";
+
 // TODO: wird noch nicht verwendet
 enum TypeEditMode {
   translate = "translate", // verschieben
