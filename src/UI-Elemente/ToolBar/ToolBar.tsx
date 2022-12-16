@@ -89,6 +89,7 @@ function ToolBar(props: {
       {/* auf Normal Kamera switchen geht noch nicht ist aber in Bearbeitung */}
       <IconButton
         onClick={() => {
+          // TODO: wenn frontalView == true dann muss frontalView = false & andersrum
           props.setFrontalView(true);
         }}
       >
