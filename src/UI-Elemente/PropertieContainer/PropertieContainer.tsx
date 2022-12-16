@@ -11,6 +11,7 @@ import { TypeCurrentObjectProps } from "../../ModelLoaders/SceneObject";
 function PropertieContainer(props: { objProps: TypeCurrentObjectProps }) {
   return (
     <Stack>
+      <Typography>PropertieContainer</Typography>
       <Typography>
         Position x: {props.objProps ? props.objProps.position.x : null}
       </Typography>
