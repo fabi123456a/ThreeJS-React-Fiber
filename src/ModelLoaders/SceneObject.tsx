@@ -92,10 +92,6 @@ function SceneObject(props: {
     setPosition(props.position);
   }, [props.position]);
 
-  // Test
-  const fbx2 = fbx;
-  // Test Ende
-
   // zeigt nur das wireframe des FBX-Models an
   const showWireframe = () => {
     let wirefremaMaterial = new THREE.MeshStandardMaterial({
@@ -116,16 +112,7 @@ function SceneObject(props: {
       "TODO: Normale Texture anzeigen (Wireframe entfernen und Standard Material wieder setzen)"
     );
 
-    // Geht nicht
-    fbx.children.forEach((mesh, i) => {
-      if (mesh instanceof THREE.Mesh) {
-        let originalMesh = fbx2.children[i];
-
-        if (originalMesh instanceof THREE.Mesh) {
-          mesh.material = originalMesh.material;
-        }
-      }
-    });
+    // https://github.com/pmndrs/react-three-fiber/issues/112
   };
 
   // zeigt x,y,z Achsen des PivotControls an, je nachdem was übergeben wird
