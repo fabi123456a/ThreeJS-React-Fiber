@@ -27,7 +27,7 @@ export default function Scene(props: {
   // damit sich die Camera nicht mitdreht beim verschieben
   const [isOrbitControl, setIsOrbitControl] = useState<boolean>(true);
 
-  // TODO
+  // TODO: Scale & rozierung hinzufügen
   const [currentObjProps, setCurrentObjProps] =
     useState<TypeCurrentObjectProps>(null!);
 

@@ -1,10 +1,11 @@
-import { Button, IconButton, Slider, Typography } from "@mui/material";
+import { Button, Divider, IconButton, Slider, Typography } from "@mui/material";
 import { Stack } from "@mui/system";
 import { useEffect, useState } from "react";
 import { TypeCurrentObjectProps } from "../../ModelLoaders/SceneObject";
 import ExpandIcon from "@mui/icons-material/Expand";
 import OpenWithIcon from "@mui/icons-material/OpenWith";
 import LockIcon from "@mui/icons-material/Lock";
+import VisibilityIcon from "@mui/icons-material/Visibility";
 
 // https://mui.com/material-ui/react-typography/#main-content
 // links oben auf die 2 Striche klicken,
@@ -55,6 +56,11 @@ function ToolBar(props: { objProps: TypeCurrentObjectProps }) {
         }}
       >
         <LockIcon></LockIcon>
+      </IconButton>
+      <Divider orientation="vertical" flexItem />
+      {/* Ansicht switchen (3d, Top-Down) */}
+      <IconButton onClick={() => {}}>
+        <VisibilityIcon></VisibilityIcon>
       </IconButton>
     </Stack>
   );

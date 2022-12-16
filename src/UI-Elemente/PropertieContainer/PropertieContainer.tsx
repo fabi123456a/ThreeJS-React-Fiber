@@ -23,7 +23,9 @@ function PropertieContainer(props: { objProps: TypeCurrentObjectProps }) {
       <Typography>
         Position z: {props.objProps ? props.objProps.position.z : null}
       </Typography>
-
+      <Typography fontSize={8}>
+        Aktuelles Objekt durch klicken auswählen
+      </Typography>
       <Button
         onClick={() => {
           props.objProps.showWireFrame();
