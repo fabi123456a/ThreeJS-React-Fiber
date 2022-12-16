@@ -33,7 +33,7 @@ function ToolBar(props: { objProps: TypeCurrentObjectProps }) {
 
           //props.objProps.showWireFrame();
           props.objProps.setEditMode("translate");
-          props.objProps.showTransformAxis({
+          props.objProps.showTransformControlAxis({
             x: true,
             y: true,
             z: true,
@@ -52,9 +52,8 @@ function ToolBar(props: { objProps: TypeCurrentObjectProps }) {
             return;
           }
 
-          //props.objProps.showWireFrame();
           props.objProps.setEditMode("scale");
-          props.objProps.showTransformAxis({
+          props.objProps.showTransformControlAxis({
             x: true,
             y: true,
             z: true,
@@ -73,8 +72,7 @@ function ToolBar(props: { objProps: TypeCurrentObjectProps }) {
             return;
           }
 
-          //props.objProps.showNormalTexture();
-          props.objProps.showTransformAxis({
+          props.objProps.showTransformControlAxis({
             x: false,
             y: false,
             z: false,

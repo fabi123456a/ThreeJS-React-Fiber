@@ -62,9 +62,7 @@ export type TypeCurrentObjectProps = {
   setPosition: (pos: TypePosition) => void;
   scale: TypeScale;
   setScale: (scale: TypeScale) => void;
-  showWireFrame: () => void;
-  showNormalTexture: () => void;
-  showTransformAxis: (axis: TypeScaleMode) => void;
+  showTransformControlAxis: (axis: TypeScaleMode) => void;
   setEditMode: (mode: "scale" | "translate" | "rotate" | undefined) => void;
 };
 
@@ -106,29 +104,6 @@ function SceneObject(props: {
   useEffect(() => {
     setPosition(props.position);
   }, [props.position]);
-
-  // zeigt nur das wireframe des FBX-Models an
-  const showWireframe = () => {
-    let wirefremaMaterial = new THREE.MeshStandardMaterial({
-      wireframe: true,
-    });
-
-    fbx.children.forEach((mesh, i) => {
-      if (mesh instanceof THREE.Mesh) {
-        mesh.material = wirefremaMaterial;
-      }
-    });
-  };
-
-  // (soll) zeigt die normale Texture/Material des FBX-Models an
-  const showNormalTexture = () => {
-    // TODO
-    alert(
-      "TODO: Normale Texture anzeigen (Wireframe entfernen und Standard Material wieder setzen)"
-    );
-
-    // https://github.com/pmndrs/react-three-fiber/issues/112
-  };
 
   // zeigt x,y,z Achsen des PivotControls an, je nachdem was übergeben wird
   const showPivotControlAxis = (axis: TypeShowPivotAxis) => {
@@ -178,11 +153,9 @@ function SceneObject(props: {
         y: vektorScale.y,
         z: vektorScale.z,
       },
-      setPosition: setPosition, 
+      setPosition: setPosition,
       setScale: setScale,
-      showWireFrame: showWireframe,
-      showNormalTexture: showNormalTexture,
-      showTransformAxis: showTransformAxis,
+      showTransformControlAxis: showTransformAxis,
       setEditMode: setTransformControlEditMode,
     });
   };
@@ -218,30 +191,53 @@ function SceneObject(props: {
         // TODO: position={}
         // Transform control in center des Meshes/Objects positionieren
       >
-        <mesh>
-          <primitive
-            onMouseUp={() => {
-              //sendCurrentObjectDataToControls();
-            }}
-            onClick={() => {
-              // TODO: Object markieren
-              // highlightObject();
-
-              sendCurrentObjectDataToControls();
-            }}
-            onPointerOver={() => {}}
-            onPointerLeave={() => {
-              // TODO: wireframe entfernen und normales Material des Model
-            }}
-            ref={refMesh}
-            object={fbx.clone(true)}
-            scale={[scale.x, scale.y, scale.z]}
-            position={[position.x, position.y, position.z]}
-          ></primitive>
-        </mesh>
+        {/* FBX-Model  */}
+        <primitive
+          onMouseUp={() => {
+            //sendCurrentObjectDataToControls();
+          }}
+          onClick={() => {
+            // TODO: Object markieren
+            // highlightObject();
+            sendCurrentObjectDataToControls();
+          }}
+          onPointerOver={() => {}}
+          onPointerLeave={() => {
+            // TODO: wireframe entfernen und normales Material des Model
+          }}
+          ref={refMesh}
+          object={fbx.clone(true)}
+          scale={[scale.x, scale.y, scale.z]}
+          position={[position.x, position.y, position.z]}
+        ></primitive>
       </TransformControls>
     </>
   );
 }
 
 export default SceneObject;
+
+/*
+// zeigt nur das wireframe des FBX-Models an
+  const showWireframe = () => {
+    let wirefremaMaterial = new THREE.MeshStandardMaterial({
+      wireframe: true,
+    });
+
+    fbx.children.forEach((mesh, i) => {
+      if (mesh instanceof THREE.Mesh) {
+        mesh.material = wirefremaMaterial;
+      }
+    });
+  };
+
+  // (soll) zeigt die normale Texture/Material des FBX-Models an
+  const showNormalTexture = () => {
+    // TODO
+    alert(
+      "TODO: Normale Texture anzeigen (Wireframe entfernen und Standard Material wieder setzen)"
+    );
+
+    // https://github.com/pmndrs/react-three-fiber/issues/112
+  };
+*/

@@ -68,6 +68,12 @@ export default function Scene(props: {
           position={{ x: 0, y: 0, z: 0 }}
           scale={{ x: 0.02, y: 0.02, z: 0.02 }}
         ></SceneObject>
+        <SceneObject
+          setCurrentObjectProps={setCurrentObjProps}
+          pfadToFBX={"./ModelsFBX/mercedes.fbx"}
+          position={{ x: -1, y: 0, z: 0 }}
+          scale={{ x: 0.01, y: 0.01, z: 0.01 }}
+        ></SceneObject>
         {/* Raum */} {/* TODO: eigene Komponete für den Raum */}
         {/* Boden */}
         <BoxGeometrie
