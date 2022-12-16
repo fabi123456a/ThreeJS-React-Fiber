@@ -11,6 +11,7 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 // links oben auf die 2 Striche klicken,
 // dann sieht man alle Komponenten, mit beispielen, von MUI die man verwenden kann
 
+// in objProps stehen die properties des currentObjects + funktionen wie z.B showPivotControlAxis
 function ToolBar(props: { objProps: TypeCurrentObjectProps }) {
   return (
     <Stack direction={"row"}>

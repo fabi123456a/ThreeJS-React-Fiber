@@ -7,11 +7,8 @@ import { TypeCurrentObjectProps } from "../../ModelLoaders/SceneObject";
 // links oben auf die 2 Striche klicken,
 // dann sieht man alle Komponenten, mit beispielen, von MUI die man verwenden kann
 
+// in objProps stehen die properties des currentObjects + funktionen wie z.B showPivotControlAxis
 function PropertieContainer(props: { objProps: TypeCurrentObjectProps }) {
-  useEffect(() => {
-    //setPosXValue(props.objProps.position.x);
-  }, [props.objProps]);
-
   return (
     <Stack>
       <Typography>

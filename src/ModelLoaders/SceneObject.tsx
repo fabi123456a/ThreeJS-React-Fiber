@@ -48,6 +48,7 @@ type TypeShowPivotAxis = {
 };
 
 // TODO: scale & rotierung hinzufügen
+// das ist quasi die schnittstelle zum currentObject
 export type TypeCurrentObjectProps = {
   position: TypePosition;
   setPosition: (pos: TypePosition) => void;
@@ -74,7 +75,7 @@ function SceneObject(props: {
   // referenz auf das Mesh des FBX-Models
   const refMesh = useRef<THREE.Mesh>(null);
 
-  // Staten (merhzahl von status)
+  // useStates der Komponete SceneObject
   const [position, setPosition] = useState<TypePosition>(props.position);
   const [scale, setScale] = useState<TypeScale>(props.scale);
   const [showPivotAxis, setPivotAxis] = useState<TypeShowPivotAxis>({
@@ -88,6 +89,7 @@ function SceneObject(props: {
     z: false,
   });
 
+  // wenn properties am snfang reinkommen direkt in status speichern
   useEffect(() => {
     setPosition(props.position);
   }, [props.position]);
