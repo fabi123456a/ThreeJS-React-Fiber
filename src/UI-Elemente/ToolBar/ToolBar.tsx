@@ -13,18 +13,30 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 
 // in objProps stehen die properties des currentObjects + funktionen wie z.B showPivotControlAxis
 function ToolBar(props: { objProps: TypeCurrentObjectProps }) {
+  const checkIfAObjectIsSelected = (): boolean => {
+    if (!props.objProps) return false;
+    return true;
+  };
+
   return (
     <Stack direction={"row"}>
       <Typography>ToolBar</Typography>
       {/* Objekt verschieben & rotieren, dafür wireframe aktivieren und PivotControl des CurrentObject anzeigen */}
       <IconButton
         onClick={() => {
-          props.objProps.showWireFrame();
-          props.objProps.showPivotControlAxis({ x: true, y: true, z: true });
-          props.objProps.showScaleAxis({
-            x: false,
-            y: false,
-            z: false,
+          if (!checkIfAObjectIsSelected()) {
+            alert(
+              "Sie haben noch kein Objekt in der Scene ausgewählt. (Durch klicken auf das Objekt)"
+            );
+            return;
+          }
+
+          //props.objProps.showWireFrame();
+          props.objProps.setEditMode("translate");
+          props.objProps.showTransformAxis({
+            x: true,
+            y: true,
+            z: true,
           });
         }}
       >
@@ -33,9 +45,16 @@ function ToolBar(props: { objProps: TypeCurrentObjectProps }) {
       {/* Objekt skalieren, dafür wireframe aktivieren und 'ScaleControl' des CurrentObject anzeigen */}
       <IconButton
         onClick={() => {
-          props.objProps.showWireFrame();
-          props.objProps.showPivotControlAxis({ x: false, y: false, z: false });
-          props.objProps.showScaleAxis({
+          if (!checkIfAObjectIsSelected()) {
+            alert(
+              "Sie haben noch kein Objekt in der Scene ausgewählt. (Durch klicken auf das Objekt)"
+            );
+            return;
+          }
+
+          //props.objProps.showWireFrame();
+          props.objProps.setEditMode("scale");
+          props.objProps.showTransformAxis({
             x: true,
             y: true,
             z: true,
@@ -47,13 +66,19 @@ function ToolBar(props: { objProps: TypeCurrentObjectProps }) {
       {/* Objekt sperren, also normal darstellen (kein wirframe sondern das normale material) */}
       <IconButton
         onClick={() => {
-          props.objProps.showNormalTexture();
-          props.objProps.showScaleAxis({
+          if (!checkIfAObjectIsSelected()) {
+            alert(
+              "Sie haben noch kein Objekt in der Scene ausgewählt. (Durch klicken auf das Objekt)"
+            );
+            return;
+          }
+
+          //props.objProps.showNormalTexture();
+          props.objProps.showTransformAxis({
             x: false,
             y: false,
             z: false,
           });
-          props.objProps.showPivotControlAxis({ x: false, y: false, z: false });
         }}
       >
         <LockIcon></LockIcon>

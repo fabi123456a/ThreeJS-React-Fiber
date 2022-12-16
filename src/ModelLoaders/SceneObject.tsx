@@ -18,6 +18,7 @@ import * as THREE from "three";
 import { Group, Vector3 } from "three";
 import { debug } from "console";
 import { Button } from "@mui/material";
+import { useGesture } from "react-use-gesture";
 
 // --- Typen ANFANG, TODO: alle Typen hier in eigene Datei auslagern
 
@@ -47,15 +48,24 @@ type TypeShowPivotAxis = {
   z: boolean;
 };
 
+// TODO: wird noch nicht verwendet
+enum TypeEditMode {
+  translate = "translate", // verschieben
+  scale = "scale", // scalieren
+  rotation = "rotate", // rotieren
+}
+
 // TODO: scale & rotierung hinzufügen
 // das ist quasi die schnittstelle zum currentObject
 export type TypeCurrentObjectProps = {
   position: TypePosition;
   setPosition: (pos: TypePosition) => void;
+  scale: TypeScale;
+  setScale: (scale: TypeScale) => void;
   showWireFrame: () => void;
   showNormalTexture: () => void;
-  showPivotControlAxis: (axis: TypeShowPivotAxis) => void;
-  showScaleAxis: (axis: TypeScaleMode) => void;
+  showTransformAxis: (axis: TypeScaleMode) => void;
+  setEditMode: (mode: "scale" | "translate" | "rotate" | undefined) => void;
 };
 
 // --- Typen ENDE
@@ -78,6 +88,9 @@ function SceneObject(props: {
   // useStates der Komponete SceneObject
   const [position, setPosition] = useState<TypePosition>(props.position);
   const [scale, setScale] = useState<TypeScale>(props.scale);
+  const [editMode, setEditMode] = useState<
+    "scale" | "translate" | "rotate" | undefined
+  >("scale");
   const [showPivotAxis, setPivotAxis] = useState<TypeShowPivotAxis>({
     x: false,
     y: false,
@@ -89,7 +102,7 @@ function SceneObject(props: {
     z: false,
   });
 
-  // wenn properties am snfang reinkommen direkt in status speichern
+  // wenn properties am anfang reinkommen, direkt in status speichern
   useEffect(() => {
     setPosition(props.position);
   }, [props.position]);
@@ -127,7 +140,7 @@ function SceneObject(props: {
   };
 
   // zeigt x,y,z Achsen des TransformControls an, je nachdem was übergeben wird
-  const showScaleAxis = (axis: TypeScaleMode) => {
+  const showTransformAxis = (axis: TypeScaleMode) => {
     setScaleMode({
       x: axis.x,
       y: axis.y,
@@ -135,64 +148,98 @@ function SceneObject(props: {
     });
   };
 
+  // zeigt x,y,z Achsen des TransformControls an, je nachdem was übergeben wird
+  const setTransformControlEditMode = (
+    mode: "scale" | "translate" | "rotate" | undefined
+  ) => {
+    setEditMode(mode);
+  };
+
   // ruft setCurrentObjProps von der Scene auf, also von dem übergeordnetem Objekt(=Scene) an
   const sendCurrentObjectDataToControls = () => {
-    let v: Vector3 = new Vector3();
-    refMesh.current?.getWorldPosition(v);
+    // position des Objects als Vektor3
+    let vectorPosition: Vector3 = new Vector3();
+    refMesh.current?.getWorldPosition(vectorPosition);
 
+    // skalierung des Objects als Vektor3
+    let vektorScale: Vector3 = new Vector3();
+    refMesh.current?.getWorldScale(vektorScale);
+
+    // objekt {...} welches die Schnittstelle zu der SceneKmponente ist. Enthält Position...
+    // aber auch funktion die den Status ändern, z.B setScale, setPosition
     props.setCurrentObjectProps({
-      position: { x: v.x, y: v.y, z: v.z },
-      setPosition: setPosition,
+      position: {
+        x: vectorPosition.x,
+        y: vectorPosition.y,
+        z: vectorPosition.z,
+      },
+      scale: {
+        x: vektorScale.x,
+        y: vektorScale.y,
+        z: vektorScale.z,
+      },
+      setPosition: setPosition, 
+      setScale: setScale,
       showWireFrame: showWireframe,
       showNormalTexture: showNormalTexture,
-      showPivotControlAxis: showPivotControlAxis,
-      showScaleAxis: showScaleAxis,
+      showTransformAxis: showTransformAxis,
+      setEditMode: setTransformControlEditMode,
     });
   };
 
+  const transform112 = useRef<any>();
+
+  useEffect(() => {
+    if (transform112.current) {
+      const controls = transform112.current;
+      const callback = () => {
+        //sendCurrentObjectDataToControls();
+        // console.log("dragged");
+        alert("dragged");
+      };
+
+      controls.addEventListener("onPointerMove", callback);
+      //return () => controls.removeEventListener("dragging-changed", callback);
+    }
+  });
+
   return (
     <>
-      <PivotControls
-        onDrag={() => {
-          sendCurrentObjectDataToControls();
+      <TransformControls
+        ref={transform112}
+        mode={editMode}
+        showX={scaleMode.x}
+        showY={scaleMode.y}
+        showZ={scaleMode.z}
+        onMouseUp={() => {
+          //sendCurrentObjectDataToControls();
+          // https://codesandbox.io/s/r3f-drei-transformcontrols-hc8gm?file=/src/index.js
         }}
-        lineWidth={2}
-        activeAxes={
-          showPivotAxis
-            ? [showPivotAxis.x, showPivotAxis.y, showPivotAxis.z]
-            : [false, false, false]
-        }
-        // TODO: Anchor bei 0,0,0 ist weg/nichtsichtbar ??
-        //anchor={[0, 0, 0]}
+        // TODO: position={}
+        // Transform control in center des Meshes/Objects positionieren
       >
-        <TransformControls
-          mode="scale"
-          showX={scaleMode.x}
-          showY={scaleMode.y}
-          showZ={scaleMode.z}
-          // TODO: position={}
-          // Transform control in center des Meshes/Objects positionieren
-        >
-          <mesh>
-            <primitive
-              onClick={() => {
-                // TODO: Object markieren
-                // highlightObject();
+        <mesh>
+          <primitive
+            onMouseUp={() => {
+              //sendCurrentObjectDataToControls();
+            }}
+            onClick={() => {
+              // TODO: Object markieren
+              // highlightObject();
 
-                sendCurrentObjectDataToControls();
-              }}
-              onPointerOver={() => {}}
-              onPointerLeave={() => {
-                // TODO: wireframe entfernen und normales Material des Model
-              }}
-              ref={refMesh}
-              object={fbx.clone(true)}
-              scale={[scale.x, scale.y, scale.z]}
-              position={[position.x, position.y, position.z]}
-            ></primitive>
-          </mesh>
-        </TransformControls>
-      </PivotControls>
+              sendCurrentObjectDataToControls();
+            }}
+            onPointerOver={() => {}}
+            onPointerLeave={() => {
+              // TODO: wireframe entfernen und normales Material des Model
+            }}
+            ref={refMesh}
+            object={fbx.clone(true)}
+            scale={[scale.x, scale.y, scale.z]}
+            position={[position.x, position.y, position.z]}
+          ></primitive>
+        </mesh>
+      </TransformControls>
     </>
   );
 }
