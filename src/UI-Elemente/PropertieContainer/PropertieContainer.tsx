@@ -1,6 +1,5 @@
-import { Button, Divider, Grid, Slider, Typography } from "@mui/material";
+import { Button, Divider, Grid, Typography } from "@mui/material";
 import { Stack } from "@mui/system";
-import { useEffect, useState } from "react";
 import { TypeCurrentObjectProps } from "../../ModelLoaders/SceneObject";
 
 // https://mui.com/material-ui/react-typography/#main-content
@@ -105,13 +104,7 @@ function PropertieContainer({
           </Grid>
         </Stack>
       </Stack>
-
-      <Typography fontSize={8}>
-        Wird bis jetzt nur aktuallisiert wenn man auf das Object klickt. Die
-        Daten bei onDrag weiterleiten geht (noch) irgendwie nicht. Also nach dem
-        Draggen nochmal anklicken, erst dann wird es aktuallisiert und auch dann
-        erst kommen die neuen Daten.
-      </Typography>
+      
       <Button variant="outlined" onClick={() => {}}>
         Test Button
       </Button>

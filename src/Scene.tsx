@@ -15,6 +15,7 @@ import ModelFBX from "./ModelLoaders/old/ModelFBX";
 import SceneObject, {
   TypeCurrentObjectProps,
 } from "./ModelLoaders/SceneObject";
+import Room from "./UI-Elemente/3DObjekt-Liste/Room";
 
 const deg2rad = (degrees: number) => degrees * (Math.PI / 180);
 
@@ -75,31 +76,7 @@ export default function Scene(props: {
           position={{ x: -1, y: 0, z: 0 }}
           scale={{ x: 0.01, y: 0.01, z: 0.01 }}
         ></SceneObject>
-        {/* Raum */} {/* TODO: eigene Komponete für den Raum */}
-        {/* Boden */}
-        <BoxGeometrie
-          geometrie={{ positionXYZ: [0, 0, 0], scaleXYZ: [0.5, 0.5, 0.5] }}
-          editable={false}
-        ></BoxGeometrie>
-        <BoxGeometrie
-          geometrie={{ positionXYZ: [0, 0, 0], scaleXYZ: [7, 0.001, 7] }}
-          editable={false}
-        ></BoxGeometrie>
-        {/* Wand Links */}
-        <BoxGeometrie
-          geometrie={{ positionXYZ: [-3.5, 1.5, 0], scaleXYZ: [0.001, 3, 7] }}
-          editable={false}
-        ></BoxGeometrie>
-        {/* Wand Rechts */}
-        <BoxGeometrie
-          geometrie={{ positionXYZ: [3.5, 1.5, 0], scaleXYZ: [0.001, 3, 7] }}
-          editable={false}
-        ></BoxGeometrie>
-        {/* Wand Hinten */}
-        <BoxGeometrie
-          geometrie={{ positionXYZ: [0, 1.5, -3.5], scaleXYZ: [7, 3, 0.001] }}
-          editable={false}
-        ></BoxGeometrie>
+        <Room height={3} width={7} depth={7}/>
         {/* Scene Movement */}
         {isOrbitControl ? <OrbitControls makeDefault /> : null}
       </Canvas>
