@@ -174,7 +174,7 @@ function SceneObject(props: {
       controls.addEventListener("onPointerMove", callback);
       //return () => controls.removeEventListener("dragging-changed", callback);
     }
-  });
+  }, []);
 
   return (
     <>
