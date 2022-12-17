@@ -184,8 +184,10 @@ function SceneObject(props: {
         showX={scaleMode.x}
         showY={scaleMode.y}
         showZ={scaleMode.z}
-        onMouseUp={() => {
-          // sendCurrentObjectDataToControls();
+        onMouseUp={(e) => {
+          if (e) {
+            sendCurrentObjectDataToControls();
+          }
           // https://codesandbox.io/s/r3f-drei-transformcontrols-hc8gm?file=/src/index.js
         }}
         // TODO: position={}
