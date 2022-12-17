@@ -21,7 +21,8 @@ const deg2rad = (degrees: number) => degrees * (Math.PI / 180);
 export default function Scene(props: {
   models: string[];
   objects: BoxGeometryValue[];
-  setMainCurrentObj: (props: TypeCurrentObjectProps) => void;
+  currentObjectProps: TypeCurrentObjectProps;
+  setMainCurrentObjectProps: (props: TypeCurrentObjectProps) => void;
   frontalView: boolean;
 }) {
   // orbitControl wird deaktiviert wenn ein Objekt via pivotControl verschoben wird
@@ -29,12 +30,6 @@ export default function Scene(props: {
   const [isOrbitControl, setIsOrbitControl] = useState<boolean>(true);
 
   // TODO: Scale & rozierung hinzufügen
-  const [currentObjProps, setCurrentObjProps] =
-    useState<TypeCurrentObjectProps>(null!);
-
-  useEffect(() => {
-    props.setMainCurrentObj(currentObjProps);
-  }, [currentObjProps]);
 
   return (
     <>
@@ -69,13 +64,13 @@ export default function Scene(props: {
         ))}
         {/* Test set CurrentObject */}
         <SceneObject
-          setCurrentObjectProps={setCurrentObjProps}
+          setCurrentObjectProps={props.setMainCurrentObjectProps}
           pfadToFBX={"./ModelsFBX/mercedes.fbx"}
           position={{ x: 0, y: 0, z: 0 }}
           scale={{ x: 0.02, y: 0.02, z: 0.02 }}
         ></SceneObject>
         <SceneObject
-          setCurrentObjectProps={setCurrentObjProps}
+          setCurrentObjectProps={props.setMainCurrentObjectProps}
           pfadToFBX={"./ModelsFBX/mercedes.fbx"}
           position={{ x: -1, y: 0, z: 0 }}
           scale={{ x: 0.01, y: 0.01, z: 0.01 }}

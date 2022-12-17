@@ -33,8 +33,6 @@ export default function Main() {
     setBoxGeos([...boxGeos, geo]);
   };
 
-  useEffect(() => {}, [currentObjectProps]);
-
   return (
     <Stack
       direction="row"
@@ -57,7 +55,8 @@ export default function Main() {
           }}
         ></ToolBar>
         <Scene
-          setMainCurrentObj={setMainCurrentObjectProps}
+          currentObjectProps={currentObjectProps}
+          setMainCurrentObjectProps={setMainCurrentObjectProps}
           models={models}
           objects={boxGeos}
           frontalView={frontalView}
