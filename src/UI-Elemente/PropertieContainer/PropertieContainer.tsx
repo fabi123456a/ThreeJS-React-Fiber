@@ -10,9 +10,30 @@ import { TypeCurrentObjectProps } from "../../ModelLoaders/SceneObject";
 // in objProps stehen die properties des currentObjects + funktionen wie z.B showPivotControlAxis
 function PropertieContainer({
   objProps,
+  setObjProps,
 }: {
+  setObjProps: Function;
   objProps: TypeCurrentObjectProps;
 }) {
+  function handleChange(position: string, value: number) {
+    let newPosition: any = { ...objProps.position };
+    newPosition[position] = value;
+
+    setObjProps((prev: TypeCurrentObjectProps) => {
+      return {
+        ...prev,
+        position: newPosition,
+      };
+    });
+  }
+
+  if (!objProps)
+    return (
+      <Stack style={{ width: "20%" }}>
+        <Typography fontSize="20px">No Object Selected</Typography>
+      </Stack>
+    );
+
   return (
     <Stack style={{ width: "20%" }}>
       <b>
@@ -27,6 +48,7 @@ function PropertieContainer({
               type="number"
               style={{ width: "100%" }}
               value={objProps ? objProps.position.x : ""}
+              onChange={(e) => handleChange("x", parseInt(e.target.value) || 0)}
             />
           </Grid>
           <Grid item xs={3}>
@@ -35,6 +57,7 @@ function PropertieContainer({
               type="number"
               style={{ width: "100%" }}
               value={objProps ? objProps.position.y : ""}
+              onChange={(e) => handleChange("y", parseInt(e.target.value) || 0)}
             />
           </Grid>
           <Grid item xs={3}>
@@ -43,6 +66,7 @@ function PropertieContainer({
               type="number"
               style={{ width: "100%" }}
               value={objProps ? objProps.position.z : ""}
+              onChange={(e) => handleChange("z", parseInt(e.target.value) || 0)}
             />
           </Grid>
         </Grid>

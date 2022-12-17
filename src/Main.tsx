@@ -63,7 +63,10 @@ export default function Main() {
         ></Scene>
       </Stack>
 
-      <PropertieContainer objProps={currentObjectProps}></PropertieContainer>
+      <PropertieContainer
+        objProps={currentObjectProps}
+        setObjProps={setMainCurrentObjectProps}
+      ></PropertieContainer>
       {/* <ModelList
         onAdd={handleModelAdd}
         style={{}}
