@@ -102,11 +102,6 @@ function SceneObject(props: {
     z: false,
   });
 
-  // wenn properties am anfang reinkommen, direkt in status speichern
-  useEffect(() => {
-    setPosition(props.position);
-  }, []);
-
   // zeigt x,y,z Achsen des PivotControls an, je nachdem was übergeben wird
   const showPivotControlAxis = (axis: TypeShowPivotAxis) => {
     setPivotAxis({
