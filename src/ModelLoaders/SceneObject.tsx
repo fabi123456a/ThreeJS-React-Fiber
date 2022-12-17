@@ -179,6 +179,7 @@ function SceneObject(props: {
         showX={scaleMode.x}
         showY={scaleMode.y}
         showZ={scaleMode.z}
+        position={new Vector3(props.position.x, props.position.y, props.position.z)}
         onMouseUp={(e) => {
           if (e) {
             //Checks if an event happened or if component just rerendered
@@ -199,7 +200,6 @@ function SceneObject(props: {
           ref={refMesh}
           object={fbx.clone(true)}
           scale={[scale.x, scale.y, scale.z]}
-          position={[position.x, position.y, position.z]}
         ></primitive>
       </TransformControls>
     </>
