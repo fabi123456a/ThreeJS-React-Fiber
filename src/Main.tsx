@@ -38,7 +38,7 @@ export default function Main() {
   return (
     <Stack
       direction="column"
-      style={{ height: "100%", background: "lightGray", overflowY: "scroll" }}
+      style={{ height: "100%", background: "lightGray", overflowY: "auto" }}
     >
       <PropertieContainer objProps={currentObjectProps}></PropertieContainer>
 
