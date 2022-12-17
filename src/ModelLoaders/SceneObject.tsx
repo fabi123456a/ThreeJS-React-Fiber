@@ -86,8 +86,6 @@ function SceneObject(props: {
   const refMesh = useRef<THREE.Mesh>(null);
 
   // useStates der Komponete SceneObject
-  const [position, setPosition] = useState<TypePosition>(props.position);
-  const [scale, setScale] = useState<TypeScale>(props.scale);
   const [editMode, setEditMode] = useState<
     "scale" | "translate" | "rotate" | undefined
   >("scale");
@@ -199,7 +197,7 @@ function SceneObject(props: {
           }}
           ref={refMesh}
           object={fbx.clone(true)}
-          scale={[scale.x, scale.y, scale.z]}
+          scale={[props.scale.x, props.scale.y, props.scale.z]}
         ></primitive>
       </TransformControls>
     </>

@@ -68,7 +68,7 @@ export default function Scene(props: {
           setCurrentObjectProps={props.setMainCurrentObjectProps}
           pfadToFBX={"./ModelsFBX/mercedes.fbx"}
           position={props.currentObjectProps?.position || { x: 0, y: 0, z: 0 }}
-          scale={{ x: 0.02, y: 0.02, z: 0.02 }}
+          scale={props.currentObjectProps?.scale || { x: 0.02, y: 0.02, z: 0.02 }}
         ></SceneObject>
         {/* <SceneObject
           setCurrentObjectProps={props.setMainCurrentObjectProps}

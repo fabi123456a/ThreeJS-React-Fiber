@@ -14,7 +14,7 @@ function PropertieContainer({
   setObjProps: Function;
   objProps: TypeCurrentObjectProps;
 }) {
-  function handleChange(position: string, value: number) {
+  function handlePositionChange(position: string, value: number) {
     let newPosition: any = { ...objProps.position };
     newPosition[position] = value;
 
@@ -22,6 +22,18 @@ function PropertieContainer({
       return {
         ...prev,
         position: newPosition,
+      };
+    });
+  }
+
+  function handleScaleChange(position: string, value: number) {
+    let newScale: any = { ...objProps.scale };
+    newScale[position] = value;
+
+    setObjProps((prev: TypeCurrentObjectProps) => {
+      return {
+        ...prev,
+        scale: newScale,
       };
     });
   }
@@ -47,7 +59,7 @@ function PropertieContainer({
               type="number"
               style={{ width: "100%" }}
               value={objProps ? objProps.position.x : ""}
-              onChange={(e) => handleChange("x", parseInt(e.target.value) || 0)}
+              onChange={(e) => handlePositionChange("x", parseInt(e.target.value) || 0)}
             />
           </Grid>
           <Grid item xs={3}>
@@ -56,7 +68,7 @@ function PropertieContainer({
               type="number"
               style={{ width: "100%" }}
               value={objProps ? objProps.position.y : ""}
-              onChange={(e) => handleChange("y", parseInt(e.target.value) || 0)}
+              onChange={(e) => handlePositionChange("y", parseInt(e.target.value) || 0)}
             />
           </Grid>
           <Grid item xs={3}>
@@ -65,7 +77,7 @@ function PropertieContainer({
               type="number"
               style={{ width: "100%" }}
               value={objProps ? objProps.position.z : ""}
-              onChange={(e) => handleChange("z", parseInt(e.target.value) || 0)}
+              onChange={(e) => handlePositionChange("z", parseInt(e.target.value) || 0)}
             />
           </Grid>
         </Grid>
@@ -83,6 +95,7 @@ function PropertieContainer({
                 type="number"
                 style={{ width: "100%" }}
                 value={objProps ? objProps.scale.x : ""}
+                onChange={(e) => handleScaleChange("x", parseInt(e.target.value) || 0)}
               />
             </Grid>
             <Grid item xs={3}>
@@ -91,6 +104,7 @@ function PropertieContainer({
                 type="number"
                 style={{ width: "100%" }}
                 value={objProps ? objProps.scale.y : ""}
+                onChange={(e) => handleScaleChange("y", parseInt(e.target.value) || 0)}
               />
             </Grid>
             <Grid item xs={3}>
@@ -99,6 +113,7 @@ function PropertieContainer({
                 type="number"
                 style={{ width: "100%" }}
                 value={objProps ? objProps.scale.z : ""}
+                onChange={(e) => handleScaleChange("z", parseInt(e.target.value) || 0)}
               />
             </Grid>
           </Grid>
