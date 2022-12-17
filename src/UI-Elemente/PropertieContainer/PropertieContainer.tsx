@@ -1,4 +1,4 @@
-import { Button, Divider, Slider, Typography } from "@mui/material";
+import { Button, Divider, Grid, Slider, Typography } from "@mui/material";
 import { Stack } from "@mui/system";
 import { useEffect, useState } from "react";
 import { TypeCurrentObjectProps } from "../../ModelLoaders/SceneObject";
@@ -8,39 +8,77 @@ import { TypeCurrentObjectProps } from "../../ModelLoaders/SceneObject";
 // dann sieht man alle Komponenten, mit beispielen, von MUI die man verwenden kann
 
 // in objProps stehen die properties des currentObjects + funktionen wie z.B showPivotControlAxis
-function PropertieContainer(props: { objProps: TypeCurrentObjectProps }) {
+function PropertieContainer({
+  objProps,
+}: {
+  objProps: TypeCurrentObjectProps;
+}) {
   return (
     <Stack style={{ width: "20%" }}>
       <b>
-        <Typography>PropertieContainer</Typography>
+        <Typography fontSize="20px">Properties</Typography>
       </b>
-      <Stack direction={"row"}>
-        <Stack direction={"column"}>
-          <Typography>
-            Position x: {props.objProps ? props.objProps.position.x : null}
-          </Typography>
-          <Typography>
-            Position y: {props.objProps ? props.objProps.position.y : null}
-          </Typography>
-          <Typography>
-            Position z: {props.objProps ? props.objProps.position.z : null}
-          </Typography>
-        </Stack>
+      <Stack direction={"column"}>
+        <Typography>Position</Typography>
+        <Grid container spacing={2}>
+          <Grid item xs={3}>
+            x:
+            <input
+              type="number"
+              style={{ width: "100%" }}
+              value={objProps ? objProps.position.x : ""}
+            />
+          </Grid>
+          <Grid item xs={3}>
+            y:
+            <input
+              type="number"
+              style={{ width: "100%" }}
+              value={objProps ? objProps.position.y : ""}
+            />
+          </Grid>
+          <Grid item xs={3}>
+            z:
+            <input
+              type="number"
+              style={{ width: "100%" }}
+              value={objProps ? objProps.position.z : ""}
+            />
+          </Grid>
+        </Grid>
         <Divider
-          orientation="vertical"
+          orientation="horizontal"
           flexItem
           style={{ marginLeft: "8px", marginRight: "8px" }}
         />
         <Stack direction={"column"}>
-          <Typography>
-            Scale x: {props.objProps ? props.objProps.scale.x : null}
-          </Typography>
-          <Typography>
-            Scale y: {props.objProps ? props.objProps.scale.y : null}
-          </Typography>
-          <Typography>
-            Scale z: {props.objProps ? props.objProps.scale.z : null}
-          </Typography>
+          <Typography>Scale</Typography>
+          <Grid container spacing={2}>
+            <Grid item xs={3}>
+              x:
+              <input
+                type="number"
+                style={{ width: "100%" }}
+                value={objProps ? objProps.scale.x : ""}
+              />
+            </Grid>
+            <Grid item xs={3}>
+              y:
+              <input
+                type="number"
+                style={{ width: "100%" }}
+                value={objProps ? objProps.scale.y : ""}
+              />
+            </Grid>
+            <Grid item xs={3}>
+              z:
+              <input
+                type="number"
+                style={{ width: "100%" }}
+                value={objProps ? objProps.scale.z : ""}
+              />
+            </Grid>
+          </Grid>
         </Stack>
       </Stack>
 
