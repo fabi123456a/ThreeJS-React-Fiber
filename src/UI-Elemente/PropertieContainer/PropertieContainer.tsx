@@ -53,31 +53,34 @@ function PropertieContainer({
       <Stack direction={"column"}>
         <Typography>Position</Typography>
         <Grid container spacing={2}>
-          <Grid item xs={3}>
+          <Grid item xs={4}>
             x:
             <input
               type="number"
               style={{ width: "100%" }}
               value={objProps ? objProps.position.x : ""}
-              onChange={(e) => handlePositionChange("x", parseInt(e.target.value) || 0)}
+              step="0.01"
+              onChange={(e) => handlePositionChange("x", parseFloat(e.target.value) || 0)}
             />
           </Grid>
-          <Grid item xs={3}>
+          <Grid item xs={4}>
             y:
             <input
               type="number"
               style={{ width: "100%" }}
               value={objProps ? objProps.position.y : ""}
-              onChange={(e) => handlePositionChange("y", parseInt(e.target.value) || 0)}
+              step="0.01"
+              onChange={(e) => handlePositionChange("y", parseFloat(e.target.value) || 0)}
             />
           </Grid>
-          <Grid item xs={3}>
+          <Grid item xs={4}>
             z:
             <input
               type="number"
               style={{ width: "100%" }}
               value={objProps ? objProps.position.z : ""}
-              onChange={(e) => handlePositionChange("z", parseInt(e.target.value) || 0)}
+              step="0.01"
+              onChange={(e) => handlePositionChange("z", parseFloat(e.target.value) || 0)}
             />
           </Grid>
         </Grid>
@@ -89,31 +92,34 @@ function PropertieContainer({
         <Stack direction={"column"}>
           <Typography>Scale</Typography>
           <Grid container spacing={2}>
-            <Grid item xs={3}>
+            <Grid item xs={4}>
               x:
               <input
                 type="number"
                 style={{ width: "100%" }}
                 value={objProps ? objProps.scale.x : ""}
-                onChange={(e) => handleScaleChange("x", parseInt(e.target.value) || 0)}
+                step="0.01"
+                onChange={(e) => handleScaleChange("x", parseFloat(e.target.value) || 0)}
               />
             </Grid>
-            <Grid item xs={3}>
+            <Grid item xs={4}>
               y:
               <input
                 type="number"
                 style={{ width: "100%" }}
                 value={objProps ? objProps.scale.y : ""}
-                onChange={(e) => handleScaleChange("y", parseInt(e.target.value) || 0)}
+                step="0.01"
+                onChange={(e) => handleScaleChange("y", parseFloat(e.target.value) || 0)}
               />
             </Grid>
-            <Grid item xs={3}>
+            <Grid item xs={4}>
               z:
               <input
                 type="number"
                 style={{ width: "100%" }}
                 value={objProps ? objProps.scale.z : ""}
-                onChange={(e) => handleScaleChange("z", parseInt(e.target.value) || 0)}
+                step="0.01"
+                onChange={(e) => handleScaleChange("z", parseFloat(e.target.value) || 0)}
               />
             </Grid>
           </Grid>
