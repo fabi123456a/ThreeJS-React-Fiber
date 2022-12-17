@@ -105,7 +105,7 @@ function SceneObject(props: {
   // wenn properties am anfang reinkommen, direkt in status speichern
   useEffect(() => {
     setPosition(props.position);
-  }, [props.position]);
+  }, []);
 
   // zeigt x,y,z Achsen des PivotControls an, je nachdem was übergeben wird
   const showPivotControlAxis = (axis: TypeShowPivotAxis) => {
@@ -185,7 +185,7 @@ function SceneObject(props: {
         showY={scaleMode.y}
         showZ={scaleMode.z}
         onMouseUp={() => {
-          //sendCurrentObjectDataToControls();
+          // sendCurrentObjectDataToControls();
           // https://codesandbox.io/s/r3f-drei-transformcontrols-hc8gm?file=/src/index.js
         }}
         // TODO: position={}
