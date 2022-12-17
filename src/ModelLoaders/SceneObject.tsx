@@ -186,6 +186,7 @@ function SceneObject(props: {
         showZ={scaleMode.z}
         onMouseUp={(e) => {
           if (e) {
+            //Checks if an event happened or if component just rerendered
             sendCurrentObjectDataToControls();
           }
           // https://codesandbox.io/s/r3f-drei-transformcontrols-hc8gm?file=/src/index.js
@@ -195,17 +196,10 @@ function SceneObject(props: {
       >
         {/* FBX-Model  */}
         <primitive
-          onMouseUp={() => {
-            //sendCurrentObjectDataToControls();
-          }}
           onClick={() => {
             // TODO: Object markieren
             // highlightObject();
             sendCurrentObjectDataToControls();
-          }}
-          onPointerOver={() => {}}
-          onPointerLeave={() => {
-            // TODO: wireframe entfernen und normales Material des Model
           }}
           ref={refMesh}
           object={fbx.clone(true)}
