@@ -10,7 +10,7 @@ import { TypeCurrentObjectProps } from "../../ModelLoaders/SceneObject";
 // in objProps stehen die properties des currentObjects + funktionen wie z.B showPivotControlAxis
 function PropertieContainer(props: { objProps: TypeCurrentObjectProps }) {
   return (
-    <Stack>
+    <Stack style={{ width: "20%" }}>
       <b>
         <Typography>PropertieContainer</Typography>
       </b>

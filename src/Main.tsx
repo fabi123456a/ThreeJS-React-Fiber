@@ -37,23 +37,33 @@ export default function Main() {
 
   return (
     <Stack
-      direction="column"
+      direction="row"
       style={{ height: "100%", background: "lightGray", overflowY: "auto" }}
     >
-      <PropertieContainer objProps={currentObjectProps}></PropertieContainer>
-
-      <Scene
-        setMainCurrentObj={setMainCurrentObjectProps}
-        models={models}
-        objects={boxGeos}
-        frontalView={frontalView}
-      ></Scene>
-      <ToolBar
-        objProps={currentObjectProps}
-        setFrontalView={() => {
-          setFrontalView(!frontalView);
+      <Stack
+        direction="column"
+        style={{
+          height: "100%",
+          width: "100%",
+          background: "lightGray",
+          overflowY: "auto",
         }}
-      ></ToolBar>
+      >
+        <ToolBar
+          objProps={currentObjectProps}
+          setFrontalView={() => {
+            setFrontalView(!frontalView);
+          }}
+        ></ToolBar>
+        <Scene
+          setMainCurrentObj={setMainCurrentObjectProps}
+          models={models}
+          objects={boxGeos}
+          frontalView={frontalView}
+        ></Scene>
+      </Stack>
+
+      <PropertieContainer objProps={currentObjectProps}></PropertieContainer>
       {/* <ModelList
         onAdd={handleModelAdd}
         style={{}}
