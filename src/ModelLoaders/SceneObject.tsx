@@ -63,9 +63,7 @@ enum TypeEditMode {
 // das ist quasi die schnittstelle zum currentObject
 export type TypeCurrentObjectProps = {
   position: TypePosition;
-  setPosition: (pos: TypePosition) => void;
   scale: TypeScale;
-  setScale: (scale: TypeScale) => void;
   showTransformControlAxis: (axis: TypeScaleMode) => void;
   setEditMode: (mode: "scale" | "translate" | "rotate" | undefined) => void;
 };
@@ -157,8 +155,6 @@ function SceneObject(props: {
         y: vektorScale.y,
         z: vektorScale.z,
       },
-      setPosition: setPosition,
-      setScale: setScale,
       showTransformControlAxis: showTransformAxis,
       setEditMode: setTransformControlEditMode,
     });
