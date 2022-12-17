@@ -6,7 +6,7 @@ import ModelList from "./UI-Elemente/3DModell-Liste/ModelListe";
 import ObjectList, {
   BoxGeometryValue,
 } from "./UI-Elemente/3DObjekt-Liste/ObjektListe";
-import { Typography } from "@mui/material";
+import { Divider, Typography } from "@mui/material";
 import PropertieContainer from "./UI-Elemente/PropertieContainer/PropertieContainer";
 import { TypeCurrentObjectProps } from "./ModelLoaders/SceneObject";
 import ToolBar from "./UI-Elemente/ToolBar/ToolBar";
@@ -39,6 +39,7 @@ export default function Main() {
     <Stack
       direction="row"
       style={{ height: "100%", background: "lightGray", overflowY: "auto" }}
+      divider={<Divider orientation="vertical" flexItem />}
     >
       <Stack
         direction="column"
@@ -46,8 +47,8 @@ export default function Main() {
           height: "100%",
           width: "100%",
           background: "lightGray",
-          overflowY: "auto",
         }}
+        divider={<Divider orientation="horizontal" flexItem />}
       >
         <ToolBar
           objProps={currentObjectProps}

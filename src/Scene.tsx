@@ -40,7 +40,7 @@ export default function Scene(props: {
     <>
       {/* Canvas nimmt größe von parent container */}
       {/* Canvas richtet eine Szene & Kamera ein */}
-      <Canvas style={{ border: "4px solid black" }}>
+      <Canvas>
         {/* frontalView */}
         {/* auf Normal Kamera switchen geht noch nicht ist aber in Bearbeitung */}
         {props.frontalView ? (
