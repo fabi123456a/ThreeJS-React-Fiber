@@ -23,110 +23,121 @@ function ToolBar(props: {
     return true;
   };
 
-  return props.objProps ? (
-    <Stack direction={"row"}>
-      <Typography>ToolBar</Typography>
-      <IconButton
-        color={props.objProps.editMode == "translate" ? "primary" : undefined}
-        onClick={() => {
-          if (!checkIfAObjectIsSelected()) {
-            alert(
-              "Sie haben noch kein Objekt in der Scene ausgewählt. (Durch klicken auf das Objekt)"
-            );
-            return;
-          }
+  const [camButtonColor, toggleColor] = useState<boolean>(false);
 
-          props.setObjProps((prev: TypeObjectProps) => {
-            return {
-              ...prev,
-              editMode: "translate",
-              showXTransform: true,
-              showYTransform: true,
-              showZTransform: true,
-            };
-          });
-        }}
-      >
-        <OpenWithIcon></OpenWithIcon>
-      </IconButton>
-      <IconButton
-        color={props.objProps.editMode == "scale" ? "primary" : undefined}
-        onClick={() => {
-          if (!checkIfAObjectIsSelected()) {
-            alert(
-              "Sie haben noch kein Objekt in der Scene ausgewählt. (Durch klicken auf das Objekt)"
-            );
-            return;
-          }
-          props.setObjProps((prev: TypeObjectProps) => {
-            return {
-              ...prev,
-              editMode: "scale",
-              showXTransform: true,
-              showYTransform: true,
-              showZTransform: true,
-            };
-          });
-        }}
-      >
-        <ExpandIcon></ExpandIcon>
-      </IconButton>
-      <IconButton
-        color={props.objProps.editMode == "rotate" ? "primary" : undefined}
-        onClick={() => {
-          if (!checkIfAObjectIsSelected()) {
-            alert(
-              "Sie haben noch kein Objekt in der Scene ausgewählt. (Durch klicken auf das Objekt)"
-            );
-            return;
-          }
-          props.setObjProps((prev: TypeObjectProps) => {
-            return {
-              ...prev,
-              editMode: "rotate",
-              showXTransform: true,
-              showYTransform: true,
-              showZTransform: true,
-            };
-          });
-        }}
-      >
-        <ThreeSixtyIcon></ThreeSixtyIcon>
-      </IconButton>
-      <IconButton
-        color={props.objProps.editMode == undefined ? "primary" : undefined}
-        onClick={() => {
-          if (!checkIfAObjectIsSelected()) {
-            alert(
-              "Sie haben noch kein Objekt in der Scene ausgewählt. (Durch klicken auf das Objekt)"
-            );
-            return;
-          }
-          props.setObjProps((prev: TypeObjectProps) => {
-            return {
-              ...prev,
-              editMode: "undefined",
-              showXTransform: false,
-              showYTransform: false,
-              showZTransform: false,
-            };
-          });
-        }}
-      >
-        <LockIcon></LockIcon>
-      </IconButton>
+  return (
+    <Stack direction={"row"}>
+      {props.objProps ? (
+        <>
+          <Typography>ToolBar</Typography>
+          <IconButton
+            color={
+              props.objProps.editMode == "translate" ? "primary" : undefined
+            }
+            onClick={() => {
+              if (!checkIfAObjectIsSelected()) {
+                alert(
+                  "Sie haben noch kein Objekt in der Scene ausgewählt. (Durch klicken auf das Objekt)"
+                );
+                return;
+              }
+
+              props.setObjProps((prev: TypeObjectProps) => {
+                return {
+                  ...prev,
+                  editMode: "translate",
+                  showXTransform: true,
+                  showYTransform: true,
+                  showZTransform: true,
+                };
+              });
+            }}
+          >
+            <OpenWithIcon></OpenWithIcon>
+          </IconButton>
+          <IconButton
+            color={props.objProps.editMode == "scale" ? "primary" : undefined}
+            onClick={() => {
+              if (!checkIfAObjectIsSelected()) {
+                alert(
+                  "Sie haben noch kein Objekt in der Scene ausgewählt. (Durch klicken auf das Objekt)"
+                );
+                return;
+              }
+              props.setObjProps((prev: TypeObjectProps) => {
+                return {
+                  ...prev,
+                  editMode: "scale",
+                  showXTransform: true,
+                  showYTransform: true,
+                  showZTransform: true,
+                };
+              });
+            }}
+          >
+            <ExpandIcon></ExpandIcon>
+          </IconButton>
+          <IconButton
+            color={props.objProps.editMode == "rotate" ? "primary" : undefined}
+            onClick={() => {
+              if (!checkIfAObjectIsSelected()) {
+                alert(
+                  "Sie haben noch kein Objekt in der Scene ausgewählt. (Durch klicken auf das Objekt)"
+                );
+                return;
+              }
+              props.setObjProps((prev: TypeObjectProps) => {
+                return {
+                  ...prev,
+                  editMode: "rotate",
+                  showXTransform: true,
+                  showYTransform: true,
+                  showZTransform: true,
+                };
+              });
+            }}
+          >
+            <ThreeSixtyIcon></ThreeSixtyIcon>
+          </IconButton>
+          <IconButton
+            color={props.objProps.editMode == undefined ? "primary" : undefined}
+            onClick={() => {
+              if (!checkIfAObjectIsSelected()) {
+                alert(
+                  "Sie haben noch kein Objekt in der Scene ausgewählt. (Durch klicken auf das Objekt)"
+                );
+                return;
+              }
+              props.setObjProps((prev: TypeObjectProps) => {
+                return {
+                  ...prev,
+                  editMode: "undefined",
+                  showXTransform: false,
+                  showYTransform: false,
+                  showZTransform: false,
+                };
+              });
+            }}
+          >
+            <LockIcon></LockIcon>
+          </IconButton>
+        </>
+      ) : (
+        <Typography>Noch keine Objekt ausgewählt.</Typography>
+      )}
+
       <Divider orientation="vertical" flexItem />
       {/* sperrt die Kamera Rotation */}
       <IconButton
+        color={camButtonColor ? "primary" : "error"}
         onClick={() => {
+          toggleColor(!camButtonColor);
           props.setLockCamera();
         }}
       >
         <VideocamIcon></VideocamIcon>
       </IconButton>
     </Stack>
-  ) : (
-    <Typography>Noch kein Objekt ausgewählt.</Typography>
   );
 }
 
