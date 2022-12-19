@@ -18,15 +18,34 @@ function ToolBar(props: {
   setObjProps: Function;
   setLockCamera: () => void;
 }) {
+  // notwendig um Buttons zu toggeln
+  const [isTranform, setIsTransfrom] = useState<boolean>(false);
+  const [isScale, setIsScale] = useState<boolean>(false);
+  const [isRotate, setIsRotate] = useState<boolean>(false);
+  const [isLocked, setIsLocked] = useState<boolean>(false);
+
   const checkIfAObjectIsSelected = (): boolean => {
     if (!props.objProps) return false;
     return true;
+  };
+
+  const toggleButtons = (
+    tansform: boolean,
+    scale: boolean,
+    rotate: boolean,
+    locked: boolean
+  ): void => {
+    setIsTransfrom(tansform);
+    setIsScale(scale);
+    setIsRotate(rotate);
+    setIsLocked(locked);
   };
 
   return (
     <Stack direction={"row"}>
       <Typography>ToolBar</Typography>
       <IconButton
+        color={isTranform ? "primary" : undefined}
         onClick={() => {
           if (!checkIfAObjectIsSelected()) {
             alert(
@@ -44,11 +63,14 @@ function ToolBar(props: {
               showZTransform: true,
             };
           });
+
+          toggleButtons(true, false, false, false);
         }}
       >
         <OpenWithIcon></OpenWithIcon>
       </IconButton>
       <IconButton
+        color={isScale ? "primary" : undefined}
         onClick={() => {
           if (!checkIfAObjectIsSelected()) {
             alert(
@@ -65,11 +87,14 @@ function ToolBar(props: {
               showZTransform: true,
             };
           });
+
+          toggleButtons(false, true, false, false);
         }}
       >
         <ExpandIcon></ExpandIcon>
       </IconButton>
       <IconButton
+        color={isRotate ? "primary" : undefined}
         onClick={() => {
           if (!checkIfAObjectIsSelected()) {
             alert(
@@ -86,11 +111,14 @@ function ToolBar(props: {
               showZTransform: true,
             };
           });
+
+          toggleButtons(false, false, true, false);
         }}
       >
         <ThreeSixtyIcon></ThreeSixtyIcon>
       </IconButton>
       <IconButton
+        color={isLocked ? "primary" : undefined}
         onClick={() => {
           if (!checkIfAObjectIsSelected()) {
             alert(
@@ -107,6 +135,8 @@ function ToolBar(props: {
               showZTransform: false,
             };
           });
+
+          toggleButtons(false, false, false, true);
         }}
       >
         <LockIcon></LockIcon>
