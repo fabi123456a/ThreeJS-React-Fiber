@@ -76,6 +76,7 @@ export type TypeObjectProps = {
 
 function SceneObject(
   props: TypeObjectProps & {
+    isSelected: boolean;
     setCurrentObjectProps: (props: TypeObjectProps) => void;
     onDrag?: () => void;
     onDragEnd?: () => void;
@@ -177,10 +178,10 @@ function SceneObject(
     <>
       <TransformControls
         ref={transform112}
-        mode={props.editMode || "translate"}
-        showX={props.isScaleMode ?? false}
-        showY={props.isScaleMode ?? false}
-        showZ={props.isScaleMode ?? false}
+        mode={(props.isSelected && props.editMode) || "translate"}
+        showX={(props.isSelected && props.isScaleMode) || false}
+        showY={(props.isSelected && props.isScaleMode) || false}
+        showZ={(props.isSelected && props.isScaleMode) || false}
         position={
           new Vector3(props.position.x, props.position.y, props.position.z)
         }

@@ -47,6 +47,7 @@ export default function Scene(props: {
           <SceneObject
             key={model.id}
             id={model.id}
+            isSelected={model.id === props.currentObjectProps?.id}
             setCurrentObjectProps={props.setMainCurrentObjectProps}
             editMode={model.editMode}
             modelPath={model.modelPath}
