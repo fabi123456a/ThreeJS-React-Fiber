@@ -34,11 +34,13 @@ export default function Scene(props: {
     <>
       {/* Canvas nimmt größe von parent container */}
       {/* Canvas richtet eine Szene & Kamera ein */}
-      <Canvas>
-        {/* frontalView */}
-        {/* auf Normal Kamera switchen geht noch nicht ist aber in Bearbeitung */}
-        {props.frontalView ? (
-          <OrthographicCamera makeDefault></OrthographicCamera>
+      <Canvas camera={props.frontalView ? { position: [0, 0, 6] } : {}}>
+        {/* Scene Movement */}
+        {isOrbitControl ? (
+          <OrbitControls
+            makeDefault
+            enableRotate={props.frontalView ? false : true}
+          />
         ) : null}
         {/* Licht */}
         <ambientLight />
@@ -73,10 +75,8 @@ export default function Scene(props: {
           modelPath={"./ModelsFBX/mercedes.fbx"}
           isScaleMode={props.currentObjectProps?.isScaleMode}
           position={props.currentObjectProps?.position || { x: 0, y: 0, z: 0 }}
-          scale={
-            props.currentObjectProps?.scale || { x: 0.02, y: 0.02, z: 0.02 }
-          }
-        ></SceneObject> */}
+          scale={props.currentObjectProps?.scale || { x: 0.02, y: 0.02, z: 0.02 }}
+        ></SceneObject>
         {/* <SceneObject
           setCurrentObjectProps={props.setMainCurrentObjectProps}
           pfadToFBX={"./ModelsFBX/mercedes.fbx"}
@@ -84,8 +84,6 @@ export default function Scene(props: {
           scale={{ x: 0.01, y: 0.01, z: 0.01 }}
         ></SceneObject> */}
         <Room height={3} width={7} depth={7} />
-        {/* Scene Movement */}
-        {isOrbitControl ? <OrbitControls makeDefault /> : null}
       </Canvas>
     </>
   );
