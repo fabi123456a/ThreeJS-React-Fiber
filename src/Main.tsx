@@ -7,6 +7,7 @@ import { Divider, Typography } from "@mui/material";
 import PropertieContainer from "./UI-Elemente/PropertieContainer/PropertieContainer";
 import { TypeObjectProps } from "./3D-Objects/SceneModel";
 import ToolBar from "./UI-Elemente/ToolBar/ToolBar";
+import { ModelList } from "./UI-Elemente/ModelList/ModelList";
 
 export default function Main() {
   // beinhaltet alle 3D-Modelle die in der Scene vorhanden sind
@@ -93,6 +94,7 @@ export default function Main() {
           models={models}
           lockCamera={lockCamera}
         ></Scene>
+        <ModelList></ModelList>
       </Stack>
 
       <PropertieContainer
