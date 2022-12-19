@@ -62,6 +62,7 @@ enum TypeEditMode {
 // TODO: scale & rotierung hinzufügen
 // das ist quasi die schnittstelle zum currentObject
 export type TypeObjectProps = {
+  id: string;
   position: TypePosition;
   scale: TypeScale;
   editMode: "scale" | "translate" | "rotate" | undefined;
@@ -137,7 +138,9 @@ function SceneObject(
 
     // objekt {...} welches die Schnittstelle zu der SceneKmponente ist. Enthält Position...
     // aber auch funktion die den Status ändern, z.B setScale, setPosition
+
     props.setCurrentObjectProps({
+      id: props.id,
       position: {
         x: vectorPosition.x,
         y: vectorPosition.y,
@@ -174,7 +177,7 @@ function SceneObject(
     <>
       <TransformControls
         ref={transform112}
-        mode={props.editMode}
+        mode={props.editMode || "translate"}
         showX={props.isScaleMode ?? false}
         showY={props.isScaleMode ?? false}
         showZ={props.isScaleMode ?? false}

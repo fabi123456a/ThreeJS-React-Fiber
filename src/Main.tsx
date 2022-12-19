@@ -13,8 +13,24 @@ import ToolBar from "./UI-Elemente/ToolBar/ToolBar";
 
 export default function Main() {
   // beinhaltet alle 3D-Modelle die in der Scene vorhanden sind
-  const [models, setModels] = useState<TypeObjectProps[]>([]);
-
+  const [models, setModels] = useState<TypeObjectProps[]>([
+    {
+      id: "123.213123123",
+      position: { x: 0, y: 0, z: 0 },
+      scale: { x: 0.02, y: 0.02, z: 0.02 },
+      editMode: undefined,
+      isScaleMode: false,
+      modelPath: "./ModelsFBX/mercedes.fbx",
+    },
+    {
+      id: "123567",
+      position: { x: -2, y: 0, z: 0 },
+      scale: { x: 0.02, y: 0.02, z: 0.02 },
+      editMode: undefined,
+      isScaleMode: false,
+      modelPath: "./ModelsFBX/mercedes.fbx",
+    },
+  ]);
   // beinhaltet alle Box-Geometrien (Wände, Boden, ...) die in der Scene vorhanden sind
   const [boxGeos, setBoxGeos] = useState<BoxGeometryValue[]>([]);
 
@@ -29,6 +45,7 @@ export default function Main() {
     setModels([
       ...models,
       {
+        id: "" + Math.random() * 1000,
         editMode: undefined,
         isScaleMode: false,
         modelPath: pfad,
@@ -37,6 +54,21 @@ export default function Main() {
       },
     ]);
   };
+
+  const updateModels = (modelID: string, newModelData: any) => {
+    setModels((prev: TypeObjectProps[]) => [
+      {
+        ...prev.filter((model) => model.id === modelID)[0],
+        ...newModelData,
+      },
+      ...prev.filter((model) => model.id !== modelID),
+    ]);
+  };
+
+  useEffect(() => {
+    if (!currentObjectProps) return;
+    updateModels(currentObjectProps.id, currentObjectProps);
+  }, [currentObjectProps]);
 
   return (
     <Stack

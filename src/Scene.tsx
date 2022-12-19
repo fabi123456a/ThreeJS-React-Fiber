@@ -45,6 +45,8 @@ export default function Scene(props: {
         {/* Modelle die durch + Add eingfügt wurden  */}
         {props.models.map((model) => (
           <SceneObject
+            key={model.id}
+            id={model.id}
             setCurrentObjectProps={props.setMainCurrentObjectProps}
             editMode={model.editMode}
             modelPath={model.modelPath}
@@ -63,7 +65,8 @@ export default function Scene(props: {
           ></BoxGeometrie>
         ))}
         {/* Test set CurrentObject */}
-        <SceneObject
+        {/* <SceneObject
+          id="1dasd.123213"
           setCurrentObjectProps={props.setMainCurrentObjectProps}
           editMode={props.currentObjectProps?.editMode}
           modelPath={"./ModelsFBX/mercedes.fbx"}
@@ -72,7 +75,7 @@ export default function Scene(props: {
           scale={
             props.currentObjectProps?.scale || { x: 0.02, y: 0.02, z: 0.02 }
           }
-        ></SceneObject>
+        ></SceneObject> */}
         {/* <SceneObject
           setCurrentObjectProps={props.setMainCurrentObjectProps}
           pfadToFBX={"./ModelsFBX/mercedes.fbx"}
