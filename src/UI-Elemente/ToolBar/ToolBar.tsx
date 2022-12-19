@@ -125,7 +125,9 @@ function ToolBar(props: {
         <VideocamIcon></VideocamIcon>
       </IconButton>
     </Stack>
-  ) : null;
+  ) : (
+    <Typography>Noch kein Objekt ausgewählt.</Typography>
+  );
 }
 
 export default ToolBar;
