@@ -105,7 +105,7 @@ function ToolBar(props: {
           props.setObjProps((prev: TypeObjectProps) => {
             return {
               ...prev,
-              editMode: "scale", // muss gesetzt werden sons kann man die achsen nicht deaktivieren
+              editMode: "undefined",
               showXTransform: false,
               showYTransform: false,
               showZTransform: false,
