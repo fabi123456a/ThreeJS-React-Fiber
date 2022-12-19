@@ -26,7 +26,7 @@ export default function Scene(props: {
       {/* Canvas nimmt größe von parent container */}
       {/* Canvas richtet eine Szene & Kamera ein */}
       <Canvas>
-        {/* Scene Movement */}
+        {/* Kamera */}
         <Camera lockCamera={props.lockCamera}></Camera>
         {/* Licht */}
         <ambientLight />

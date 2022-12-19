@@ -69,6 +69,8 @@ export default function Main() {
 
     if (indexToDelete >= 0) delete models[indexToDelete];
 
+    models.shift();
+
     setModels(models);
 
     setMainCurrentObjectProps(null!);
