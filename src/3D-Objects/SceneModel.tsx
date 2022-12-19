@@ -112,7 +112,7 @@ function SceneModel(
     <>
       <TransformControls
         ref={transform112}
-        mode={props.editMode}
+        mode={props.editMode ? props.editMode : "scale"}
         showX={props.showXTransform}
         showY={props.showYTransform}
         showZ={props.showZTransform}
@@ -128,6 +128,7 @@ function SceneModel(
       >
         {/* FBX-Model  */}
         <primitive
+          onCreate={() => alert("creat")}
           onClick={() => {
             sendCurrentObjectDataToControls();
           }}
