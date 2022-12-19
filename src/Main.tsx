@@ -100,7 +100,17 @@ export default function Main() {
           models={models}
           lockCamera={lockCamera}
         ></Scene>
-        <ModelList></ModelList>
+        <ModelList
+          addObject={handleModelAdd}
+          paths={[
+            "./ModelsFBX/car.fbx",
+            "./ModelsFBX/mercedes.fbx",
+            "./ModelsFBX/couch.fbx",
+            "./ModelsFBX/lowpolytree.fbx",
+            "./ModelsFBX/sofa.fbx",
+            "./ModelsFBX/tableandchairs.fbx",
+          ]}
+        ></ModelList>
       </Stack>
 
       <PropertieContainer

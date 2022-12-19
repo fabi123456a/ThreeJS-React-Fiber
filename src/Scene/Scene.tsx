@@ -30,6 +30,7 @@ export default function Scene(props: {
         <Camera lockCamera={props.lockCamera}></Camera>
         {/* Licht */}
         <ambientLight />
+        <pointLight position={[10, 10, 10]} />
         {/* Modelle */}
         {props.models.map((model) => (
           <SceneModel
