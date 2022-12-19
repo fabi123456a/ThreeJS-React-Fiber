@@ -9,7 +9,7 @@ import {
   MapControls,
 } from "@react-three/drei";
 import { OrbitControls } from "@react-three/drei"; //https://drei.pmnd.rs/?path=/story/controls-mapcontrols--map-controls-scene-st
-import SceneObject, { TypeObjectProps } from "./ModelLoaders/SceneObject";
+import SceneModel, { TypeObjectProps } from "./3D-Objects/SceneModel";
 import Room from "./3D-Objects/Room";
 import { Camera } from "./Camera";
 
@@ -32,7 +32,7 @@ export default function Scene(props: {
         <ambientLight />
         {/* Modelle */}
         {props.models.map((model) => (
-          <SceneObject
+          <SceneModel
             key={model.id}
             id={model.id}
             isSelected={model.id === props.currentObjectProps?.id}
@@ -42,7 +42,7 @@ export default function Scene(props: {
             isScaleMode={model.isScaleMode}
             position={model.position}
             scale={model.scale}
-          ></SceneObject>
+          ></SceneModel>
         ))}
         {/* Raum */}
         <Room height={3} width={7} depth={7} />

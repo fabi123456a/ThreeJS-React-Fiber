@@ -74,7 +74,7 @@ export type TypeObjectProps = {
 
 // Scene Objekt Komponente
 
-function SceneObject(
+function SceneModel(
   props: TypeObjectProps & {
     isSelected: boolean;
     setCurrentObjectProps: (props: TypeObjectProps) => void;
@@ -211,7 +211,7 @@ function SceneObject(
   );
 }
 
-export default SceneObject;
+export default SceneModel;
 
 /*
 // zeigt nur das wireframe des FBX-Models an

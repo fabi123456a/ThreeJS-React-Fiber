@@ -3,10 +3,9 @@ import Stack from "@mui/material/Stack";
 import Scene from "./Scene";
 import { useState, useEffect } from "react";
 
-
 import { Divider, Typography } from "@mui/material";
 import PropertieContainer from "./UI-Elemente/PropertieContainer/PropertieContainer";
-import { TypeObjectProps } from "./ModelLoaders/SceneObject";
+import { TypeObjectProps } from "./3D-Objects/SceneModel";
 import ToolBar from "./UI-Elemente/ToolBar/ToolBar";
 
 export default function Main() {
@@ -29,7 +28,6 @@ export default function Main() {
       modelPath: "./ModelsFBX/mercedes.fbx",
     },
   ]);
-
 
   // beinhaltet alle Box-Geometrien (Wände, Boden, ...) die in der Scene vorhanden sind
   const [currentObjectProps, setMainCurrentObjectProps] =

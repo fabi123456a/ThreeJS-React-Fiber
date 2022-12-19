@@ -1,7 +1,7 @@
 import { Button, Divider, IconButton, Slider, Typography } from "@mui/material";
 import { Stack } from "@mui/system";
 import { useEffect, useState } from "react";
-import { TypeObjectProps } from "../../ModelLoaders/SceneObject";
+import { TypeObjectProps } from "../../3D-Objects/SceneModel";
 import ExpandIcon from "@mui/icons-material/Expand";
 import OpenWithIcon from "@mui/icons-material/OpenWith";
 import LockIcon from "@mui/icons-material/Lock";

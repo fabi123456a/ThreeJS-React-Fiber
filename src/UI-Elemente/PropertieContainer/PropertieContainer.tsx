@@ -1,6 +1,6 @@
 import { Button, Divider, Grid, Typography } from "@mui/material";
 import { Stack } from "@mui/system";
-import { TypeObjectProps } from "../../ModelLoaders/SceneObject";
+import { TypeObjectProps } from "../../3D-Objects/SceneModel";
 
 // https://mui.com/material-ui/react-typography/#main-content
 // links oben auf die 2 Striche klicken,
