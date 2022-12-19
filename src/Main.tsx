@@ -71,7 +71,9 @@ export default function Main() {
 
     setModels(models);
 
-    alert("ist ncoh ein bug drin");
+    alert(
+      "Ist noch ein bug drin. Wird erst gelöscht wenn ein anderes Objekt angeklickt wird."
+    );
   };
 
   const updateModels = (modelID: string, newModelData: any) => {
@@ -88,6 +90,8 @@ export default function Main() {
     if (!currentObjectProps) return;
     updateModels(currentObjectProps.id, currentObjectProps);
   }, [currentObjectProps]);
+
+  useEffect(() => {}, [models]);
 
   return (
     <Stack
