@@ -64,8 +64,8 @@ enum TypeEditMode {
 export type TypeObjectProps = {
   position: TypePosition;
   scale: TypeScale;
-  showTransformControlAxis: (axis: TypeScaleMode) => void;
-  setEditMode: (mode: "scale" | "translate" | "rotate" | undefined) => void;
+  editMode: "scale" | "translate" | "rotate" | undefined;
+  isScaleMode: boolean;
 };
 
 // --- Typen ENDE
@@ -76,6 +76,8 @@ function SceneObject(props: {
   pfadToFBX: string;
   position: TypePosition;
   scale: TypeScale;
+  editMode: "scale" | "translate" | "rotate" | undefined;
+  isScaleMode: boolean;
   setCurrentObjectProps: (props: TypeObjectProps) => void;
   onDrag?: () => void;
   onDragEnd?: () => void;
@@ -86,9 +88,9 @@ function SceneObject(props: {
   const refMesh = useRef<THREE.Mesh>(null);
 
   // useStates der Komponete SceneObject
-  const [editMode, setEditMode] = useState<
+  /* const [editMode, setEditMode] = useState<
     "scale" | "translate" | "rotate" | undefined
-  >("scale");
+  >("scale"); */
   const [showPivotAxis, setPivotAxis] = useState<TypeShowPivotAxis>({
     x: false,
     y: false,
@@ -122,7 +124,7 @@ function SceneObject(props: {
   const setTransformControlEditMode = (
     mode: "scale" | "translate" | "rotate" | undefined
   ) => {
-    setEditMode(mode);
+    //setEditMode(mode);
   };
 
   // ruft setCurrentObjProps von der Scene auf, also von dem übergeordnetem Objekt(=Scene) an
@@ -148,8 +150,8 @@ function SceneObject(props: {
         y: vektorScale.y,
         z: vektorScale.z,
       },
-      showTransformControlAxis: showTransformAxis,
-      setEditMode: setTransformControlEditMode,
+      editMode: props.editMode,
+      isScaleMode: props.isScaleMode ?? false,
     });
   };
 
@@ -173,10 +175,10 @@ function SceneObject(props: {
     <>
       <TransformControls
         ref={transform112}
-        mode={editMode}
-        showX={scaleMode.x}
-        showY={scaleMode.y}
-        showZ={scaleMode.z}
+        mode={props.editMode}
+        showX={props.isScaleMode ?? false}
+        showY={props.isScaleMode ?? false}
+        showZ={props.isScaleMode ?? false}
         position={
           new Vector3(props.position.x, props.position.y, props.position.z)
         }

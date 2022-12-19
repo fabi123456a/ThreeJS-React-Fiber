@@ -14,6 +14,7 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 // in objProps stehen die properties des currentObjects + funktionen wie z.B showPivotControlAxis
 function ToolBar(props: {
   objProps: TypeObjectProps;
+  setObjProps: Function;
   setFrontalView: () => void;
 }) {
   const checkIfAObjectIsSelected = (): boolean => {
@@ -35,11 +36,12 @@ function ToolBar(props: {
           }
 
           //props.objProps.showWireFrame();
-          props.objProps.setEditMode("translate");
-          props.objProps.showTransformControlAxis({
-            x: true,
-            y: true,
-            z: true,
+          props.setObjProps((prev: TypeObjectProps) => {
+            return {
+              ...prev,
+              editMode: "translate",
+              isScaleMode: true,
+            };
           });
         }}
       >
@@ -54,12 +56,12 @@ function ToolBar(props: {
             );
             return;
           }
-
-          props.objProps.setEditMode("scale");
-          props.objProps.showTransformControlAxis({
-            x: true,
-            y: true,
-            z: true,
+          props.setObjProps((prev: TypeObjectProps) => {
+            return {
+              ...prev,
+              editMode: "scale",
+              isScaleMode: true,
+            };
           });
         }}
       >
@@ -74,11 +76,11 @@ function ToolBar(props: {
             );
             return;
           }
-
-          props.objProps.showTransformControlAxis({
-            x: false,
-            y: false,
-            z: false,
+          props.setObjProps((prev: TypeObjectProps) => {
+            return {
+              ...prev,
+              isScaleMode: false,
+            };
           });
         }}
       >

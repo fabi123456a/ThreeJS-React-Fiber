@@ -29,10 +29,6 @@ export default function Main() {
     setModels([...models, pfad]);
   };
 
-  const handleBoxAdd = (geo: BoxGeometryValue) => {
-    setBoxGeos([...boxGeos, geo]);
-  };
-
   return (
     <Stack
       direction="row"
@@ -50,6 +46,7 @@ export default function Main() {
       >
         <ToolBar
           objProps={currentObjectProps}
+          setObjProps={setMainCurrentObjectProps}
           setFrontalView={() => {
             setFrontalView(!frontalView);
           }}
@@ -67,21 +64,6 @@ export default function Main() {
         objProps={currentObjectProps}
         setObjProps={setMainCurrentObjectProps}
       ></PropertieContainer>
-      {/* <ModelList
-        onAdd={handleModelAdd}
-        style={{}}
-        names={[
-          "/ModelsGLB/SheenChair.glb",
-          "/ModelsGLB/Avocado.glb",
-          "/ModelsGLB/Duck.glb",
-        ]}
-      ></ModelList>
-      <ObjectList
-        onAdd={handleBoxAdd}
-        style={{}}
-        boxGeometries={[{ positionXYZ: [0, 0, 0], scaleXYZ: [1, 1, 1] }]}
-      ></ObjectList>
-      <Typography></Typography> */}
     </Stack>
   );
 }
