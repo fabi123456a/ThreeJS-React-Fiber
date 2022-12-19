@@ -66,24 +66,22 @@ export type TypeObjectProps = {
   scale: TypeScale;
   editMode: "scale" | "translate" | "rotate" | undefined;
   isScaleMode: boolean;
+  modelPath: string;
 };
 
 // --- Typen ENDE
 
 // Scene Objekt Komponente
 
-function SceneObject(props: {
-  pfadToFBX: string;
-  position: TypePosition;
-  scale: TypeScale;
-  editMode: "scale" | "translate" | "rotate" | undefined;
-  isScaleMode: boolean;
-  setCurrentObjectProps: (props: TypeObjectProps) => void;
-  onDrag?: () => void;
-  onDragEnd?: () => void;
-}) {
+function SceneObject(
+  props: TypeObjectProps & {
+    setCurrentObjectProps: (props: TypeObjectProps) => void;
+    onDrag?: () => void;
+    onDragEnd?: () => void;
+  }
+) {
   // lädt das FBX-Model
-  const fbx: THREE.Group = useLoader(FBXLoader, props.pfadToFBX);
+  const fbx: THREE.Group = useLoader(FBXLoader, props.modelPath);
   // referenz auf das Mesh des FBX-Models
   const refMesh = useRef<THREE.Mesh>(null);
 
@@ -152,6 +150,7 @@ function SceneObject(props: {
       },
       editMode: props.editMode,
       isScaleMode: props.isScaleMode ?? false,
+      modelPath: props.modelPath,
     });
   };
 
