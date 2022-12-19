@@ -8,7 +8,7 @@ import ObjectList, {
 } from "./UI-Elemente/3DObjekt-Liste/ObjektListe";
 import { Divider, Typography } from "@mui/material";
 import PropertieContainer from "./UI-Elemente/PropertieContainer/PropertieContainer";
-import { TypeCurrentObjectProps } from "./ModelLoaders/SceneObject";
+import { TypeObjectProps } from "./ModelLoaders/SceneObject";
 import ToolBar from "./UI-Elemente/ToolBar/ToolBar";
 
 export default function Main() {
@@ -20,7 +20,7 @@ export default function Main() {
 
   // beinhaltet alle Box-Geometrien (Wände, Boden, ...) die in der Scene vorhanden sind
   const [currentObjectProps, setMainCurrentObjectProps] =
-    useState<TypeCurrentObjectProps>(null!);
+    useState<TypeObjectProps>(null!);
 
   // beinhaltet alle Box-Geometrien (Wände, Boden, ...) die in der Scene vorhanden sind
   const [frontalView, setFrontalView] = useState<boolean>(false);

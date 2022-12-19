@@ -61,7 +61,7 @@ enum TypeEditMode {
 
 // TODO: scale & rotierung hinzufügen
 // das ist quasi die schnittstelle zum currentObject
-export type TypeCurrentObjectProps = {
+export type TypeObjectProps = {
   position: TypePosition;
   scale: TypeScale;
   showTransformControlAxis: (axis: TypeScaleMode) => void;
@@ -76,7 +76,7 @@ function SceneObject(props: {
   pfadToFBX: string;
   position: TypePosition;
   scale: TypeScale;
-  setCurrentObjectProps: (props: TypeCurrentObjectProps) => void;
+  setCurrentObjectProps: (props: TypeObjectProps) => void;
   onDrag?: () => void;
   onDragEnd?: () => void;
 }) {
@@ -177,7 +177,9 @@ function SceneObject(props: {
         showX={scaleMode.x}
         showY={scaleMode.y}
         showZ={scaleMode.z}
-        position={new Vector3(props.position.x, props.position.y, props.position.z)}
+        position={
+          new Vector3(props.position.x, props.position.y, props.position.z)
+        }
         onMouseUp={(e) => {
           if (e) {
             //Checks if an event happened or if component just rerendered

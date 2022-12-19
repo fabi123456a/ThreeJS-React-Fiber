@@ -1,7 +1,7 @@
 import { Button, Divider, IconButton, Slider, Typography } from "@mui/material";
 import { Stack } from "@mui/system";
 import { useEffect, useState } from "react";
-import { TypeCurrentObjectProps } from "../../ModelLoaders/SceneObject";
+import { TypeObjectProps } from "../../ModelLoaders/SceneObject";
 import ExpandIcon from "@mui/icons-material/Expand";
 import OpenWithIcon from "@mui/icons-material/OpenWith";
 import LockIcon from "@mui/icons-material/Lock";
@@ -13,7 +13,7 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 
 // in objProps stehen die properties des currentObjects + funktionen wie z.B showPivotControlAxis
 function ToolBar(props: {
-  objProps: TypeCurrentObjectProps;
+  objProps: TypeObjectProps;
   setFrontalView: () => void;
 }) {
   const checkIfAObjectIsSelected = (): boolean => {

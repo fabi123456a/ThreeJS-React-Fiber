@@ -1,6 +1,6 @@
 import { Button, Divider, Grid, Typography } from "@mui/material";
 import { Stack } from "@mui/system";
-import { TypeCurrentObjectProps } from "../../ModelLoaders/SceneObject";
+import { TypeObjectProps } from "../../ModelLoaders/SceneObject";
 
 // https://mui.com/material-ui/react-typography/#main-content
 // links oben auf die 2 Striche klicken,
@@ -12,13 +12,13 @@ function PropertieContainer({
   setObjProps,
 }: {
   setObjProps: Function;
-  objProps: TypeCurrentObjectProps;
+  objProps: TypeObjectProps;
 }) {
   function handlePositionChange(position: string, value: number) {
     let newPosition: any = { ...objProps.position };
     newPosition[position] = value;
 
-    setObjProps((prev: TypeCurrentObjectProps) => {
+    setObjProps((prev: TypeObjectProps) => {
       return {
         ...prev,
         position: newPosition,
@@ -30,7 +30,7 @@ function PropertieContainer({
     let newScale: any = { ...objProps.scale };
     newScale[position] = value;
 
-    setObjProps((prev: TypeCurrentObjectProps) => {
+    setObjProps((prev: TypeObjectProps) => {
       return {
         ...prev,
         scale: newScale,
@@ -60,7 +60,9 @@ function PropertieContainer({
               style={{ width: "100%" }}
               value={objProps ? objProps.position.x : ""}
               step="0.01"
-              onChange={(e) => handlePositionChange("x", parseFloat(e.target.value) || 0)}
+              onChange={(e) =>
+                handlePositionChange("x", parseFloat(e.target.value) || 0)
+              }
             />
           </Grid>
           <Grid item xs={4}>
@@ -70,7 +72,9 @@ function PropertieContainer({
               style={{ width: "100%" }}
               value={objProps ? objProps.position.y : ""}
               step="0.01"
-              onChange={(e) => handlePositionChange("y", parseFloat(e.target.value) || 0)}
+              onChange={(e) =>
+                handlePositionChange("y", parseFloat(e.target.value) || 0)
+              }
             />
           </Grid>
           <Grid item xs={4}>
@@ -80,7 +84,9 @@ function PropertieContainer({
               style={{ width: "100%" }}
               value={objProps ? objProps.position.z : ""}
               step="0.01"
-              onChange={(e) => handlePositionChange("z", parseFloat(e.target.value) || 0)}
+              onChange={(e) =>
+                handlePositionChange("z", parseFloat(e.target.value) || 0)
+              }
             />
           </Grid>
         </Grid>
@@ -99,7 +105,9 @@ function PropertieContainer({
                 style={{ width: "100%" }}
                 value={objProps ? objProps.scale.x : ""}
                 step="0.01"
-                onChange={(e) => handleScaleChange("x", parseFloat(e.target.value) || 0)}
+                onChange={(e) =>
+                  handleScaleChange("x", parseFloat(e.target.value) || 0)
+                }
               />
             </Grid>
             <Grid item xs={4}>
@@ -109,7 +117,9 @@ function PropertieContainer({
                 style={{ width: "100%" }}
                 value={objProps ? objProps.scale.y : ""}
                 step="0.01"
-                onChange={(e) => handleScaleChange("y", parseFloat(e.target.value) || 0)}
+                onChange={(e) =>
+                  handleScaleChange("y", parseFloat(e.target.value) || 0)
+                }
               />
             </Grid>
             <Grid item xs={4}>
@@ -119,13 +129,15 @@ function PropertieContainer({
                 style={{ width: "100%" }}
                 value={objProps ? objProps.scale.z : ""}
                 step="0.01"
-                onChange={(e) => handleScaleChange("z", parseFloat(e.target.value) || 0)}
+                onChange={(e) =>
+                  handleScaleChange("z", parseFloat(e.target.value) || 0)
+                }
               />
             </Grid>
           </Grid>
         </Stack>
       </Stack>
-      
+
       <Button variant="outlined" onClick={() => {}}>
         Test Button
       </Button>

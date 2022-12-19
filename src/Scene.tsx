@@ -12,9 +12,7 @@ import {
 import { OrbitControls } from "@react-three/drei"; //https://drei.pmnd.rs/?path=/story/controls-mapcontrols--map-controls-scene-st
 import { BoxGeometryValue } from "./UI-Elemente/3DObjekt-Liste/ObjektListe";
 import ModelFBX from "./ModelLoaders/old/ModelFBX";
-import SceneObject, {
-  TypeCurrentObjectProps,
-} from "./ModelLoaders/SceneObject";
+import SceneObject, { TypeObjectProps } from "./ModelLoaders/SceneObject";
 import Room from "./UI-Elemente/3DObjekt-Liste/Room";
 
 const deg2rad = (degrees: number) => degrees * (Math.PI / 180);
@@ -22,8 +20,8 @@ const deg2rad = (degrees: number) => degrees * (Math.PI / 180);
 export default function Scene(props: {
   models: string[];
   objects: BoxGeometryValue[];
-  currentObjectProps: TypeCurrentObjectProps;
-  setMainCurrentObjectProps: (props: TypeCurrentObjectProps) => void;
+  currentObjectProps: TypeObjectProps;
+  setMainCurrentObjectProps: (props: TypeObjectProps) => void;
   frontalView: boolean;
 }) {
   // orbitControl wird deaktiviert wenn ein Objekt via pivotControl verschoben wird
@@ -68,7 +66,9 @@ export default function Scene(props: {
           setCurrentObjectProps={props.setMainCurrentObjectProps}
           pfadToFBX={"./ModelsFBX/mercedes.fbx"}
           position={props.currentObjectProps?.position || { x: 0, y: 0, z: 0 }}
-          scale={props.currentObjectProps?.scale || { x: 0.02, y: 0.02, z: 0.02 }}
+          scale={
+            props.currentObjectProps?.scale || { x: 0.02, y: 0.02, z: 0.02 }
+          }
         ></SceneObject>
         {/* <SceneObject
           setCurrentObjectProps={props.setMainCurrentObjectProps}
@@ -76,7 +76,7 @@ export default function Scene(props: {
           position={{ x: -1, y: 0, z: 0 }}
           scale={{ x: 0.01, y: 0.01, z: 0.01 }}
         ></SceneObject> */}
-        <Room height={3} width={7} depth={7}/>
+        <Room height={3} width={7} depth={7} />
         {/* Scene Movement */}
         {isOrbitControl ? <OrbitControls makeDefault /> : null}
       </Canvas>
