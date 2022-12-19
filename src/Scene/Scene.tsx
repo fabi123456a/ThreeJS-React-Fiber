@@ -13,6 +13,13 @@ import SceneModel, { TypeObjectProps } from "../3D-Objects/SceneModel";
 import Room from "../3D-Objects/Room";
 import { Camera } from "./Camera";
 
+type TypeCamPerspektive = {
+  topDown: boolean;
+  leftToMid: boolean;
+  rightToMid: boolean;
+  frontal: boolean;
+};
+
 const deg2rad = (degrees: number) => degrees * (Math.PI / 180);
 
 export default function Scene(props: {
@@ -20,6 +27,8 @@ export default function Scene(props: {
   currentObjectProps: TypeObjectProps;
   setMainCurrentObjectProps: (props: TypeObjectProps) => void;
   lockCamera: boolean;
+  ortho: boolean;
+  perspektive: string;
 }) {
   return (
     <>
@@ -27,7 +36,11 @@ export default function Scene(props: {
       {/* Canvas richtet eine Szene & Kamera ein */}
       <Canvas>
         {/* Kamera */}
-        <Camera lockCamera={props.lockCamera}></Camera>
+        <Camera
+          lockCamera={props.lockCamera}
+          orthogonal={props.ortho}
+          perspektive={props.perspektive}
+        ></Camera>
         {/* Licht */}
         <ambientLight />
         <pointLight position={[10, 10, 10]} />
