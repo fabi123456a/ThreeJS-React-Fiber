@@ -20,8 +20,7 @@ import { debug } from "console";
 import { Button } from "@mui/material";
 import { useGesture } from "react-use-gesture";
 
-// --- Typen ANFANG, TODO: alle Typen hier in eigene Datei auslagern
-
+// position des Objects
 export type TypePosition = {
   x: number;
   y: number;
@@ -35,32 +34,7 @@ export type TypeScale = {
   z: number;
 };
 
-// gibt an welche achse bei dem Transformcontrol aktiv ist
-export type TypeScaleMode = {
-  x: boolean;
-  y: boolean;
-  z: boolean;
-};
-
-type TypeShowPivotAxis = {
-  x: boolean;
-  y: boolean;
-  z: boolean;
-};
-
-type X = `${number}_${string}`;
-
-let x: X = "0_c";
-
-// TODO: wird noch nicht verwendet
-enum TypeEditMode {
-  translate = "translate", // verschieben
-  scale = "scale", // scalieren
-  rotation = "rotate", // rotieren
-}
-
-// TODO: scale & rotierung hinzufügen
-// das ist quasi die schnittstelle zum currentObject
+// schnittstelle zum currentObject
 export type TypeObjectProps = {
   id: string;
   position: TypePosition;
@@ -89,47 +63,7 @@ function SceneModel(
   // referenz auf das Mesh des FBX-Models
   const refMesh = useRef<THREE.Mesh>(null);
 
-  // useStates der Komponete SceneObject
-  /* const [editMode, setEditMode] = useState<
-    "scale" | "translate" | "rotate" | undefined
-  >("scale"); */
-  const [showPivotAxis, setPivotAxis] = useState<TypeShowPivotAxis>({
-    x: false,
-    y: false,
-    z: false,
-  });
-  const [scaleMode, setScaleMode] = useState<TypeScaleMode>({
-    x: false,
-    y: false,
-    z: false,
-  });
-
-  // zeigt x,y,z Achsen des PivotControls an, je nachdem was übergeben wird
-  const showPivotControlAxis = (axis: TypeShowPivotAxis) => {
-    setPivotAxis({
-      x: axis.x,
-      y: axis.y,
-      z: axis.z,
-    });
-  };
-
-  // zeigt x,y,z Achsen des TransformControls an, je nachdem was übergeben wird
-  const showTransformAxis = (axis: TypeScaleMode) => {
-    setScaleMode({
-      x: axis.x,
-      y: axis.y,
-      z: axis.z,
-    });
-  };
-
-  // zeigt x,y,z Achsen des TransformControls an, je nachdem was übergeben wird
-  const setTransformControlEditMode = (
-    mode: "scale" | "translate" | "rotate" | undefined
-  ) => {
-    //setEditMode(mode);
-  };
-
-  // ruft setCurrentObjProps von der Scene auf, also von dem übergeordnetem Objekt(=Scene) an
+  // function
   const sendCurrentObjectDataToControls = () => {
     // position des Objects als Vektor3
     let vectorPosition: Vector3 = new Vector3();
@@ -138,9 +72,6 @@ function SceneModel(
     // skalierung des Objects als Vektor3
     let vektorScale: Vector3 = new Vector3();
     refMesh.current?.getWorldScale(vektorScale);
-
-    // objekt {...} welches die Schnittstelle zu der SceneKmponente ist. Enthält Position...
-    // aber auch funktion die den Status ändern, z.B setScale, setPosition
 
     props.setCurrentObjectProps({
       id: props.id,
@@ -154,10 +85,10 @@ function SceneModel(
         y: vektorScale.y,
         z: vektorScale.z,
       },
-      editMode: undefined,
-      showXTransform: false,
-      showYTransform: false,
-      showZTransform: false,
+      editMode: props.editMode,
+      showXTransform: props.showXTransform,
+      showYTransform: props.showYTransform,
+      showZTransform: props.showZTransform,
       modelPath: props.modelPath,
     });
   };
@@ -168,13 +99,12 @@ function SceneModel(
     if (transform112.current) {
       const controls = transform112.current;
       const callback = () => {
-        //sendCurrentObjectDataToControls();
+        // sendCurrentObjectDataToControls();
         // console.log("dragged");
         alert("dragged");
       };
 
       controls.addEventListener("onPointerMove", callback);
-      //return () => controls.removeEventListener("dragging-changed", callback);
     }
   }, []);
 
@@ -194,16 +124,11 @@ function SceneModel(
             //Checks if an event happened or if component just rerendered
             sendCurrentObjectDataToControls();
           }
-          // https://codesandbox.io/s/r3f-drei-transformcontrols-hc8gm?file=/src/index.js
         }}
-        // TODO: position={}
-        // Transform control in center des Meshes/Objects positionieren
       >
         {/* FBX-Model  */}
         <primitive
           onClick={() => {
-            // TODO: Object markieren
-            // highlightObject();
             sendCurrentObjectDataToControls();
           }}
           ref={refMesh}

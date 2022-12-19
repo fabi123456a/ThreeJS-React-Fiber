@@ -34,11 +34,11 @@ export default function Main() {
     },
   ]);
 
-  // beinhaltet alle Box-Geometrien (Wände, Boden, ...) die in der Scene vorhanden sind
+  // currentObjectProps
   const [currentObjectProps, setMainCurrentObjectProps] =
     useState<TypeObjectProps>(null!);
 
-  // sperrt die camera rotation, wenn true dann geht nur noch verschieben
+  // sperrt die Kamera rotation, wenn true dann geht nur noch verschieben der Kamera
   const [lockCamera, setLockCamera] = useState<boolean>(false);
 
   const handleModelAdd = (pfad: string) => {
