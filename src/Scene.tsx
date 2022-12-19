@@ -18,7 +18,7 @@ import Room from "./UI-Elemente/3DObjekt-Liste/Room";
 const deg2rad = (degrees: number) => degrees * (Math.PI / 180);
 
 export default function Scene(props: {
-  models: string[];
+  models: TypeObjectProps[];
   objects: BoxGeometryValue[];
   currentObjectProps: TypeObjectProps;
   setMainCurrentObjectProps: (props: TypeObjectProps) => void;
@@ -43,14 +43,15 @@ export default function Scene(props: {
         {/* Licht */}
         <ambientLight />
         {/* Modelle die durch + Add eingfügt wurden  */}
-        {props.models.map((pfad) => (
-          <ModelGLB
-            scale={1}
-            pfad={pfad}
-            isDraggable={true}
-            onDrag={() => setIsOrbitControl(false)}
-            onDragEnd={() => setIsOrbitControl(true)}
-          ></ModelGLB>
+        {props.models.map((model) => (
+          <SceneObject
+            setCurrentObjectProps={props.setMainCurrentObjectProps}
+            editMode={model.editMode}
+            modelPath={model.modelPath}
+            isScaleMode={model.isScaleMode}
+            position={model.position}
+            scale={model.scale}
+          ></SceneObject>
         ))}
         {/* Objekte die durch + Add eingfügt wurden  */}
         {props.objects.map((geometrie: BoxGeometryValue) => (

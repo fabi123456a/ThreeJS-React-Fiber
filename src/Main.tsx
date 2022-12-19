@@ -13,7 +13,7 @@ import ToolBar from "./UI-Elemente/ToolBar/ToolBar";
 
 export default function Main() {
   // beinhaltet alle 3D-Modelle die in der Scene vorhanden sind
-  const [models, setModels] = useState<string[]>([]);
+  const [models, setModels] = useState<TypeObjectProps[]>([]);
 
   // beinhaltet alle Box-Geometrien (Wände, Boden, ...) die in der Scene vorhanden sind
   const [boxGeos, setBoxGeos] = useState<BoxGeometryValue[]>([]);
@@ -26,7 +26,16 @@ export default function Main() {
   const [frontalView, setFrontalView] = useState<boolean>(false);
 
   const handleModelAdd = (pfad: string) => {
-    setModels([...models, pfad]);
+    setModels([
+      ...models,
+      {
+        editMode: undefined,
+        isScaleMode: false,
+        modelPath: pfad,
+        position: { x: 0, y: 0, z: 0 },
+        scale: { x: 0.02, y: 0.02, z: 0.02 },
+      },
+    ]);
   };
 
   return (
