@@ -1,6 +1,6 @@
 import * as React from "react";
 import Stack from "@mui/material/Stack";
-import Scene from "./Scene";
+import Scene from "./Scene/Scene";
 import { useState, useEffect } from "react";
 
 import { Divider, Typography } from "@mui/material";

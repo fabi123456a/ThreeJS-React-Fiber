@@ -2,15 +2,15 @@ import * as THREE from "three";
 import * as React from "react";
 import { useRef, useState, useEffect } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import BoxGeometrie from "./3D-Objects/BoxGeometrie";
+import BoxGeometrie from "../3D-Objects/BoxGeometrie";
 import {
   PerspectiveCamera,
   OrthographicCamera,
   MapControls,
 } from "@react-three/drei";
 import { OrbitControls } from "@react-three/drei"; //https://drei.pmnd.rs/?path=/story/controls-mapcontrols--map-controls-scene-st
-import SceneModel, { TypeObjectProps } from "./3D-Objects/SceneModel";
-import Room from "./3D-Objects/Room";
+import SceneModel, { TypeObjectProps } from "../3D-Objects/SceneModel";
+import Room from "../3D-Objects/Room";
 import { Camera } from "./Camera";
 
 const deg2rad = (degrees: number) => degrees * (Math.PI / 180);
