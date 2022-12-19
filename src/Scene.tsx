@@ -22,24 +22,22 @@ export default function Scene(props: {
   objects: BoxGeometryValue[];
   currentObjectProps: TypeObjectProps;
   setMainCurrentObjectProps: (props: TypeObjectProps) => void;
-  frontalView: boolean;
+  lockCamera: boolean;
 }) {
-  // orbitControl wird deaktiviert wenn ein Objekt via pivotControl verschoben wird
-  // damit sich die Camera nicht mitdreht beim verschieben
+  // orbitControl wird deaktiviert wenn ein Objekt via TransformControl verschoben wird
+  // damit sich die Camera nicht mitdreht beim verschieben, wird das OrbitControl deaktiviert
   const [isOrbitControl, setIsOrbitControl] = useState<boolean>(true);
-
-  // TODO: Scale & rozierung hinzufügen
 
   return (
     <>
       {/* Canvas nimmt größe von parent container */}
       {/* Canvas richtet eine Szene & Kamera ein */}
-      <Canvas camera={props.frontalView ? { position: [0, 0, 6] } : {}}>
+      <Canvas>
         {/* Scene Movement */}
         {isOrbitControl ? (
           <OrbitControls
             makeDefault
-            enableRotate={props.frontalView ? false : true}
+            enableRotate={props.lockCamera ? false : true}
           />
         ) : null}
         {/* Licht */}

@@ -38,8 +38,8 @@ export default function Main() {
   const [currentObjectProps, setMainCurrentObjectProps] =
     useState<TypeObjectProps>(null!);
 
-  // beinhaltet alle Box-Geometrien (Wände, Boden, ...) die in der Scene vorhanden sind
-  const [frontalView, setFrontalView] = useState<boolean>(false);
+  // sperrt die camera rotation, wenn true dann geht nur noch verschieben
+  const [lockCamera, setLockCamera] = useState<boolean>(false);
 
   const handleModelAdd = (pfad: string) => {
     setModels([
@@ -88,8 +88,8 @@ export default function Main() {
         <ToolBar
           objProps={currentObjectProps}
           setObjProps={setMainCurrentObjectProps}
-          setFrontalView={() => {
-            setFrontalView(!frontalView);
+          setLockCamera={() => {
+            setLockCamera(!lockCamera);
           }}
         ></ToolBar>
         <Scene
@@ -97,7 +97,7 @@ export default function Main() {
           setMainCurrentObjectProps={setMainCurrentObjectProps}
           models={models}
           objects={boxGeos}
-          frontalView={frontalView}
+          lockCamera={lockCamera}
         ></Scene>
       </Stack>
 
