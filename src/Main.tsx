@@ -26,7 +26,7 @@ export default function Main() {
       scale: { x: 0.02, y: 0.02, z: 0.02 },
       editMode: undefined,
       isScaleMode: false,
-      modelPath: "./ModelsFBX/mercedes.fbx",
+      modelPath: "./ModelsFBX/sofa.fbx",
     },
   ]);
 
