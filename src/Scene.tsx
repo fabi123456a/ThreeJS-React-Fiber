@@ -11,6 +11,7 @@ import {
 import { OrbitControls } from "@react-three/drei"; //https://drei.pmnd.rs/?path=/story/controls-mapcontrols--map-controls-scene-st
 import SceneObject, { TypeObjectProps } from "./ModelLoaders/SceneObject";
 import Room from "./3D-Objects/Room";
+import { Camera } from "./Camera";
 
 const deg2rad = (degrees: number) => degrees * (Math.PI / 180);
 
@@ -26,12 +27,7 @@ export default function Scene(props: {
       {/* Canvas richtet eine Szene & Kamera ein */}
       <Canvas>
         {/* Scene Movement */}
-
-        <OrbitControls
-          makeDefault
-          enableRotate={props.lockCamera ? false : true}
-        />
-
+        <Camera lockCamera={props.lockCamera}></Camera>
         {/* Licht */}
         <ambientLight />
         {/* Modelle */}
