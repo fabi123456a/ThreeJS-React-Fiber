@@ -23,7 +23,7 @@ function ToolBar(props: {
     return true;
   };
 
-  const [camButtonColor, toggleColor] = useState<boolean>(false);
+  const [color, toggleColor] = useState<boolean>(true);
 
   return (
     <Stack direction={"row"}>
@@ -35,12 +35,7 @@ function ToolBar(props: {
               props.objProps.editMode == "translate" ? "primary" : undefined
             }
             onClick={() => {
-              if (!checkIfAObjectIsSelected()) {
-                alert(
-                  "Sie haben noch kein Objekt in der Scene ausgewählt. (Durch klicken auf das Objekt)"
-                );
-                return;
-              }
+              if (!checkIfAObjectIsSelected()) return;
 
               props.setObjProps((prev: TypeObjectProps) => {
                 return {
@@ -58,12 +53,8 @@ function ToolBar(props: {
           <IconButton
             color={props.objProps.editMode == "scale" ? "primary" : undefined}
             onClick={() => {
-              if (!checkIfAObjectIsSelected()) {
-                alert(
-                  "Sie haben noch kein Objekt in der Scene ausgewählt. (Durch klicken auf das Objekt)"
-                );
-                return;
-              }
+              if (!checkIfAObjectIsSelected()) return;
+
               props.setObjProps((prev: TypeObjectProps) => {
                 return {
                   ...prev,
@@ -80,12 +71,8 @@ function ToolBar(props: {
           <IconButton
             color={props.objProps.editMode == "rotate" ? "primary" : undefined}
             onClick={() => {
-              if (!checkIfAObjectIsSelected()) {
-                alert(
-                  "Sie haben noch kein Objekt in der Scene ausgewählt. (Durch klicken auf das Objekt)"
-                );
-                return;
-              }
+              if (!checkIfAObjectIsSelected()) return;
+
               props.setObjProps((prev: TypeObjectProps) => {
                 return {
                   ...prev,
@@ -102,16 +89,12 @@ function ToolBar(props: {
           <IconButton
             color={props.objProps.editMode == undefined ? "primary" : undefined}
             onClick={() => {
-              if (!checkIfAObjectIsSelected()) {
-                alert(
-                  "Sie haben noch kein Objekt in der Scene ausgewählt. (Durch klicken auf das Objekt)"
-                );
-                return;
-              }
+              if (!checkIfAObjectIsSelected()) return;
+
               props.setObjProps((prev: TypeObjectProps) => {
                 return {
                   ...prev,
-                  editMode: "undefined",
+                  editMode: undefined,
                   showXTransform: false,
                   showYTransform: false,
                   showZTransform: false,
@@ -129,9 +112,9 @@ function ToolBar(props: {
       <Divider orientation="vertical" flexItem />
       {/* sperrt die Kamera Rotation */}
       <IconButton
-        color={camButtonColor ? "primary" : "error"}
+        color={color ? "primary" : "error"}
         onClick={() => {
-          toggleColor(!camButtonColor);
+          toggleColor(!color);
           props.setLockCamera();
         }}
       >
