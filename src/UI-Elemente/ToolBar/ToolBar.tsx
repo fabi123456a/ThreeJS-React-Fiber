@@ -7,6 +7,7 @@ import OpenWithIcon from "@mui/icons-material/OpenWith";
 import LockIcon from "@mui/icons-material/Lock";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VideocamIcon from "@mui/icons-material/Videocam";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import ThreeSixtyIcon from "@mui/icons-material/ThreeSixty";
 
 // https://mui.com/material-ui/react-typography/#main-content
@@ -17,6 +18,7 @@ function ToolBar(props: {
   objProps: TypeObjectProps;
   setObjProps: Function;
   setLockCamera: () => void;
+  deleteObject: (id: string) => void;
 }) {
   const checkIfAObjectIsSelected = (): boolean => {
     if (!props.objProps) return false;
@@ -119,6 +121,19 @@ function ToolBar(props: {
         }}
       >
         <VideocamIcon></VideocamIcon>
+      </IconButton>
+      <Divider orientation="vertical" flexItem />
+      <IconButton
+        onClick={() => {
+          if (!checkIfAObjectIsSelected()) {
+            alert("Kein Objekt ausgewählt");
+            return;
+          }
+
+          props.deleteObject(props.objProps.id);
+        }}
+      >
+        <DeleteForeverIcon></DeleteForeverIcon>
       </IconButton>
     </Stack>
   );

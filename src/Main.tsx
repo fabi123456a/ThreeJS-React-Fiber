@@ -8,6 +8,7 @@ import PropertieContainer from "./UI-Elemente/PropertieContainer/PropertieContai
 import { TypeObjectProps } from "./3D-Objects/SceneModel";
 import ToolBar from "./UI-Elemente/ToolBar/ToolBar";
 import { ModelList } from "./UI-Elemente/ModelList/ModelList";
+import { PropaneSharp } from "@mui/icons-material";
 
 export default function Main() {
   // beinhaltet alle 3D-Modelle die in der Scene vorhanden sind
@@ -57,6 +58,22 @@ export default function Main() {
     ]);
   };
 
+  const handleModelDelete = (id: string) => {
+    let indexToDelete: number = -1;
+    models.forEach((prop: TypeObjectProps, index: number) => {
+      if (prop.id == id) {
+        indexToDelete = index;
+        return;
+      }
+    });
+
+    if (indexToDelete >= 0) delete models[indexToDelete];
+
+    setModels(models);
+
+    alert("ist ncoh ein bug drin");
+  };
+
   const updateModels = (modelID: string, newModelData: any) => {
     setModels((prev: TypeObjectProps[]) => [
       {
@@ -88,6 +105,7 @@ export default function Main() {
         divider={<Divider orientation="horizontal" flexItem />}
       >
         <ToolBar
+          deleteObject={handleModelDelete}
           objProps={currentObjectProps}
           setObjProps={setMainCurrentObjectProps}
           setLockCamera={() => {

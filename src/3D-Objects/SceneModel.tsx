@@ -19,6 +19,7 @@ import { Group, Vector3 } from "three";
 import { debug } from "console";
 import { Button } from "@mui/material";
 import { useGesture } from "react-use-gesture";
+import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 
 // position des Objects
 export type TypePosition = {

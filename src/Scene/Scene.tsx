@@ -48,7 +48,7 @@ export default function Scene(props: {
           ></SceneModel>
         ))}
         {/* Raum */}
-        <Room height={3} width={7} depth={7} />
+        <Room height={3} width={30} depth={30} />
         {/* Test set CurrentObject */}
         {/* <SceneObject
           id="1dasd.123213"

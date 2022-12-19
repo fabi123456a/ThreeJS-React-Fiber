@@ -24,13 +24,6 @@ function BoxGeometrie(props: {
   // ref auf das mesh der Box
   const ref = useRef<THREE.Mesh>(null);
 
-  // ref zum pivotcontrol
-  const pivot = useRef<Group>(null);
-
-  // flags zum editieren
-  const [isScaleMode, setIsScaleMode] = useState<boolean>();
-  const [isTranslateMode, setIsTranslateMode] = useState<boolean>();
-
   return (
     <>
       <mesh
