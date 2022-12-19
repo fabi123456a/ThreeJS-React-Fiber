@@ -2,10 +2,8 @@ import * as React from "react";
 import Stack from "@mui/material/Stack";
 import Scene from "./Scene";
 import { useState, useEffect } from "react";
-import ModelList from "./UI-Elemente/3DModell-Liste/ModelListe";
-import ObjectList, {
-  BoxGeometryValue,
-} from "./UI-Elemente/3DObjekt-Liste/ObjektListe";
+
+
 import { Divider, Typography } from "@mui/material";
 import PropertieContainer from "./UI-Elemente/PropertieContainer/PropertieContainer";
 import { TypeObjectProps } from "./ModelLoaders/SceneObject";
@@ -31,8 +29,7 @@ export default function Main() {
       modelPath: "./ModelsFBX/mercedes.fbx",
     },
   ]);
-  // beinhaltet alle Box-Geometrien (Wände, Boden, ...) die in der Scene vorhanden sind
-  const [boxGeos, setBoxGeos] = useState<BoxGeometryValue[]>([]);
+
 
   // beinhaltet alle Box-Geometrien (Wände, Boden, ...) die in der Scene vorhanden sind
   const [currentObjectProps, setMainCurrentObjectProps] =
@@ -96,7 +93,6 @@ export default function Main() {
           currentObjectProps={currentObjectProps}
           setMainCurrentObjectProps={setMainCurrentObjectProps}
           models={models}
-          objects={boxGeos}
           lockCamera={lockCamera}
         ></Scene>
       </Stack>

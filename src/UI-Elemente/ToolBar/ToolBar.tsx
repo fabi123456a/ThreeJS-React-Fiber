@@ -6,6 +6,7 @@ import ExpandIcon from "@mui/icons-material/Expand";
 import OpenWithIcon from "@mui/icons-material/OpenWith";
 import LockIcon from "@mui/icons-material/Lock";
 import VisibilityIcon from "@mui/icons-material/Visibility";
+import VideocamIcon from "@mui/icons-material/Videocam";
 
 // https://mui.com/material-ui/react-typography/#main-content
 // links oben auf die 2 Striche klicken,
@@ -88,7 +89,7 @@ function ToolBar(props: {
           props.setLockCamera();
         }}
       >
-        <VisibilityIcon></VisibilityIcon>
+        <VideocamIcon></VideocamIcon>
       </IconButton>
     </Stack>
   );

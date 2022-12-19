@@ -2,7 +2,6 @@ import * as THREE from "three";
 import * as React from "react";
 import { useRef, useState, useEffect } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import ModelGLB from "./ModelLoaders/old/ModelGLB";
 import BoxGeometrie from "./3D-Objects/BoxGeometrie";
 import {
   PerspectiveCamera,
@@ -10,39 +9,32 @@ import {
   MapControls,
 } from "@react-three/drei";
 import { OrbitControls } from "@react-three/drei"; //https://drei.pmnd.rs/?path=/story/controls-mapcontrols--map-controls-scene-st
-import { BoxGeometryValue } from "./UI-Elemente/3DObjekt-Liste/ObjektListe";
-import ModelFBX from "./ModelLoaders/old/ModelFBX";
 import SceneObject, { TypeObjectProps } from "./ModelLoaders/SceneObject";
-import Room from "./UI-Elemente/3DObjekt-Liste/Room";
+import Room from "./3D-Objects/Room";
 
 const deg2rad = (degrees: number) => degrees * (Math.PI / 180);
 
 export default function Scene(props: {
   models: TypeObjectProps[];
-  objects: BoxGeometryValue[];
   currentObjectProps: TypeObjectProps;
   setMainCurrentObjectProps: (props: TypeObjectProps) => void;
   lockCamera: boolean;
 }) {
-  // orbitControl wird deaktiviert wenn ein Objekt via TransformControl verschoben wird
-  // damit sich die Camera nicht mitdreht beim verschieben, wird das OrbitControl deaktiviert
-  const [isOrbitControl, setIsOrbitControl] = useState<boolean>(true);
-
   return (
     <>
       {/* Canvas nimmt größe von parent container */}
       {/* Canvas richtet eine Szene & Kamera ein */}
       <Canvas>
         {/* Scene Movement */}
-        {isOrbitControl ? (
-          <OrbitControls
-            makeDefault
-            enableRotate={props.lockCamera ? false : true}
-          />
-        ) : null}
+
+        <OrbitControls
+          makeDefault
+          enableRotate={props.lockCamera ? false : true}
+        />
+
         {/* Licht */}
         <ambientLight />
-        {/* Modelle die durch + Add eingfügt wurden  */}
+        {/* Modelle */}
         {props.models.map((model) => (
           <SceneObject
             key={model.id}
@@ -56,15 +48,8 @@ export default function Scene(props: {
             scale={model.scale}
           ></SceneObject>
         ))}
-        {/* Objekte die durch + Add eingfügt wurden  */}
-        {props.objects.map((geometrie: BoxGeometryValue) => (
-          <BoxGeometrie
-            geometrie={geometrie}
-            editable={true}
-            onDrag={() => setIsOrbitControl(false)}
-            onDragEnd={() => setIsOrbitControl(true)}
-          ></BoxGeometrie>
-        ))}
+        {/* Raum */}
+        <Room height={3} width={7} depth={7} />
         {/* Test set CurrentObject */}
         {/* <SceneObject
           id="1dasd.123213"
@@ -81,7 +66,6 @@ export default function Scene(props: {
           position={{ x: -1, y: 0, z: 0 }}
           scale={{ x: 0.01, y: 0.01, z: 0.01 }}
         ></SceneObject> */}
-        <Room height={3} width={7} depth={7} />
       </Canvas>
     </>
   );
