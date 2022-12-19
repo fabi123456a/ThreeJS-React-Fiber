@@ -39,7 +39,9 @@ export default function Scene(props: {
             setCurrentObjectProps={props.setMainCurrentObjectProps}
             editMode={model.editMode}
             modelPath={model.modelPath}
-            isScaleMode={model.isScaleMode}
+            showXTransform={model.showXTransform}
+            showYTransform={model.showYTransform}
+            showZTransform={model.showZTransform}
             position={model.position}
             scale={model.scale}
           ></SceneModel>

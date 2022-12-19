@@ -17,7 +17,9 @@ export default function Main() {
       position: { x: 0, y: 0, z: 0 },
       scale: { x: 0.02, y: 0.02, z: 0.02 },
       editMode: undefined,
-      isScaleMode: false,
+      showXTransform: false,
+      showYTransform: false,
+      showZTransform: false,
       modelPath: "./ModelsFBX/mercedes.fbx",
     },
     {
@@ -25,7 +27,9 @@ export default function Main() {
       position: { x: -2, y: 0, z: 0 },
       scale: { x: 0.02, y: 0.02, z: 0.02 },
       editMode: undefined,
-      isScaleMode: false,
+      showXTransform: false,
+      showYTransform: false,
+      showZTransform: false,
       modelPath: "./ModelsFBX/sofa.fbx",
     },
   ]);
@@ -43,7 +47,9 @@ export default function Main() {
       {
         id: "" + Math.random() * 1000,
         editMode: undefined,
-        isScaleMode: false,
+        showXTransform: false,
+        showYTransform: false,
+        showZTransform: false,
         modelPath: pfad,
         position: { x: 0, y: 0, z: 0 },
         scale: { x: 0.02, y: 0.02, z: 0.02 },

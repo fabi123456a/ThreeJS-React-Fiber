@@ -66,7 +66,9 @@ export type TypeObjectProps = {
   position: TypePosition;
   scale: TypeScale;
   editMode: "scale" | "translate" | "rotate" | undefined;
-  isScaleMode: boolean;
+  showXTransform: boolean;
+  showYTransform: boolean;
+  showZTransform: boolean;
   modelPath: string;
 };
 
@@ -152,8 +154,10 @@ function SceneModel(
         y: vektorScale.y,
         z: vektorScale.z,
       },
-      editMode: props.editMode,
-      isScaleMode: props.isScaleMode ?? false,
+      editMode: undefined,
+      showXTransform: false,
+      showYTransform: false,
+      showZTransform: false,
       modelPath: props.modelPath,
     });
   };
@@ -178,10 +182,10 @@ function SceneModel(
     <>
       <TransformControls
         ref={transform112}
-        mode={(props.isSelected && props.editMode) || "translate"}
-        showX={(props.isSelected && props.isScaleMode) || false}
-        showY={(props.isSelected && props.isScaleMode) || false}
-        showZ={(props.isSelected && props.isScaleMode) || false}
+        mode={props.editMode}
+        showX={props.showXTransform}
+        showY={props.showYTransform}
+        showZ={props.showZTransform}
         position={
           new Vector3(props.position.x, props.position.y, props.position.z)
         }

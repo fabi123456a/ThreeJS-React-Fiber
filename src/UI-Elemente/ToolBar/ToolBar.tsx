@@ -7,6 +7,7 @@ import OpenWithIcon from "@mui/icons-material/OpenWith";
 import LockIcon from "@mui/icons-material/Lock";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VideocamIcon from "@mui/icons-material/Videocam";
+import ThreeSixtyIcon from "@mui/icons-material/ThreeSixty";
 
 // https://mui.com/material-ui/react-typography/#main-content
 // links oben auf die 2 Striche klicken,
@@ -38,7 +39,9 @@ function ToolBar(props: {
             return {
               ...prev,
               editMode: "translate",
-              isScaleMode: true,
+              showXTransform: true,
+              showYTransform: true,
+              showZTransform: true,
             };
           });
         }}
@@ -57,7 +60,9 @@ function ToolBar(props: {
             return {
               ...prev,
               editMode: "scale",
-              isScaleMode: true,
+              showXTransform: true,
+              showYTransform: true,
+              showZTransform: true,
             };
           });
         }}
@@ -75,7 +80,31 @@ function ToolBar(props: {
           props.setObjProps((prev: TypeObjectProps) => {
             return {
               ...prev,
-              isScaleMode: false,
+              editMode: "rotate",
+              showXTransform: true,
+              showYTransform: true,
+              showZTransform: true,
+            };
+          });
+        }}
+      >
+        <ThreeSixtyIcon></ThreeSixtyIcon>
+      </IconButton>
+      <IconButton
+        onClick={() => {
+          if (!checkIfAObjectIsSelected()) {
+            alert(
+              "Sie haben noch kein Objekt in der Scene ausgewählt. (Durch klicken auf das Objekt)"
+            );
+            return;
+          }
+          props.setObjProps((prev: TypeObjectProps) => {
+            return {
+              ...prev,
+              editMode: "scale", // muss gesetzt werden sons kann man die achsen nicht deaktivieren
+              showXTransform: false,
+              showYTransform: false,
+              showZTransform: false,
             };
           });
         }}
