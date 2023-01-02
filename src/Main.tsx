@@ -95,6 +95,7 @@ export default function Main() {
 
     if (prevObjectProps.current != null) {
       prevObjectProps.current.removeBoundingBox();
+      // TODO: bei currentObject wechsel transform-Achsen ausblenden, nur die transform achsen des currentObject sollen angezeigt werden
       prevObjectProps.current.editMode = undefined;
       prevObjectProps.current.showXTransform = false;
       prevObjectProps.current.showYTransform = false;
