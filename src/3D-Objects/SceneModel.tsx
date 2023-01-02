@@ -74,37 +74,34 @@ function SceneModel(
       showYTransform: props.showYTransform,
       showZTransform: props.showZTransform,
       modelPath: props.modelPath,
-      removeBoundingBox: () => rBox(),
+      removeBoundingBox: () => removeBoundingBox(),
     });
   };
 
   const box = useRef<BoxHelper>(new BoxHelper(fbx, 0xff0000));
   const isBoxInserted = useRef<boolean>(false);
 
-  const showBox = () => {
+  const insertBoundingBox = () => {
     if (!isBoxInserted.current) {
-      // Berechne die Bounding Box des Models
       box.current.geometry.computeBoundingBox();
-
-      // Erstelle ein rotes LineBasicMaterial für den Rahmen
       const material = new LineBasicMaterial({ color: 0xff0000 });
-
-      // Setze das Material für den BoxHelper
       box.current.material = material;
-
-      // Füge den BoxHelper als Kind des Models hinzu
       fbx.add(box.current);
 
       isBoxInserted.current = true;
     }
   };
 
-  const rBox = () => {
-    if (isBoxInserted) {
-      fbx.remove(box.current);
-      isBoxInserted.current = false;
-    }
+  const removeBoundingBox = () => {
+    fbx.remove(box.current);
+    isBoxInserted.current = false;
   };
+
+  useEffect(() => {
+    if (props.isSelected) {
+      insertBoundingBox();
+    }
+  });
 
   return (
     <>
@@ -136,10 +133,10 @@ function SceneModel(
           <primitive
             onClick={() => {
               sendCurrentObjectDataToControls();
-              showBox();
+              insertBoundingBox();
             }}
             onDoubleClick={() => {
-              rBox();
+              removeBoundingBox();
             }}
             ref={refMesh}
             object={fbx.clone(true)}

@@ -42,9 +42,6 @@ export default function Main() {
   const [currentObjectProps, setMainCurrentObjectProps] =
     useState<TypeObjectProps>(null!);
 
-  // sperrt die Kamera rotation, wenn true dann geht nur noch verschieben der Kamera
-  const [lockCamera, setLockCamera] = useState<boolean>(false);
-
   const handleModelAdd = (pfad: string) => {
     setModels([
       ...models,
@@ -96,8 +93,13 @@ export default function Main() {
     if (!currentObjectProps) return;
     updateModels(currentObjectProps.id, currentObjectProps);
 
-    if (prevObjectProps.current != null)
+    if (prevObjectProps.current != null) {
       prevObjectProps.current.removeBoundingBox();
+      prevObjectProps.current.editMode = undefined;
+      prevObjectProps.current.showXTransform = false;
+      prevObjectProps.current.showYTransform = false;
+      prevObjectProps.current.showZTransform = false;
+    }
 
     prevObjectProps.current = currentObjectProps;
   }, [currentObjectProps]);
@@ -128,7 +130,7 @@ export default function Main() {
           deleteObject={handleModelDelete}
           objProps={currentObjectProps}
           setObjProps={setMainCurrentObjectProps}
-          setLockCamera={setLockCamera}
+          setLockCamera={setLockCam}
           lockCam={lockCam}
         ></ToolBar>
         <Scene
