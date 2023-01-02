@@ -1,9 +1,10 @@
-import { useRef } from "react";
-import { TransformControls } from "@react-three/drei";
+import { useEffect, useRef, useState } from "react";
+import { Edges, TransformControls } from "@react-three/drei";
 import { useLoader } from "@react-three/fiber";
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader";
 import * as THREE from "three";
-import { Vector3 } from "three";
+import { BoxHelper, LineBasicMaterial, Vector3 } from "three";
+import { defaultListboxReducer } from "@mui/base";
 
 // position des Objects
 export type TypePosition = {
@@ -29,6 +30,7 @@ export type TypeObjectProps = {
   showYTransform: boolean;
   showZTransform: boolean;
   modelPath: string;
+  removeBoundingBox: () => void;
 };
 
 // KOMPONENTE
@@ -72,7 +74,36 @@ function SceneModel(
       showYTransform: props.showYTransform,
       showZTransform: props.showZTransform,
       modelPath: props.modelPath,
+      removeBoundingBox: () => rBox(),
     });
+  };
+
+  const box = useRef<BoxHelper>(new BoxHelper(fbx, 0xff0000));
+  const isBoxInserted = useRef<boolean>(false);
+
+  const showBox = () => {
+    if (!isBoxInserted.current) {
+      // Berechne die Bounding Box des Models
+      box.current.geometry.computeBoundingBox();
+
+      // Erstelle ein rotes LineBasicMaterial für den Rahmen
+      const material = new LineBasicMaterial({ color: 0xff0000 });
+
+      // Setze das Material für den BoxHelper
+      box.current.material = material;
+
+      // Füge den BoxHelper als Kind des Models hinzu
+      fbx.add(box.current);
+
+      isBoxInserted.current = true;
+    }
+  };
+
+  const rBox = () => {
+    if (isBoxInserted) {
+      fbx.remove(box.current);
+      isBoxInserted.current = false;
+    }
   };
 
   return (
@@ -101,16 +132,20 @@ function SceneModel(
           }
         }}
       >
-        {/* FBX-Model  */}
-        <primitive
-          onCreate={() => alert("creat")}
-          onClick={() => {
-            sendCurrentObjectDataToControls();
-          }}
-          ref={refMesh}
-          object={fbx.clone(true)}
-          scale={[props.scale.x, props.scale.y, props.scale.z]}
-        ></primitive>
+        <group>
+          <primitive
+            onClick={() => {
+              sendCurrentObjectDataToControls();
+              showBox();
+            }}
+            onDoubleClick={() => {
+              rBox();
+            }}
+            ref={refMesh}
+            object={fbx.clone(true)}
+            scale={[props.scale.x, props.scale.y, props.scale.z]}
+          ></primitive>
+        </group>
       </TransformControls>
     </>
   );

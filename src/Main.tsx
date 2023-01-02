@@ -1,7 +1,7 @@
 import * as React from "react";
 import Stack from "@mui/material/Stack";
 import Scene from "./Scene/Scene";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 import { Divider, Typography } from "@mui/material";
 import PropertieContainer from "./UI-Elemente/PropertieContainer/PropertieContainer";
@@ -22,7 +22,8 @@ export default function Main() {
       showXTransform: false,
       showYTransform: false,
       showZTransform: false,
-      modelPath: "./ModelsFBX/mercedes.fbx",
+      modelPath: "./ModelsFBX/car.fbx",
+      removeBoundingBox: () => {},
     },
     {
       id: "123567",
@@ -33,6 +34,7 @@ export default function Main() {
       showYTransform: false,
       showZTransform: false,
       modelPath: "./ModelsFBX/sofa.fbx",
+      removeBoundingBox: () => {},
     },
   ]);
 
@@ -55,6 +57,7 @@ export default function Main() {
         modelPath: pfad,
         position: { x: 0, y: 0, z: 0 },
         scale: { x: 0.02, y: 0.02, z: 0.02 },
+        removeBoundingBox: () => {},
       },
     ]);
   };
@@ -87,9 +90,16 @@ export default function Main() {
     ]);
   };
 
+  const prevObjectProps = useRef(currentObjectProps);
+
   useEffect(() => {
     if (!currentObjectProps) return;
     updateModels(currentObjectProps.id, currentObjectProps);
+
+    if (prevObjectProps.current != null)
+      prevObjectProps.current.removeBoundingBox();
+
+    prevObjectProps.current = currentObjectProps;
   }, [currentObjectProps]);
 
   // cam
@@ -141,14 +151,13 @@ export default function Main() {
             "./ModelsFBX/tableandchairs.fbx",
           ]}
         ></ModelList>
+        <p>Kamera locked? {lockCam ? "true" : "false"}</p>
       </Stack>
 
       <PropertieContainer
         objProps={currentObjectProps}
         setObjProps={setMainCurrentObjectProps}
       ></PropertieContainer>
-
-      <p>{lockCam ? "true" : "false"}</p>
     </Stack>
   );
 }
