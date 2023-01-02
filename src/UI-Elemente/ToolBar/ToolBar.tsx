@@ -156,7 +156,7 @@ function ToolBar(props: {
         >
           <FormControlLabel
             // TODO:  {ortho ? checked : null}
-            value={0}
+            value={"0"}
             control={<Radio />}
             label="Normal"
           />

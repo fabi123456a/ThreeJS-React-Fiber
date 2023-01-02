@@ -1,25 +1,9 @@
-import {
-  MutableRefObject,
-  Ref,
-  RefObject,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
-import {
-  Edges,
-  Html,
-  PivotControls,
-  TransformControls,
-} from "@react-three/drei";
+import { useRef } from "react";
+import { TransformControls } from "@react-three/drei";
 import { useLoader } from "@react-three/fiber";
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader";
 import * as THREE from "three";
-import { Group, Vector3 } from "three";
-import { debug } from "console";
-import { Button } from "@mui/material";
-import { useGesture } from "react-use-gesture";
-import HighlightOffIcon from "@mui/icons-material/HighlightOff";
+import { Vector3 } from "three";
 
 // position des Objects
 export type TypePosition = {
@@ -47,16 +31,13 @@ export type TypeObjectProps = {
   modelPath: string;
 };
 
-// --- Typen ENDE
-
-// Scene Objekt Komponente
+// KOMPONENTE
 
 function SceneModel(
   props: TypeObjectProps & {
     isSelected: boolean;
     setCurrentObjectProps: (props: TypeObjectProps) => void;
-    onDrag?: () => void;
-    onDragEnd?: () => void;
+    setLockCameraRototion: (flag: boolean) => void;
   }
 ) {
   // lädt das FBX-Model
@@ -94,25 +75,9 @@ function SceneModel(
     });
   };
 
-  const transform112 = useRef<any>();
-
-  useEffect(() => {
-    if (transform112.current) {
-      const controls = transform112.current;
-      const callback = () => {
-        // sendCurrentObjectDataToControls();
-        // console.log("dragged");
-        alert("dragged");
-      };
-
-      controls.addEventListener("onPointerMove", callback);
-    }
-  }, []);
-
   return (
     <>
       <TransformControls
-        ref={transform112}
         mode={props.editMode ? props.editMode : "scale"}
         showX={props.showXTransform}
         showY={props.showYTransform}
@@ -124,6 +89,21 @@ function SceneModel(
           if (e) {
             //Checks if an event happened or if component just rerendered
             sendCurrentObjectDataToControls();
+            console.log("Kamerarotation frei");
+            props.setLockCameraRototion(false);
+          }
+        }}
+        onMouseDown={(e) => {
+          if (e) {
+            //Checks if an event happened or if component just rerendered
+            console.log("Kamerarotation gesperrt");
+            props.setLockCameraRototion(true);
+          }
+        }}
+        onChange={(e) => {
+          if (e) {
+            //Checks if an event happened or if component just rerendered
+            console.log("change");
           }
         }}
       >

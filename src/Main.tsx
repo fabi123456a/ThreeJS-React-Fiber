@@ -127,7 +127,8 @@ export default function Main() {
           currentObjectProps={currentObjectProps}
           setMainCurrentObjectProps={setMainCurrentObjectProps}
           models={models}
-          lockCamera={lockCamera}
+          lockCamera={lockCam}
+          setLockCamRotation={setLockCam}
         ></Scene>
         <ModelList
           addObject={handleModelAdd}
@@ -146,6 +147,8 @@ export default function Main() {
         objProps={currentObjectProps}
         setObjProps={setMainCurrentObjectProps}
       ></PropertieContainer>
+
+      <p>{lockCam ? "true" : "false"}</p>
     </Stack>
   );
 }

@@ -25,10 +25,11 @@ const deg2rad = (degrees: number) => degrees * (Math.PI / 180);
 export default function Scene(props: {
   models: TypeObjectProps[];
   currentObjectProps: TypeObjectProps;
-  setMainCurrentObjectProps: (props: TypeObjectProps) => void;
   lockCamera: boolean;
   ortho: boolean;
   perspektive: string;
+  setMainCurrentObjectProps: (props: TypeObjectProps) => void;
+  setLockCamRotation: (flag: boolean) => void;
 }) {
   return (
     <>
@@ -58,6 +59,7 @@ export default function Scene(props: {
             showZTransform={model.showZTransform}
             position={model.position}
             scale={model.scale}
+            setLockCameraRototion={props.setLockCamRotation}
           ></SceneModel>
         ))}
         {/* Raum */}
