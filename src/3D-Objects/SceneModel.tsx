@@ -86,24 +86,18 @@ function SceneModel(
           new Vector3(props.position.x, props.position.y, props.position.z)
         }
         onMouseUp={(e) => {
+          //Checks if an event happened or if component just rerendered
           if (e) {
-            //Checks if an event happened or if component just rerendered
             sendCurrentObjectDataToControls();
             console.log("Kamerarotation frei");
             props.setLockCameraRototion(false);
           }
         }}
         onMouseDown={(e) => {
+          //Checks if an event happened or if component just rerendered
           if (e) {
-            //Checks if an event happened or if component just rerendered
-            console.log("Kamerarotation gesperrt");
+            console.log("Kamerarotation sperren");
             props.setLockCameraRototion(true);
-          }
-        }}
-        onChange={(e) => {
-          if (e) {
-            //Checks if an event happened or if component just rerendered
-            console.log("change");
           }
         }}
       >
