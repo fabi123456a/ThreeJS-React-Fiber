@@ -95,11 +95,6 @@ export default function Main() {
 
     if (prevObjectProps.current != null) {
       prevObjectProps.current.removeBoundingBox();
-      // TODO: bei currentObject wechsel transform-Achsen ausblenden, nur die transform achsen des currentObject sollen angezeigt werden
-      prevObjectProps.current.editMode = undefined;
-      prevObjectProps.current.showXTransform = false;
-      prevObjectProps.current.showYTransform = false;
-      prevObjectProps.current.showZTransform = false;
     }
 
     prevObjectProps.current = currentObjectProps;
@@ -107,7 +102,7 @@ export default function Main() {
 
   // cam
   const [ortho, setOrtho] = useState<boolean>(false);
-  const [perspective, setPerspective] = useState<string>("1");
+  const [perspective, setPerspective] = useState<string>("0");
   const [lockCam, setLockCam] = useState<boolean>(false);
 
   return (

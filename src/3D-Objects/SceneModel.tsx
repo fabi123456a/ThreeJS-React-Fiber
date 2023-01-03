@@ -38,6 +38,7 @@ export type TypeObjectProps = {
 function SceneModel(
   props: TypeObjectProps & {
     isSelected: boolean;
+    camPerspektive: string;
     setCurrentObjectProps: (props: TypeObjectProps) => void;
     setLockCameraRototion: (flag: boolean) => void;
   }
@@ -118,7 +119,11 @@ function SceneModel(
           if (e) {
             sendCurrentObjectDataToControls();
             console.log("Kamerarotation frei");
-            props.setLockCameraRototion(false);
+
+            if (props.camPerspektive == "0") {
+              //alert(props.camPerspektive);
+              props.setLockCameraRototion(false);
+            }
           }
         }}
         onMouseDown={(e) => {
@@ -126,6 +131,12 @@ function SceneModel(
           if (e) {
             console.log("Kamerarotation sperren");
             props.setLockCameraRototion(true);
+          }
+        }}
+        onClick={(e) => {
+          if (e) {
+            sendCurrentObjectDataToControls();
+            insertBoundingBox();
           }
         }}
       >

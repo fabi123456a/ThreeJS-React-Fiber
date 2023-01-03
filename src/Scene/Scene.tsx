@@ -61,6 +61,7 @@ export default function Scene(props: {
             scale={model.scale}
             setLockCameraRototion={props.setLockCamRotation}
             removeBoundingBox={model.removeBoundingBox}
+            camPerspektive={props.perspektive}
           ></SceneModel>
         ))}
         {/* Raum */}

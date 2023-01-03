@@ -137,6 +137,7 @@ function ToolBar(props: {
             } else {
               props.setOrtho(false);
               props.setLockCamera(false);
+              props.setPerspective(v);
             }
             switch (v) {
               case "1":
