@@ -146,7 +146,6 @@ export default function Main() {
             "./ModelsFBX/tableandchairs.fbx",
           ]}
         ></ModelList>
-        <p>Kamera locked? {lockCam ? "true" : "false"}</p>
       </Stack>
 
       <PropertieContainer
