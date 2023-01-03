@@ -1,5 +1,4 @@
 import {
-  Button,
   Divider,
   FormControl,
   FormControlLabel,
@@ -7,34 +6,30 @@ import {
   IconButton,
   Radio,
   RadioGroup,
-  Slider,
   Typography,
 } from "@mui/material";
 import { Stack } from "@mui/system";
-import { useEffect, useState } from "react";
 import { TypeObjectProps } from "../../3D-Objects/SceneModel";
 import ExpandIcon from "@mui/icons-material/Expand";
 import OpenWithIcon from "@mui/icons-material/OpenWith";
 import LockIcon from "@mui/icons-material/Lock";
-import VisibilityIcon from "@mui/icons-material/Visibility";
-import VideocamIcon from "@mui/icons-material/Videocam";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import ThreeSixtyIcon from "@mui/icons-material/ThreeSixty";
-import { TypeCamPerspektive } from "../../Scene/Camera";
-
-// https://mui.com/material-ui/react-typography/#main-content
-// links oben auf die 2 Striche klicken,
-// dann sieht man alle Komponenten, mit beispielen, von MUI die man verwenden kann
+import { useState } from "react";
 
 function ToolBar(props: {
-  objProps: TypeObjectProps;
+  objProps: TypeObjectProps; // ist gleich die currentObjectProps
   setObjProps: Function;
-  lockCam: boolean;
-  setLockCamera: (flag: boolean) => void;
-  deleteObject: (id: string) => void;
-  setOrtho: (flag: boolean) => void;
-  setPerspective: (perspective: string) => void;
+  lockCam: boolean; // boolean ob die Kamera rotation gepserrt ist oder nicht
+  setLockCamera: (flag: boolean) => void; // funktion um Kamera rotation zu sperren
+  deleteObject: (id: string) => void; // funktion um ein Object/Model aus der Szene zu entfernen
+  setOrtho: (flag: boolean) => void; // funktion die ein boolean setzt, ob gerade ein Orthografische Kamera aktiv ist
+  setPerspective: (perspective: string) => void; // funktion setzt die Kamera Perspektive -> "0"=normal, "1"=topDown, "2"=frontal, "3"=leftMid, "4"=rightMid
 }) {
+  // status
+  const [radioValue, setRadioValue] = useState<string>("0");
+
+  // funktion
   const checkIfAObjectIsSelected = (): boolean => {
     if (!props.objProps) return false;
     return true;
@@ -45,6 +40,7 @@ function ToolBar(props: {
       {props.objProps ? (
         <>
           <Typography>ToolBar</Typography>
+          {/* Verschieben */}
           <IconButton
             color={
               props.objProps.editMode == "translate" ? "primary" : undefined
@@ -65,6 +61,7 @@ function ToolBar(props: {
           >
             <OpenWithIcon></OpenWithIcon>
           </IconButton>
+          {/* Skalieren */}
           <IconButton
             color={props.objProps.editMode == "scale" ? "primary" : undefined}
             onClick={() => {
@@ -83,6 +80,7 @@ function ToolBar(props: {
           >
             <ExpandIcon></ExpandIcon>
           </IconButton>
+          {/* Rotieren */}
           <IconButton
             color={props.objProps.editMode == "rotate" ? "primary" : undefined}
             onClick={() => {
@@ -101,6 +99,7 @@ function ToolBar(props: {
           >
             <ThreeSixtyIcon></ThreeSixtyIcon>
           </IconButton>
+          {/* Sperren */}
           <IconButton
             color={props.objProps.editMode == undefined ? "primary" : undefined}
             onClick={() => {
@@ -125,12 +124,13 @@ function ToolBar(props: {
       )}
 
       <Divider orientation="vertical" flexItem />
-      {/* sperrt die Kamera Rotation */}
+      {/* Kamera Perpektiven: normal, top-down, ... */}
       <FormControl>
-        <FormLabel>Perpektive</FormLabel>
+        <FormLabel>Perspektive</FormLabel>
         <RadioGroup
           row
           onChange={(e, v) => {
+            // wenn Kameraperpektive geändert wurde
             if (v != "0") {
               props.setOrtho(true);
               props.setLockCamera(true);
@@ -153,10 +153,12 @@ function ToolBar(props: {
                 props.setPerspective(v);
                 break;
             }
+
+            setRadioValue(v);
           }}
         >
           <FormControlLabel
-            // TODO:  {ortho ? checked : null}
+            checked={radioValue == "0" ? true : false} // default Perspektive ist normal (also "0") am anfang, dass ist da damit am anfang normal ausgewählt ist
             value={"0"}
             control={<Radio />}
             label="Normal"
@@ -169,6 +171,7 @@ function ToolBar(props: {
         </RadioGroup>
       </FormControl>
       <Divider orientation="vertical" flexItem />
+      {/* Objekt/Model Löschen */}
       <IconButton
         onClick={() => {
           if (!checkIfAObjectIsSelected()) {
