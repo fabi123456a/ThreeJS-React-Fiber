@@ -1,10 +1,9 @@
-import { useEffect, useRef, useState } from "react";
-import { Edges, TransformControls } from "@react-three/drei";
+import { useEffect, useRef } from "react";
+import { TransformControls } from "@react-three/drei";
 import { useLoader } from "@react-three/fiber";
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader";
 import * as THREE from "three";
 import { BoxHelper, LineBasicMaterial, Vector3 } from "three";
-import { defaultListboxReducer } from "@mui/base";
 
 // position des Objects
 export type TypePosition = {
@@ -79,6 +78,7 @@ function SceneModel(
     });
   };
 
+  // BoundingBox management
   const box = useRef<BoxHelper>(new BoxHelper(fbx, 0xff0000));
   const isBoxInserted = useRef<boolean>(false);
 
@@ -160,28 +160,3 @@ function SceneModel(
 }
 
 export default SceneModel;
-
-/*
-// zeigt nur das wireframe des FBX-Models an
-  const showWireframe = () => {
-    let wirefremaMaterial = new THREE.MeshStandardMaterial({
-      wireframe: true,
-    });
-
-    fbx.children.forEach((mesh, i) => {
-      if (mesh instanceof THREE.Mesh) {
-        mesh.material = wirefremaMaterial;
-      }
-    });
-  };
-
-  // (soll) zeigt die normale Texture/Material des FBX-Models an
-  const showNormalTexture = () => {
-    // TODO
-    alert(
-      "TODO: Normale Texture anzeigen (Wireframe entfernen und Standard Material wieder setzen)"
-    );
-
-    // https://github.com/pmndrs/react-three-fiber/issues/112
-  };
-*/

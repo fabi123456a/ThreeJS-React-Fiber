@@ -1,7 +1,6 @@
-import { cardActionAreaClasses } from "@mui/material";
 import { OrbitControls, OrthographicCamera } from "@react-three/drei";
 import { useThree } from "@react-three/fiber";
-import { useEffect, useRef, useState } from "react";
+import {useState } from "react";
 import * as THREE from "three";
 
 type TypeCamPosition = {
@@ -54,9 +53,3 @@ export function Camera(props: {
   );
 }
 
-/*
-      <OrbitControls
-        makeDefault
-        enableRotate={props.lockCamera ? false : true}
-      />
-*/

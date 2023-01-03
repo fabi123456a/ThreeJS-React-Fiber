@@ -1,15 +1,12 @@
-import * as React from "react";
 import Stack from "@mui/material/Stack";
 import Scene from "./Scene/Scene";
 import { useState, useEffect, useRef } from "react";
 
-import { Divider, Typography } from "@mui/material";
+import { Divider } from "@mui/material";
 import PropertieContainer from "./UI-Elemente/PropertieContainer/PropertieContainer";
 import { TypeObjectProps } from "./3D-Objects/SceneModel";
 import ToolBar from "./UI-Elemente/ToolBar/ToolBar";
 import { ModelList } from "./UI-Elemente/ModelList/ModelList";
-import { PropaneSharp } from "@mui/icons-material";
-import { setPriority } from "os";
 
 export default function Main() {
   // beinhaltet alle 3D-Modelle die in der Scene vorhanden sind
