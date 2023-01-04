@@ -43,7 +43,7 @@ export default function Main() {
     setModels([
       ...models,
       {
-        id: "" + Math.random() * 1000,
+        id: "" + crypto.randomUUID(),
         editMode: undefined,
         showXTransform: false,
         showYTransform: false,
