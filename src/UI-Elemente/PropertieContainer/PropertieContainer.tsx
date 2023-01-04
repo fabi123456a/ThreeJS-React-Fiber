@@ -99,7 +99,7 @@ function PropertieContainer({
           <Typography>Scale</Typography>
           <Grid container spacing={2}>
             <Grid item xs={4}>
-              x:
+              width:
               <input
                 type="number"
                 style={{ width: "100%" }}
@@ -111,7 +111,7 @@ function PropertieContainer({
               />
             </Grid>
             <Grid item xs={4}>
-              y:
+              height:
               <input
                 type="number"
                 style={{ width: "100%" }}
@@ -123,7 +123,7 @@ function PropertieContainer({
               />
             </Grid>
             <Grid item xs={4}>
-              z:
+              depth:
               <input
                 type="number"
                 style={{ width: "100%" }}
