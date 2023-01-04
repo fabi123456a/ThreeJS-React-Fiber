@@ -9,6 +9,11 @@ type TypeCamPerspektive = {
   rightToMid: boolean;
   frontal: boolean;
 };
+export type TypeRoomDimensions = {
+  height: number;
+  width: number;
+  depth: number;
+};
 
 const deg2rad = (degrees: number) => degrees * (Math.PI / 180);
 
@@ -20,6 +25,7 @@ export default function Scene(props: {
   perspektive: string;
   setMainCurrentObjectProps: (props: TypeObjectProps) => void;
   setLockCamRotation: (flag: boolean) => void;
+  roomDimensions: TypeRoomDimensions;
 }) {
   return (
     <>
@@ -55,7 +61,11 @@ export default function Scene(props: {
           ></SceneModel>
         ))}
         {/* Raum */}
-        <Room height={3} width={30} depth={30} />
+        <Room
+          height={props.roomDimensions.height}
+          width={props.roomDimensions.width}
+          depth={props.roomDimensions.depth}
+        />
       </Canvas>
     </>
   );

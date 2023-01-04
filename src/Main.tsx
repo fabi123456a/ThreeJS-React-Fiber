@@ -1,5 +1,5 @@
 import Stack from "@mui/material/Stack";
-import Scene from "./Scene/Scene";
+import Scene, { TypeRoomDimensions } from "./Scene/Scene";
 import { useState, useEffect, useRef } from "react";
 
 import { Divider } from "@mui/material";
@@ -101,6 +101,11 @@ export default function Main() {
   const [ortho, setOrtho] = useState<boolean>(false);
   const [perspective, setPerspective] = useState<string>("0");
   const [lockCam, setLockCam] = useState<boolean>(false);
+  const [roomDimensions, setRoomDimensions] = useState<TypeRoomDimensions>({
+    height: 3,
+    width: 30,
+    depth: 30,
+  });
 
   return (
     <Stack
@@ -134,6 +139,7 @@ export default function Main() {
           models={models}
           lockCamera={lockCam}
           setLockCamRotation={setLockCam}
+          roomDimensions={roomDimensions}
         ></Scene>
         <ModelList
           addObject={handleModelAdd}
@@ -151,6 +157,8 @@ export default function Main() {
       <PropertieContainer
         objProps={currentObjectProps}
         setObjProps={setMainCurrentObjectProps}
+        roomDimensions={roomDimensions}
+        setRoomDimensions={setRoomDimensions}
       ></PropertieContainer>
     </Stack>
   );
