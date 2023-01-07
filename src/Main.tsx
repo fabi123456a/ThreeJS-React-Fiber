@@ -1,7 +1,7 @@
 import Stack from "@mui/material/Stack";
 import Scene, { TypeRoomDimensions } from "./Scene/Scene";
 import { useState, useEffect, useRef } from "react";
-
+import { Canvas } from "@react-three/fiber";
 import { Divider } from "@mui/material";
 import PropertieContainer from "./UI-Elemente/PropertieContainer/PropertieContainer";
 import { TypeObjectProps } from "./3D-Objects/SceneModel";
@@ -38,6 +38,7 @@ export default function Main() {
   // currentObjectProps
   const [currentObjectProps, setMainCurrentObjectProps] =
     useState<TypeObjectProps>(null!);
+  const sceneRef = useRef(null);
 
   const handleModelAdd = (pfad: string) => {
     setModels([
@@ -131,16 +132,20 @@ export default function Main() {
           setLockCamera={setLockCam}
           lockCam={lockCam}
         ></ToolBar>
-        <Scene
-          perspektive={perspective}
-          ortho={ortho}
-          currentObjectProps={currentObjectProps}
-          setMainCurrentObjectProps={setMainCurrentObjectProps}
-          models={models}
-          lockCamera={lockCam}
-          setLockCamRotation={setLockCam}
-          roomDimensions={roomDimensions}
-        ></Scene>
+        <Canvas>
+          {/*TO ACCESS THE useThree hook in the Scene component*/}
+          <Scene
+            perspektive={perspective}
+            ortho={ortho}
+            currentObjectProps={currentObjectProps}
+            setMainCurrentObjectProps={setMainCurrentObjectProps}
+            models={models}
+            lockCamera={lockCam}
+            setLockCamRotation={setLockCam}
+            roomDimensions={roomDimensions}
+            sceneRef={sceneRef}
+          ></Scene>
+        </Canvas>
         <ModelList
           addObject={handleModelAdd}
           paths={[
