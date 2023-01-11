@@ -1,7 +1,8 @@
-import { Button, Divider, Grid, Typography } from "@mui/material";
+import { Button, Divider, Grid, TextField, Typography } from "@mui/material";
 import { Stack } from "@mui/system";
 import { TypeObjectProps } from "../../3D-Objects/SceneModel";
 import { TypeRoomDimensions } from "../../Scene/Scene";
+import NumberInput from "./NumberInput";
 
 // https://mui.com/material-ui/react-typography/#main-content
 // links oben auf die 2 Striche klicken,
@@ -50,16 +51,13 @@ function PropertieContainer({
           Properties
         </Typography>
       </b>
-      <Stack direction={"column"}>
+      <Stack direction={"column"} gap="0.5rem">
         <Typography fontSize="20px">Room</Typography>
         <Grid container spacing={2}>
           <Grid item xs={4}>
-            width:
-            <input
-              type="number"
-              style={{ width: "100%" }}
+            <NumberInput
+              label="width"
               value={roomDimensions ? roomDimensions.width : ""}
-              step="0.01"
               onChange={(e) =>
                 setRoomDimensions((prev: TypeRoomDimensions) => {
                   return {
@@ -71,12 +69,9 @@ function PropertieContainer({
             />
           </Grid>
           <Grid item xs={4}>
-            height:
-            <input
-              type="number"
-              style={{ width: "100%" }}
+            <NumberInput
+              label="height"
               value={roomDimensions ? roomDimensions.height : ""}
-              step="0.01"
               onChange={(e) =>
                 setRoomDimensions((prev: TypeRoomDimensions) => {
                   return {
@@ -88,12 +83,9 @@ function PropertieContainer({
             />
           </Grid>
           <Grid item xs={4}>
-            depth:
-            <input
-              type="number"
-              style={{ width: "100%" }}
+            <NumberInput
+              label="depth"
               value={roomDimensions ? roomDimensions.depth : ""}
-              step="0.01"
               onChange={(e) =>
                 setRoomDimensions((prev: TypeRoomDimensions) => {
                   return {
@@ -113,36 +105,27 @@ function PropertieContainer({
           <Typography>Position</Typography>
           <Grid container spacing={2}>
             <Grid item xs={4}>
-              x:
-              <input
-                type="number"
-                style={{ width: "100%" }}
+              <NumberInput
+                label="x"
                 value={objProps ? objProps.position.x : ""}
-                step="0.01"
                 onChange={(e) =>
                   handlePositionChange("x", parseFloat(e.target.value) || 0)
                 }
               />
             </Grid>
             <Grid item xs={4}>
-              y:
-              <input
-                type="number"
-                style={{ width: "100%" }}
+              <NumberInput
+                label="y"
                 value={objProps ? objProps.position.y : ""}
-                step="0.01"
                 onChange={(e) =>
                   handlePositionChange("y", parseFloat(e.target.value) || 0)
                 }
               />
             </Grid>
             <Grid item xs={4}>
-              z:
-              <input
-                type="number"
-                style={{ width: "100%" }}
+              <NumberInput
+                label="z"
                 value={objProps ? objProps.position.z : ""}
-                step="0.01"
                 onChange={(e) =>
                   handlePositionChange("z", parseFloat(e.target.value) || 0)
                 }
@@ -158,36 +141,27 @@ function PropertieContainer({
             <Typography>Scale</Typography>
             <Grid container spacing={2}>
               <Grid item xs={4}>
-                width:
-                <input
-                  type="number"
-                  style={{ width: "100%" }}
+                <NumberInput
+                  label="width"
                   value={objProps ? objProps.scale.x : ""}
-                  step="0.01"
                   onChange={(e) =>
                     handleScaleChange("x", parseFloat(e.target.value) || 0)
                   }
                 />
               </Grid>
               <Grid item xs={4}>
-                height:
-                <input
-                  type="number"
-                  style={{ width: "100%" }}
+                <NumberInput
+                  label="height"
                   value={objProps ? objProps.scale.y : ""}
-                  step="0.01"
                   onChange={(e) =>
                     handleScaleChange("y", parseFloat(e.target.value) || 0)
                   }
                 />
               </Grid>
               <Grid item xs={4}>
-                depth:
-                <input
-                  type="number"
-                  style={{ width: "100%" }}
+                <NumberInput
+                  label="depth"
                   value={objProps ? objProps.scale.z : ""}
-                  step="0.01"
                   onChange={(e) =>
                     handleScaleChange("z", parseFloat(e.target.value) || 0)
                   }
