@@ -38,91 +38,101 @@ function ToolBar(props: {
 
   return (
     <Stack direction={"row"}>
-      {props.objProps ? (
-        <>
-          <Typography>ToolBar</Typography>
-          {/* Verschieben */}
-          <IconButton
-            color={
-              props.objProps.editMode == "translate" ? "primary" : undefined
-            }
-            onClick={() => {
-              if (!checkIfAObjectIsSelected()) return;
+      <FormControl>
+        {props.objProps ? (
+          <>
+            <FormLabel style={{ textAlign: "center" }}>Transform</FormLabel>
+            <Stack direction={"row"}>
+              {/* Verschieben */}
+              <IconButton
+                color={
+                  props.objProps.editMode == "translate" ? "primary" : undefined
+                }
+                onClick={() => {
+                  if (!checkIfAObjectIsSelected()) return;
 
-              props.setObjProps((prev: TypeObjectProps) => {
-                return {
-                  ...prev,
-                  editMode: "translate",
-                  showXTransform: true,
-                  showYTransform: true,
-                  showZTransform: true,
-                };
-              });
-            }}
-          >
-            <OpenWithIcon></OpenWithIcon>
-          </IconButton>
-          {/* Skalieren */}
-          <IconButton
-            color={props.objProps.editMode == "scale" ? "primary" : undefined}
-            onClick={() => {
-              if (!checkIfAObjectIsSelected()) return;
+                  props.setObjProps((prev: TypeObjectProps) => {
+                    return {
+                      ...prev,
+                      editMode: "translate",
+                      showXTransform: true,
+                      showYTransform: true,
+                      showZTransform: true,
+                    };
+                  });
+                }}
+              >
+                <OpenWithIcon></OpenWithIcon>
+              </IconButton>
+              {/* Skalieren */}
+              <IconButton
+                color={
+                  props.objProps.editMode == "scale" ? "primary" : undefined
+                }
+                onClick={() => {
+                  if (!checkIfAObjectIsSelected()) return;
 
-              props.setObjProps((prev: TypeObjectProps) => {
-                return {
-                  ...prev,
-                  editMode: "scale",
-                  showXTransform: true,
-                  showYTransform: true,
-                  showZTransform: true,
-                };
-              });
-            }}
-          >
-            <ExpandIcon></ExpandIcon>
-          </IconButton>
-          {/* Rotieren */}
-          <IconButton
-            color={props.objProps.editMode == "rotate" ? "primary" : undefined}
-            onClick={() => {
-              if (!checkIfAObjectIsSelected()) return;
+                  props.setObjProps((prev: TypeObjectProps) => {
+                    return {
+                      ...prev,
+                      editMode: "scale",
+                      showXTransform: true,
+                      showYTransform: true,
+                      showZTransform: true,
+                    };
+                  });
+                }}
+              >
+                <ExpandIcon></ExpandIcon>
+              </IconButton>
+              {/* Rotieren */}
+              <IconButton
+                color={
+                  props.objProps.editMode == "rotate" ? "primary" : undefined
+                }
+                onClick={() => {
+                  if (!checkIfAObjectIsSelected()) return;
 
-              props.setObjProps((prev: TypeObjectProps) => {
-                return {
-                  ...prev,
-                  editMode: "rotate",
-                  showXTransform: true,
-                  showYTransform: true,
-                  showZTransform: true,
-                };
-              });
-            }}
-          >
-            <ThreeSixtyIcon></ThreeSixtyIcon>
-          </IconButton>
-          {/* Sperren */}
-          <IconButton
-            color={props.objProps.editMode == undefined ? "primary" : undefined}
-            onClick={() => {
-              if (!checkIfAObjectIsSelected()) return;
+                  props.setObjProps((prev: TypeObjectProps) => {
+                    return {
+                      ...prev,
+                      editMode: "rotate",
+                      showXTransform: true,
+                      showYTransform: true,
+                      showZTransform: true,
+                    };
+                  });
+                }}
+              >
+                <ThreeSixtyIcon></ThreeSixtyIcon>
+              </IconButton>
+              {/* Sperren */}
+              <IconButton
+                color={
+                  props.objProps.editMode == undefined ? "primary" : undefined
+                }
+                onClick={() => {
+                  if (!checkIfAObjectIsSelected()) return;
 
-              props.setObjProps((prev: TypeObjectProps) => {
-                return {
-                  ...prev,
-                  editMode: undefined,
-                  showXTransform: false,
-                  showYTransform: false,
-                  showZTransform: false,
-                };
-              });
-            }}
-          >
-            <LockIcon></LockIcon>
-          </IconButton>
-        </>
-      ) : (
-        <Typography>Noch keine Objekt ausgewählt.</Typography>
-      )}
+                  props.setObjProps((prev: TypeObjectProps) => {
+                    return {
+                      ...prev,
+                      editMode: undefined,
+                      showXTransform: false,
+                      showYTransform: false,
+                      showZTransform: false,
+                    };
+                  });
+                }}
+              >
+                <LockIcon></LockIcon>
+              </IconButton>
+            </Stack>
+          </>
+        ) : (
+          <Typography>Noch keine Objekt ausgewählt.</Typography>
+        )}
+      </FormControl>
 
       <Divider orientation="vertical" flexItem />
       {/* Kamera Perpektiven: normal, top-down, ... */}
