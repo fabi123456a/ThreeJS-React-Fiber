@@ -28,9 +28,6 @@ function ToolBar(props: {
   setOrtho: (flag: boolean) => void; // funktion die ein boolean setzt, ob gerade ein Orthografische Kamera aktiv ist
   setPerspective: (perspective: string) => void; // funktion setzt die Kamera Perspektive -> "0"=normal, "1"=topDown, "2"=frontal, "3"=leftMid, "4"=rightMid
 }) {
-  // status
-  const [radioValue, setRadioValue] = useState<string>("0");
-
   // funktion
   const checkIfAObjectIsSelected = (): boolean => {
     if (!props.objProps) return false;
@@ -38,7 +35,12 @@ function ToolBar(props: {
   };
 
   return (
-    <Stack direction={"row"}>
+    <Stack
+      direction={"row"}
+      alignContent="center"
+      justifyContent="center"
+      gap="1rem"
+    >
       <FormControl>
         {props.objProps ? (
           <>
@@ -141,7 +143,6 @@ function ToolBar(props: {
         setOrtho={props.setOrtho}
         setLockCamera={props.setLockCamera}
         setPerspective={props.setPerspective}
-        setRadioValue={setRadioValue}
       />
       <Divider orientation="vertical" flexItem />
       {/* Objekt/Model Löschen */}

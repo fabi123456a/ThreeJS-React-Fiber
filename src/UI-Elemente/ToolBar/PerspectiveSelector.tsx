@@ -5,7 +5,6 @@ export default function PerspectiveSelector(props: {
   setOrtho: Function;
   setLockCamera: Function;
   setPerspective: Function;
-  setRadioValue: Function;
 }) {
   return (
     <FormControl>
@@ -36,8 +35,6 @@ export default function PerspectiveSelector(props: {
               props.setPerspective(v);
               break;
           }
-
-          props.setRadioValue(v);
         }}
       >
         <option value={"0"} label="Normal" />
