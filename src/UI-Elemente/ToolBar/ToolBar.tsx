@@ -17,6 +17,7 @@ import LockIcon from "@mui/icons-material/Lock";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import ThreeSixtyIcon from "@mui/icons-material/ThreeSixty";
 import { useState } from "react";
+import PerspectiveSelector from "./PerspectiveSelector";
 
 function ToolBar(props: {
   objProps: TypeObjectProps; // ist gleich die currentObjectProps
@@ -136,45 +137,12 @@ function ToolBar(props: {
 
       <Divider orientation="vertical" flexItem />
       {/* Kamera Perpektiven: normal, top-down, ... */}
-      <FormControl>
-        <FormLabel>Perspektive</FormLabel>
-        <NativeSelect
-          onChange={(e) => {
-            const v = e.target.value;
-            // wenn Kameraperpektive geändert wurde
-            if (v != "0") {
-              props.setOrtho(true);
-              props.setLockCamera(true);
-            } else {
-              props.setOrtho(false);
-              props.setLockCamera(false);
-              props.setPerspective(v);
-            }
-            switch (v) {
-              case "1":
-                props.setPerspective(v);
-                break;
-              case "2":
-                props.setPerspective(v);
-                break;
-              case "3":
-                props.setPerspective(v);
-                break;
-              case "4":
-                props.setPerspective(v);
-                break;
-            }
-
-            setRadioValue(v);
-          }}
-        >
-          <option value={"0"} label="Normal" />
-          <option value={"1"} label="TopDown" />
-          <option value={"2"} label="Frontal" />
-          <option value={"3"} label="LeftMid" />
-          <option value={"4"} label="RightMid" />
-        </NativeSelect>
-      </FormControl>
+      <PerspectiveSelector
+        setOrtho={props.setOrtho}
+        setLockCamera={props.setLockCamera}
+        setPerspective={props.setPerspective}
+        setRadioValue={setRadioValue}
+      />
       <Divider orientation="vertical" flexItem />
       {/* Objekt/Model Löschen */}
       <IconButton
