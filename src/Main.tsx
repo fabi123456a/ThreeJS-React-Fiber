@@ -40,6 +40,27 @@ export default function Main() {
     useState<TypeObjectProps>(null!);
   const sceneRef = useRef(null);
 
+  // cam
+  const [ortho, setOrtho] = useState<boolean>(false);
+  const [perspective, setPerspective] = useState<string>("0");
+  const [lockCam, setLockCam] = useState<boolean>(false);
+  const [roomDimensions, setRoomDimensions] = useState<TypeRoomDimensions>({
+    height: 3,
+    width: 30,
+    depth: 30,
+  });
+
+  useEffect(() => {
+    if (!currentObjectProps) return;
+    updateModels(currentObjectProps.id, currentObjectProps);
+
+    if (prevObjectProps.current != null) {
+      prevObjectProps.current.removeBoundingBox();
+    }
+
+    prevObjectProps.current = currentObjectProps;
+  }, [currentObjectProps]);
+
   const handleModelAdd = (pfad: string) => {
     setModels([
       ...models,
@@ -86,27 +107,6 @@ export default function Main() {
   };
 
   const prevObjectProps = useRef(currentObjectProps);
-
-  useEffect(() => {
-    if (!currentObjectProps) return;
-    updateModels(currentObjectProps.id, currentObjectProps);
-
-    if (prevObjectProps.current != null) {
-      prevObjectProps.current.removeBoundingBox();
-    }
-
-    prevObjectProps.current = currentObjectProps;
-  }, [currentObjectProps]);
-
-  // cam
-  const [ortho, setOrtho] = useState<boolean>(false);
-  const [perspective, setPerspective] = useState<string>("0");
-  const [lockCam, setLockCam] = useState<boolean>(false);
-  const [roomDimensions, setRoomDimensions] = useState<TypeRoomDimensions>({
-    height: 3,
-    width: 30,
-    depth: 30,
-  });
 
   return (
     <Stack

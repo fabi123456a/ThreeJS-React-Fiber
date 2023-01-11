@@ -108,9 +108,9 @@ function SceneModel(
     <>
       <TransformControls
         mode={props.editMode ? props.editMode : "scale"}
-        showX={props.showXTransform}
-        showY={props.showYTransform}
-        showZ={props.showZTransform}
+        showX={props.isSelected && props.showXTransform}
+        showY={props.isSelected && props.showYTransform}
+        showZ={props.isSelected && props.showZTransform}
         position={
           new Vector3(props.position.x, props.position.y, props.position.z)
         }
