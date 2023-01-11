@@ -7,8 +7,12 @@ export function ModelList(props: {
   addObject: (pfad: string) => void;
 }) {
   return (
-    <Stack direction={"row"}>
-      <Typography>Modell-Liste</Typography>
+    <Stack direction={"column"}>
+      <b>
+        <Typography fontSize="20px" textAlign={"center"}>
+          Modell-Liste
+        </Typography>
+      </b>
       {props.paths.map((pfad: string) => (
         <ModelListItem
           key={pfad}

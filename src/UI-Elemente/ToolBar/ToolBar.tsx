@@ -4,6 +4,7 @@ import {
   FormControlLabel,
   FormLabel,
   IconButton,
+  NativeSelect,
   Radio,
   RadioGroup,
   Typography,
@@ -127,9 +128,9 @@ function ToolBar(props: {
       {/* Kamera Perpektiven: normal, top-down, ... */}
       <FormControl>
         <FormLabel>Perspektive</FormLabel>
-        <RadioGroup
-          row
-          onChange={(e, v) => {
+        <NativeSelect
+          onChange={(e) => {
+            const v = e.target.value;
             // wenn Kameraperpektive geändert wurde
             if (v != "0") {
               props.setOrtho(true);
@@ -157,18 +158,12 @@ function ToolBar(props: {
             setRadioValue(v);
           }}
         >
-          <FormControlLabel
-            checked={radioValue == "0" ? true : false} // default Perspektive ist normal (also "0") am anfang, dass ist da damit am anfang normal ausgewählt ist
-            value={"0"}
-            control={<Radio />}
-            label="Normal"
-          />
-
-          <FormControlLabel value={"1"} control={<Radio />} label="TopDown" />
-          <FormControlLabel value={"2"} control={<Radio />} label="Frontal" />
-          <FormControlLabel value={"3"} control={<Radio />} label="LeftMid" />
-          <FormControlLabel value={"4"} control={<Radio />} label="RightMid" />
-        </RadioGroup>
+          <option value={"0"} label="Normal" />
+          <option value={"1"} label="TopDown" />
+          <option value={"2"} label="Frontal" />
+          <option value={"3"} label="LeftMid" />
+          <option value={"4"} label="RightMid" />
+        </NativeSelect>
       </FormControl>
       <Divider orientation="vertical" flexItem />
       {/* Objekt/Model Löschen */}

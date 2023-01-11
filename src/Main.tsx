@@ -35,6 +35,15 @@ export default function Main() {
     },
   ]);
 
+  const [modelPaths, setModelPaths] = useState<string[]>([
+    "./ModelsFBX/car.fbx",
+    "./ModelsFBX/mercedes.fbx",
+    "./ModelsFBX/couch.fbx",
+    "./ModelsFBX/lowpolytree.fbx",
+    "./ModelsFBX/sofa.fbx",
+    "./ModelsFBX/tableandchairs.fbx",
+  ]);
+
   // currentObjectProps
   const [currentObjectProps, setMainCurrentObjectProps] =
     useState<TypeObjectProps>(null!);
@@ -114,6 +123,7 @@ export default function Main() {
       style={{ height: "100%", background: "lightGray", overflowY: "auto" }}
       divider={<Divider orientation="vertical" flexItem />}
     >
+      <ModelList addObject={handleModelAdd} paths={modelPaths}></ModelList>
       <Stack
         direction="column"
         style={{
@@ -146,17 +156,6 @@ export default function Main() {
             sceneRef={sceneRef}
           ></Scene>
         </Canvas>
-        <ModelList
-          addObject={handleModelAdd}
-          paths={[
-            "./ModelsFBX/car.fbx",
-            "./ModelsFBX/mercedes.fbx",
-            "./ModelsFBX/couch.fbx",
-            "./ModelsFBX/lowpolytree.fbx",
-            "./ModelsFBX/sofa.fbx",
-            "./ModelsFBX/tableandchairs.fbx",
-          ]}
-        ></ModelList>
       </Stack>
 
       <PropertieContainer
