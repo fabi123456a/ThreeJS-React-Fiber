@@ -1,10 +1,12 @@
 import { Typography } from "@mui/material";
 import { Stack } from "@mui/system";
+import AddModelForm from "./AddModelForm";
 import { ModelListItem } from "./ModelListItem";
 
 export function ModelList(props: {
   paths: string[];
   addObject: (pfad: string) => void;
+  addModel: (url: string) => void;
 }) {
   return (
     <Stack direction={"column"}>
@@ -20,6 +22,7 @@ export function ModelList(props: {
           addObject={props.addObject}
         ></ModelListItem>
       ))}
+      <AddModelForm addModel={props.addModel} />
     </Stack>
   );
 }

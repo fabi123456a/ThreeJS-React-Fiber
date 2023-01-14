@@ -135,7 +135,11 @@ export default function Main() {
       style={{ height: "100%", background: "lightGray", overflowY: "auto" }}
       divider={<Divider orientation="vertical" flexItem />}
     >
-      <ModelList addObject={handleModelAdd} paths={modelPaths}></ModelList>
+      <ModelList
+        addObject={handleModelAdd}
+        addModel={(url: string) => setModelPaths((prev) => [...prev, url])}
+        paths={modelPaths}
+      ></ModelList>
       <Stack
         direction="column"
         style={{

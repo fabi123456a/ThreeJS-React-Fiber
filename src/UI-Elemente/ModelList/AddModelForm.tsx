@@ -10,7 +10,7 @@ export default function AddModelForm({ addModel }: { addModel: Function }) {
         ref={modelFileRef}
         onChange={(e) => {
           if (e.target.files) {
-            addModel("./" + e.target.files[0].name);
+            addModel(URL.createObjectURL(e.target.files[0]));
           }
         }}
         type="file"
