@@ -13,30 +13,32 @@ export default function PerspectiveSelector(props: {
       <FormLabel>Perspektive</FormLabel>
       <NativeSelect
         onChange={(e) => {
-          const v = e.target.value;
-          // wenn Kameraperpektive geändert wurde
-          if (v != "0") {
+          const camPerspective = e.target.value;
+          // wenn Kameraperspektive geändert wurde, "0" = normale perspektive
+          if (camPerspective != "0") {
             props.setOrtho(true);
             props.setLockCamera(true);
           } else {
             props.setOrtho(false);
             props.setLockCamera(false);
-            props.setPerspective(v);
+            props.setPerspective(camPerspective);
             props.setWallVisibility({ leftWall: true, rightWall: true });
           }
-          switch (v) {
-            case "1":
-              props.setPerspective(v);
+          switch (camPerspective) {
+            case "1": // topDown
+              props.setPerspective(camPerspective);
+              props.setWallVisibility({ leftWall: false, rightWall: false });
               break;
-            case "2":
-              props.setPerspective(v);
+            case "2": // frontal
+              props.setPerspective(camPerspective);
+              props.setWallVisibility({ leftWall: false, rightWall: false });
               break;
-            case "3":
-              props.setPerspective(v);
+            case "3": // leftMid
+              props.setPerspective(camPerspective);
               props.setWallVisibility({ leftWall: false, rightWall: true });
               break;
-            case "4":
-              props.setPerspective(v);
+            case "4": // rightMid
+              props.setPerspective(camPerspective);
               props.setWallVisibility({ leftWall: true, rightWall: false });
               break;
           }
