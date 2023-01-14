@@ -8,6 +8,11 @@ import { TypeObjectProps } from "./3D-Objects/SceneModel";
 import ToolBar from "./UI-Elemente/ToolBar/ToolBar";
 import { ModelList } from "./UI-Elemente/ModelList/ModelList";
 
+export type TypeWallVisibility = {
+  leftWall: boolean;
+  rightWall: boolean;
+};
+
 export default function Main() {
   // beinhaltet alle 3D-Modelle die in der Scene vorhanden sind
   const [models, setModels] = useState<TypeObjectProps[]>([
@@ -117,6 +122,13 @@ export default function Main() {
 
   const prevObjectProps = useRef(currentObjectProps);
 
+  // linke und rechte wand anzeigen?
+
+  const [wallVisiblity, setWallVisiblity] = useState<TypeWallVisibility>({
+    leftWall: true,
+    rightWall: true,
+  });
+
   return (
     <Stack
       direction="row"
@@ -141,6 +153,7 @@ export default function Main() {
           setObjProps={setMainCurrentObjectProps}
           setLockCamera={setLockCam}
           lockCam={lockCam}
+          setWallVisibility={setWallVisiblity}
         ></ToolBar>
         <Canvas>
           {/*TO ACCESS THE useThree hook in the Scene component*/}
@@ -154,6 +167,7 @@ export default function Main() {
             setLockCamRotation={setLockCam}
             roomDimensions={roomDimensions}
             sceneRef={sceneRef}
+            wallVisibility={wallVisiblity}
           ></Scene>
         </Canvas>
       </Stack>

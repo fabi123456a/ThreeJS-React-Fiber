@@ -2,6 +2,7 @@ import SceneModel, { TypeObjectProps } from "../3D-Objects/SceneModel";
 import Room from "../3D-Objects/Room";
 import { Camera } from "./Camera";
 import { useThree } from "@react-three/fiber";
+import { TypeWallVisibility } from "../Main";
 
 type TypeCamPerspektive = {
   topDown: boolean;
@@ -27,6 +28,7 @@ export default function Scene(props: {
   setLockCamRotation: (flag: boolean) => void;
   roomDimensions: TypeRoomDimensions;
   sceneRef: any;
+  wallVisibility: TypeWallVisibility;
 }) {
   const { scene } = useThree();
   props.sceneRef.current = scene;
@@ -68,6 +70,8 @@ export default function Scene(props: {
         height={props.roomDimensions.height}
         width={props.roomDimensions.width}
         depth={props.roomDimensions.depth}
+        leftWall={props.wallVisibility.leftWall}
+        rightWall={props.wallVisibility.rightWall}
       />
     </>
   );

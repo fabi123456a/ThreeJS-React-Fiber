@@ -1,3 +1,4 @@
+import { PropaneSharp } from "@mui/icons-material";
 import React from "react";
 import BoxGeometrie from "./BoxGeometrie";
 
@@ -5,10 +6,14 @@ export default function Room({
   height,
   width,
   depth,
+  leftWall,
+  rightWall,
 }: {
   height: number;
   width: number;
   depth: number;
+  leftWall: boolean;
+  rightWall: boolean;
 }) {
   return (
     <>
@@ -18,19 +23,23 @@ export default function Room({
         geometrie={{ positionXYZ: [0, 0, 0], scaleXYZ: [width, 0.001, depth] }}
       ></BoxGeometrie>
       {/* Wand Links */}
-      <BoxGeometrie
-        geometrie={{
-          positionXYZ: [-width / 2, height / 2, 0],
-          scaleXYZ: [0.001, height, depth],
-        }}
-      ></BoxGeometrie>
+      {leftWall ? (
+        <BoxGeometrie
+          geometrie={{
+            positionXYZ: [-width / 2, height / 2, 0],
+            scaleXYZ: [0.001, height, depth],
+          }}
+        ></BoxGeometrie>
+      ) : null}
       {/* Wand Rechts */}
-      <BoxGeometrie
-        geometrie={{
-          positionXYZ: [width / 2, height / 2, 0],
-          scaleXYZ: [0.001, height, depth],
-        }}
-      ></BoxGeometrie>
+      {rightWall ? (
+        <BoxGeometrie
+          geometrie={{
+            positionXYZ: [width / 2, height / 2, 0],
+            scaleXYZ: [0.001, height, depth],
+          }}
+        ></BoxGeometrie>
+      ) : null}
       {/* Wand Hinten */}
       <BoxGeometrie
         geometrie={{

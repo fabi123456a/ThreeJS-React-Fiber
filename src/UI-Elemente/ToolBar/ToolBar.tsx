@@ -18,6 +18,7 @@ import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import ThreeSixtyIcon from "@mui/icons-material/ThreeSixty";
 import { useState } from "react";
 import PerspectiveSelector from "./PerspectiveSelector";
+import { TypeWallVisibility } from "../../Main";
 
 function ToolBar(props: {
   objProps: TypeObjectProps; // ist gleich die currentObjectProps
@@ -27,6 +28,7 @@ function ToolBar(props: {
   deleteObject: (id: string) => void; // funktion um ein Object/Model aus der Szene zu entfernen
   setOrtho: (flag: boolean) => void; // funktion die ein boolean setzt, ob gerade ein Orthografische Kamera aktiv ist
   setPerspective: (perspective: string) => void; // funktion setzt die Kamera Perspektive -> "0"=normal, "1"=topDown, "2"=frontal, "3"=leftMid, "4"=rightMid
+  setWallVisibility: (flag: TypeWallVisibility) => void;
 }) {
   // funktion
   const checkIfAObjectIsSelected = (): boolean => {
@@ -143,6 +145,7 @@ function ToolBar(props: {
         setOrtho={props.setOrtho}
         setLockCamera={props.setLockCamera}
         setPerspective={props.setPerspective}
+        setWallVisibility={props.setWallVisibility}
       />
       <Divider orientation="vertical" flexItem />
       {/* Objekt/Model Löschen */}
