@@ -1,8 +1,13 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { Button } from "@mui/material";
 
-export default function AddModelForm({ addModel }: { addModel: Function }) {
+export default function AddModelForm({
+  addModel,
+}: {
+  addModel: (name: string, path: string) => void;
+}) {
   const modelFileRef = useRef<HTMLInputElement>(null);
+  const [name, setName] = useState<string>("");
 
   return (
     <>
@@ -10,13 +15,24 @@ export default function AddModelForm({ addModel }: { addModel: Function }) {
         ref={modelFileRef}
         onChange={(e) => {
           if (e.target.files) {
-            addModel(URL.createObjectURL(e.target.files[0]));
+            name && addModel(name, URL.createObjectURL(e.target.files[0]));
           }
         }}
         type="file"
         style={{ display: "none" }}
       />
-      <Button variant="outlined" onClick={() => modelFileRef.current?.click()}>
+      <Button
+        variant="outlined"
+        onClick={() => {
+          const name = window.prompt("Model Name", "");
+          if (!name) {
+            alert("Please add a Name");
+            return;
+          }
+          setName(name ?? "");
+          modelFileRef.current?.click();
+        }}
+      >
         Add Model
       </Button>
     </>

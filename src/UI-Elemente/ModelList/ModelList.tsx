@@ -4,9 +4,9 @@ import AddModelForm from "./AddModelForm";
 import { ModelListItem } from "./ModelListItem";
 
 export function ModelList(props: {
-  paths: string[];
+  paths: { name: string; path: string }[];
   addObject: (pfad: string) => void;
-  addModel: (url: string) => void;
+  addModel: (name: string, url: string) => void;
 }) {
   return (
     <Stack direction={"column"}>
@@ -15,10 +15,11 @@ export function ModelList(props: {
           Modell-Liste
         </Typography>
       </b>
-      {props.paths.map((pfad: string) => (
+      {props.paths.map((path) => (
         <ModelListItem
-          key={pfad}
-          pfad={pfad}
+          name={path.name}
+          key={path.path}
+          pfad={path.path}
           addObject={props.addObject}
         ></ModelListItem>
       ))}

@@ -40,13 +40,15 @@ export default function Main() {
     },
   ]);
 
-  const [modelPaths, setModelPaths] = useState<string[]>([
-    "./ModelsFBX/car.fbx",
-    "./ModelsFBX/mercedes.fbx",
-    "./ModelsFBX/couch.fbx",
-    "./ModelsFBX/lowpolytree.fbx",
-    "./ModelsFBX/sofa.fbx",
-    "./ModelsFBX/tableandchairs.fbx",
+  const [modelPaths, setModelPaths] = useState<
+    { name: string; path: string }[]
+  >([
+    { name: "Car", path: "./ModelsFBX/car.fbx" },
+    { name: "Mercedes", path: "./ModelsFBX/mercedes.fbx" },
+    { name: "Couch", path: "./ModelsFBX/couch.fbx" },
+    { name: "Low Poly Tree", path: "./ModelsFBX/lowpolytree.fbx" },
+    { name: "Sofa", path: "./ModelsFBX/sofa.fbx" },
+    { name: "Table And Chairs", path: "./ModelsFBX/tableandchairs.fbx" },
   ]);
 
   // currentObjectProps
@@ -137,7 +139,9 @@ export default function Main() {
     >
       <ModelList
         addObject={handleModelAdd}
-        addModel={(url: string) => setModelPaths((prev) => [...prev, url])}
+        addModel={(name: string, url: string) =>
+          setModelPaths((prev) => [...prev, { name: name, path: url }])
+        }
         paths={modelPaths}
       ></ModelList>
       <Stack
