@@ -9,12 +9,27 @@ export default function AddModelForm({
   const modelFileRef = useRef<HTMLInputElement>(null);
   const [name, setName] = useState<string>("");
 
+  const whitelistedFileTypes = ["fbx"];
+
   return (
     <>
       <input
         ref={modelFileRef}
         onChange={(e) => {
           if (e.target.files) {
+            if (
+              !whitelistedFileTypes.includes(
+                e.target.files[0].name
+                  .split(".")
+                  .reverse()[0]
+                  .toLocaleLowerCase()
+              )
+            ) {
+              alert(
+                `Only Files with extension "${whitelistedFileTypes.toString()}" are allowed`
+              );
+              return;
+            }
             name && addModel(name, URL.createObjectURL(e.target.files[0]));
           }
         }}
