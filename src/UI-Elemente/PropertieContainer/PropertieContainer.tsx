@@ -51,7 +51,7 @@ function PropertieContainer({
           Properties
         </Typography>
       </b>
-      <Stack direction={"column"} gap="0.5rem">
+      <Stack direction={"column"} gap="0.5rem" padding="0.5rem">
         <Typography fontSize="20px">Room</Typography>
         <Grid container spacing={2}>
           <Grid item xs={4}>
@@ -100,7 +100,7 @@ function PropertieContainer({
       </Stack>
       <Divider />
       {objProps ? (
-        <Stack direction={"column"}>
+        <Stack direction={"column"} padding="0.5rem">
           <Typography fontSize="20px">Selected Object</Typography>
           <Typography>Position</Typography>
           <Grid container spacing={2}>

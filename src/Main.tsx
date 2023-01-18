@@ -49,6 +49,9 @@ export default function Main() {
     { name: "Low Poly Tree", path: "./ModelsFBX/lowpolytree.fbx" },
     { name: "Sofa", path: "./ModelsFBX/sofa.fbx" },
     { name: "Table And Chairs", path: "./ModelsFBX/tableandchairs.fbx" },
+    { name: "Monitor", path: "./ModelsFBX/Monitor.FBX" },
+    { name: "Chair", path: "./ModelsFBX/Chair.FBX" },
+    { name: "Computer Desk", path: "./ModelsFBX/Computer Desk.FBX" },
   ]);
 
   // currentObjectProps
