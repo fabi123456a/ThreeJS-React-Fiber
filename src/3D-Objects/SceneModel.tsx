@@ -3,7 +3,7 @@ import { TransformControls } from "@react-three/drei";
 import { useLoader } from "@react-three/fiber";
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader";
 import * as THREE from "three";
-import { BoxHelper, LineBasicMaterial, Vector3 } from "three";
+import { BoxHelper, Euler, LineBasicMaterial, Vector3 } from "three";
 
 // position des Objects
 export type TypePosition = {
@@ -19,11 +19,19 @@ export type TypeScale = {
   z: number;
 };
 
+// rotierung des Objects
+export type TypeRotation = {
+  x: number;
+  y: number;
+  z: number;
+};
+
 // schnittstelle zum currentObject
 export type TypeObjectProps = {
   id: string;
   position: TypePosition;
   scale: TypeScale;
+  rotation: TypeRotation;
   editMode: "scale" | "translate" | "rotate" | undefined;
   showXTransform: boolean;
   showYTransform: boolean;
@@ -56,6 +64,7 @@ function SceneModel(
     // skalierung des Objects als Vektor3
     let vektorScale: Vector3 = new Vector3();
     refMesh.current?.getWorldScale(vektorScale);
+    console.log(refMesh.current?.rotation);
 
     props.setCurrentObjectProps({
       id: props.id,
@@ -68,6 +77,11 @@ function SceneModel(
         x: vektorScale.x,
         y: vektorScale.y,
         z: vektorScale.z,
+      },
+      rotation: {
+        x: refMesh.current?.rotation.x ?? 0,
+        y: refMesh.current?.rotation.y ?? 0,
+        z: refMesh.current?.rotation.z ?? 0,
       },
       editMode: props.editMode,
       showXTransform: props.showXTransform,
@@ -152,6 +166,9 @@ function SceneModel(
             ref={refMesh}
             object={fbx.clone(true)}
             scale={[props.scale.x, props.scale.y, props.scale.z]}
+            rotation={
+              new Euler(props.rotation.x, props.rotation.y, props.rotation.z)
+            }
           ></primitive>
         </group>
       </TransformControls>

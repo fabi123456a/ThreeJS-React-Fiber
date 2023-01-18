@@ -16,7 +16,7 @@ export type TypeWallVisibility = {
 export default function Main() {
   // beinhaltet alle 3D-Modelle die in der Scene vorhanden sind
   const [models, setModels] = useState<TypeObjectProps[]>([
-    {
+    /* {
       id: "123.213123123",
       position: { x: 0, y: 0, z: 0 },
       scale: { x: 0.02, y: 0.02, z: 0.02 },
@@ -36,6 +36,42 @@ export default function Main() {
       showYTransform: false,
       showZTransform: false,
       modelPath: "./ModelsFBX/sofa.fbx",
+      removeBoundingBox: () => {},
+    }, */
+    {
+      id: "123567",
+      position: { x: -2, y: 0, z: 0 },
+      scale: { x: 0.06, y: 0.06, z: 0.06 },
+      rotation: { x: 0, y: 0, z: 0 },
+      editMode: undefined,
+      showXTransform: false,
+      showYTransform: false,
+      showZTransform: false,
+      modelPath: "./ModelsFBX/Computer Desk.FBX",
+      removeBoundingBox: () => {},
+    },
+    {
+      id: "12321321367",
+      position: { x: -1, y: 0, z: 0 },
+      scale: { x: 0.03, y: 0.03, z: 0.03 },
+      rotation: { x: 0, y: 0, z: 0 },
+      editMode: undefined,
+      showXTransform: false,
+      showYTransform: false,
+      showZTransform: false,
+      modelPath: "./ModelsFBX/Chair.FBX",
+      removeBoundingBox: () => {},
+    },
+    {
+      id: "123211231233321367",
+      position: { x: -2, y: 1, z: 0 },
+      scale: { x: 0.03, y: 0.03, z: 0.03 },
+      rotation: { x: 0, y: 0, z: 0 },
+      editMode: undefined,
+      showXTransform: false,
+      showYTransform: false,
+      showZTransform: false,
+      modelPath: "./ModelsFBX/Monitor.FBX",
       removeBoundingBox: () => {},
     },
   ]);
@@ -92,6 +128,7 @@ export default function Main() {
         modelPath: pfad,
         position: { x: 0, y: 0, z: 0 },
         scale: { x: 0.02, y: 0.02, z: 0.02 },
+        rotation: { x: 0, y: 0, z: 0 },
         removeBoundingBox: () => {},
       },
     ]);

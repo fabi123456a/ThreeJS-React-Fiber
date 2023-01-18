@@ -60,6 +60,7 @@ export default function Scene(props: {
           showZTransform={model.showZTransform}
           position={model.position}
           scale={model.scale}
+          rotation={model.rotation}
           setLockCameraRototion={props.setLockCamRotation}
           removeBoundingBox={model.removeBoundingBox}
           camPerspektive={props.perspektive}
