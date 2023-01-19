@@ -150,6 +150,7 @@ function SceneModel(
         }}
         onClick={(e) => {
           if (e) {
+            e.stopPropagation();
             sendCurrentObjectDataToControls();
             insertBoundingBox();
           }
