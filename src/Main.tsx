@@ -7,6 +7,7 @@ import PropertieContainer from "./UI-Elemente/PropertieContainer/PropertieContai
 import { TypeObjectProps } from "./3D-Objects/SceneModel";
 import ToolBar from "./UI-Elemente/ToolBar/ToolBar";
 import { ModelList } from "./UI-Elemente/ModelList/ModelList";
+import { OrbitControlsProps } from "@react-three/drei";
 
 export type TypeWallVisibility = {
   leftWall: boolean;
@@ -75,6 +76,8 @@ export default function Main() {
       removeBoundingBox: () => {},
     },
   ]);
+
+  const controlsRef = useRef<any>(null);
 
   const [modelPaths, setModelPaths] = useState<
     { name: string; path: string }[]
@@ -206,6 +209,7 @@ export default function Main() {
         <Canvas>
           {/*TO ACCESS THE useThree hook in the Scene component*/}
           <Scene
+            controlsRef={controlsRef}
             perspektive={perspective}
             ortho={ortho}
             currentObjectProps={currentObjectProps}

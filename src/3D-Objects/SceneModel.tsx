@@ -44,6 +44,7 @@ export type TypeObjectProps = {
 
 function SceneModel(
   props: TypeObjectProps & {
+    controlsRef: React.RefObject<any>;
     isSelected: boolean;
     camPerspektive: string;
     setCurrentObjectProps: (props: TypeObjectProps) => void;
@@ -136,7 +137,7 @@ function SceneModel(
 
             if (props.camPerspektive == "0") {
               //alert(props.camPerspektive);
-              props.setLockCameraRototion(false);
+              props.controlsRef.current.enableRotate = true;
             }
           }
         }}
@@ -144,7 +145,7 @@ function SceneModel(
           //Checks if an event happened or if component just rerendered
           if (e) {
             console.log("Kamerarotation sperren");
-            props.setLockCameraRototion(true);
+            props.controlsRef.current.enableRotate = false;
           }
         }}
         onClick={(e) => {

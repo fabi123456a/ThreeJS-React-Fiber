@@ -19,6 +19,7 @@ export type TypeRoomDimensions = {
 const deg2rad = (degrees: number) => degrees * (Math.PI / 180);
 
 export default function Scene(props: {
+  controlsRef: React.RefObject<any>;
   models: TypeObjectProps[];
   currentObjectProps: TypeObjectProps;
   lockCamera: boolean;
@@ -39,6 +40,7 @@ export default function Scene(props: {
       {/* Canvas richtet eine Szene & Kamera ein */}
       {/* Kamera */}
       <Camera
+        controlsRef={props.controlsRef}
         lockCamera={props.lockCamera}
         orthogonal={props.ortho}
         perspektive={props.perspektive}
@@ -49,6 +51,7 @@ export default function Scene(props: {
       {/* Modelle */}
       {props.models.map((model) => (
         <SceneModel
+          controlsRef={props.controlsRef}
           key={model.id}
           id={model.id}
           isSelected={model.id === props.currentObjectProps?.id}
