@@ -42,6 +42,18 @@ function PropertieContainer({
     });
   }
 
+  function handleRotationChange(position: string, value: number) {
+    let newRotation: any = { ...objProps.rotation };
+    newRotation[position] = value;
+
+    setObjProps((prev: TypeObjectProps) => {
+      return {
+        ...prev,
+        rotation: newRotation,
+      };
+    });
+  }
+
   return (
     <Stack style={{ width: "20%", gap: "1rem" }}>
       <b>
@@ -162,6 +174,38 @@ function PropertieContainer({
                   value={objProps ? objProps.scale.z : ""}
                   onChange={(e) =>
                     handleScaleChange("z", parseFloat(e.target.value) || 0)
+                  }
+                />
+              </Grid>
+            </Grid>
+          </Stack>
+          <Stack direction={"column"}>
+            <Typography>Rotate</Typography>
+            <Grid container spacing={2}>
+              <Grid item xs={4}>
+                <NumberInput
+                  label="x"
+                  value={objProps ? objProps.rotation.x : ""}
+                  onChange={(e) =>
+                    handleRotationChange("x", parseFloat(e.target.value) || 0)
+                  }
+                />
+              </Grid>
+              <Grid item xs={4}>
+                <NumberInput
+                  label="y"
+                  value={objProps ? objProps.rotation.y : ""}
+                  onChange={(e) =>
+                    handleRotationChange("y", parseFloat(e.target.value) || 0)
+                  }
+                />
+              </Grid>
+              <Grid item xs={4}>
+                <NumberInput
+                  label="z"
+                  value={objProps ? objProps.rotation.z : ""}
+                  onChange={(e) =>
+                    handleRotationChange("z", parseFloat(e.target.value) || 0)
                   }
                 />
               </Grid>
