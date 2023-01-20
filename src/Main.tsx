@@ -129,12 +129,23 @@ export default function Main() {
     ]);
   };
 
+  async function saveScene() {
+    const sceneJsonString = JSON.stringify(sceneRef.current);
+    const link = document.createElement("a");
+    link.href=URL.createObjectURL(new Blob([sceneJsonString], {type: 'application/json'}));
+    link.download = "Scene";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
   return (
     <Stack
       direction="row"
       style={{ height: "100%", background: "lightGray", overflowY: "auto" }}
       divider={<Divider orientation="vertical" flexItem />}
     >
+      
       <ModelList
         addObject={handleModelAdd}
         addModel={(name: string, url: string) =>

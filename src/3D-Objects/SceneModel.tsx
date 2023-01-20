@@ -30,7 +30,6 @@ function SceneModel(
     let vektorScale: Vector3 = new Vector3();
     refMesh.current?.getWorldScale(vektorScale);
 
-    console.log(refMesh.current?.rotation);
 
     props.setCurrentObjectProps({
       id: props.id,
@@ -86,7 +85,6 @@ function SceneModel(
   return (
     <>
       <TransformControls
-        onChange={(e) => console.log(e?.target)}
         mode={props.editMode ? props.editMode : "scale"}
         showX={props.isSelected && props.showXTransform}
         showY={props.isSelected && props.showYTransform}
