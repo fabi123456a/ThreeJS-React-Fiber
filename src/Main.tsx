@@ -5,7 +5,6 @@ import { Divider } from "@mui/material";
 import PropertieContainer from "./UI-Elemente/PropertieContainer/PropertieContainer";
 import ToolBar from "./UI-Elemente/ToolBar/ToolBar";
 import { ModelList } from "./UI-Elemente/ModelList/ModelList";
-import { OrbitControlsProps } from "@react-three/drei";
 import Scene from "./Scene/Scene";
 
 export default function Main() {

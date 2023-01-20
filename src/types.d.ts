@@ -60,10 +60,3 @@ type TypeCamPosition = {
   rightToMid: THREE.Vector3;
   frontal: THREE.Vector3;
 };
-
-type TypeCamPerspektive = {
-  topDown: boolean;
-  leftToMid: boolean;
-  rightToMid: boolean;
-  frontal: boolean;
-};

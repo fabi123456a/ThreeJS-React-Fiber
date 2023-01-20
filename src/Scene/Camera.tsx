@@ -1,8 +1,4 @@
-import {
-  OrbitControls,
-  OrbitControlsProps,
-  OrthographicCamera,
-} from "@react-three/drei";
+import { OrbitControls, OrthographicCamera } from "@react-three/drei";
 import { useThree } from "@react-three/fiber";
 import { useState } from "react";
 import * as THREE from "three";

@@ -1,16 +1,5 @@
-import React, { Suspense, useEffect, useRef, useState } from "react";
+import React, { useRef } from "react";
 import * as THREE from "three";
-import {
-  PivotControls,
-  Edges,
-  Html,
-  TransformControls,
-} from "@react-three/drei";
-import { Label } from "@mui/icons-material";
-import { Button } from "@mui/material";
-
-import { Group, Vector3 } from "three";
-import { PivotContext } from "@react-three/drei/web/pivotControls/context";
 
 function BoxGeometrie(props: {
   // position & skalieren der Box

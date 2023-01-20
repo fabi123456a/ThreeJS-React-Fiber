@@ -1,12 +1,8 @@
 import {
   Divider,
   FormControl,
-  FormControlLabel,
   FormLabel,
   IconButton,
-  NativeSelect,
-  Radio,
-  RadioGroup,
   Typography,
 } from "@mui/material";
 import { Stack } from "@mui/system";
@@ -15,7 +11,6 @@ import OpenWithIcon from "@mui/icons-material/OpenWith";
 import LockIcon from "@mui/icons-material/Lock";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import ThreeSixtyIcon from "@mui/icons-material/ThreeSixty";
-import { useState } from "react";
 import PerspectiveSelector from "./PerspectiveSelector";
 
 function ToolBar(props: {
