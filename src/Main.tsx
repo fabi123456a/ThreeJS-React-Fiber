@@ -10,28 +10,6 @@ import Scene from "./Scene/Scene";
 export default function Main() {
   // beinhaltet alle 3D-Modelle die in der Scene vorhanden sind
   const [models, setModels] = useState<TypeObjectProps[]>([
-    /* {
-      id: "123.213123123",
-      position: { x: 0, y: 0, z: 0 },
-      scale: { x: 0.02, y: 0.02, z: 0.02 },
-      editMode: undefined,
-      showXTransform: false,
-      showYTransform: false,
-      showZTransform: false,
-      modelPath: "./ModelsFBX/car.fbx",
-      removeBoundingBox: () => {},
-    },
-    {
-      id: "123567",
-      position: { x: -2, y: 0, z: 0 },
-      scale: { x: 0.02, y: 0.02, z: 0.02 },
-      editMode: undefined,
-      showXTransform: false,
-      showYTransform: false,
-      showZTransform: false,
-      modelPath: "./ModelsFBX/sofa.fbx",
-      removeBoundingBox: () => {},
-    }, */
     {
       id: "123567",
       position: { x: -2, y: 0, z: 0 },
@@ -130,20 +108,7 @@ export default function Main() {
   };
 
   const handleModelDelete = (id: string) => {
-    let indexToDelete: number = -1;
-    models.forEach((prop: TypeObjectProps, index: number) => {
-      if (prop.id === id) {
-        indexToDelete = index;
-        return;
-      }
-    });
-
-    if (indexToDelete >= 0) delete models[indexToDelete];
-
-    models.shift();
-
-    setModels(models);
-
+    setModels((prevModels) => prevModels.filter((model) => model.id !== id));
     setMainCurrentObjectProps(null!);
   };
 
