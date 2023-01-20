@@ -3,7 +3,7 @@ import Room from "../3D-Objects/Room";
 import { Camera } from "./Camera";
 import { useThree } from "@react-three/fiber";
 
-const deg2rad = (degrees: number) => degrees * (Math.PI / 180);
+//const deg2rad = (degrees: number) => degrees * (Math.PI / 180);
 
 export default function Scene(props: {
   controlsRef: React.RefObject<any>;

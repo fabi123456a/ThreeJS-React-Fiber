@@ -1,5 +1,4 @@
 import { OrbitControls, OrthographicCamera } from "@react-three/drei";
-import { useThree } from "@react-three/fiber";
 import { useState } from "react";
 import * as THREE from "three";
 
@@ -8,9 +7,7 @@ export function Camera(props: {
   orthogonal: boolean;
   perspektive: string;
 }) {
-  const camera = useThree((state) => state.camera);
-
-  const [camPos, setCamPos] = useState<TypeCamPosition>({
+  const [camPos] = useState<TypeCamPosition>({
     topDown: new THREE.Vector3(0, 999, 0),
     leftToMid: new THREE.Vector3(-999, 0, 0),
     rightToMid: new THREE.Vector3(999, 0, 0),
@@ -22,11 +19,11 @@ export function Camera(props: {
       {props.orthogonal ? (
         <OrthographicCamera
           position={
-            props.perspektive == "1"
+            props.perspektive === "1"
               ? camPos.topDown
-              : props.perspektive == "2"
+              : props.perspektive === "2"
               ? camPos.frontal
-              : props.perspektive == "3"
+              : props.perspektive === "3"
               ? camPos.leftToMid
               : camPos.rightToMid
           }

@@ -14,7 +14,7 @@ export default function PerspectiveSelector(props: {
         onChange={(e) => {
           const camPerspective = e.target.value;
           // wenn Kameraperspektive geändert wurde, "0" = normale perspektive
-          if (camPerspective != "0") {
+          if (camPerspective !== "0") {
             props.setOrtho(true);
             props.controlsRef.current.enableRotate = false;
           } else {

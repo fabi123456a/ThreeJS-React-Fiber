@@ -99,7 +99,7 @@ function SceneModel(
             sendCurrentObjectDataToControls();
             console.log("Kamerarotation frei");
 
-            if (props.camPerspektive == "0") {
+            if (props.camPerspektive === "0") {
               //alert(props.camPerspektive);
               props.controlsRef.current.enableRotate = true;
             }

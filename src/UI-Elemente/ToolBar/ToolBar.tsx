@@ -43,7 +43,9 @@ function ToolBar(props: {
               {/* Verschieben */}
               <IconButton
                 color={
-                  props.objProps.editMode == "translate" ? "primary" : undefined
+                  props.objProps.editMode === "translate"
+                    ? "primary"
+                    : undefined
                 }
                 onClick={() => {
                   if (!checkIfAObjectIsSelected()) return;
@@ -64,7 +66,7 @@ function ToolBar(props: {
               {/* Skalieren */}
               <IconButton
                 color={
-                  props.objProps.editMode == "scale" ? "primary" : undefined
+                  props.objProps.editMode === "scale" ? "primary" : undefined
                 }
                 onClick={() => {
                   if (!checkIfAObjectIsSelected()) return;
@@ -85,7 +87,7 @@ function ToolBar(props: {
               {/* Rotieren */}
               <IconButton
                 color={
-                  props.objProps.editMode == "rotate" ? "primary" : undefined
+                  props.objProps.editMode === "rotate" ? "primary" : undefined
                 }
                 onClick={() => {
                   if (!checkIfAObjectIsSelected()) return;
@@ -106,7 +108,7 @@ function ToolBar(props: {
               {/* Sperren */}
               <IconButton
                 color={
-                  props.objProps.editMode == undefined ? "primary" : undefined
+                  props.objProps.editMode === undefined ? "primary" : undefined
                 }
                 onClick={() => {
                   if (!checkIfAObjectIsSelected()) return;
