@@ -90,6 +90,7 @@ function SceneModel(
         showX={props.isSelected && props.showXTransform}
         showY={props.isSelected && props.showYTransform}
         showZ={props.isSelected && props.showZTransform}
+        scale={[props.scale.x, props.scale.y, props.scale.z]}
         position={
           new Vector3(props.position.x, props.position.y, props.position.z)
         }
@@ -131,7 +132,6 @@ function SceneModel(
             }}
             ref={refMesh}
             object={fbx.clone(true)}
-            scale={[props.scale.x, props.scale.y, props.scale.z]}
             rotation={
               new Euler(props.rotation.x, props.rotation.y, props.rotation.z)
             }
