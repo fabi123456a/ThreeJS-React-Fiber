@@ -48,8 +48,6 @@ export default function Main() {
     },
   ]);
 
-  const controlsRef = useRef<any>(null);
-
   const [modelPaths, setModelPaths] = useState<
     { name: string; path: string }[]
   >([
@@ -67,7 +65,6 @@ export default function Main() {
   // currentObjectProps
   const [currentObjectProps, setMainCurrentObjectProps] =
     useState<TypeObjectProps>(null!);
-  const sceneRef = useRef(null);
 
   // cam
   const [ortho, setOrtho] = useState<boolean>(false);
@@ -77,6 +74,16 @@ export default function Main() {
     width: 30,
     depth: 30,
   });
+
+  // linke und rechte wand anzeigen?
+  const [wallVisiblity, setWallVisiblity] = useState<TypeWallVisibility>({
+    leftWall: true,
+    rightWall: true,
+  });
+
+  const sceneRef = useRef(null);
+  const controlsRef = useRef<any>(null);
+  const prevObjectProps = useRef(currentObjectProps);
 
   useEffect(() => {
     if (!currentObjectProps) return;
@@ -93,7 +100,7 @@ export default function Main() {
     setModels([
       ...models,
       {
-        id: "" + crypto.randomUUID(), // geht im browser safari nicht
+        id: "" + (window?.crypto ? crypto.randomUUID() : Math.random() * 1000), // geht im browser safari nicht
         editMode: undefined,
         showXTransform: false,
         showYTransform: false,
@@ -115,21 +122,12 @@ export default function Main() {
   const updateModels = (modelID: string, newModelData: any) => {
     setModels((prev: TypeObjectProps[]) => [
       {
-        ...prev.filter((model) => model.id === modelID)[0],
+        ...prev.find((model) => model.id === modelID),
         ...newModelData,
       },
       ...prev.filter((model) => model.id !== modelID),
     ]);
   };
-
-  const prevObjectProps = useRef(currentObjectProps);
-
-  // linke und rechte wand anzeigen?
-
-  const [wallVisiblity, setWallVisiblity] = useState<TypeWallVisibility>({
-    leftWall: true,
-    rightWall: true,
-  });
 
   return (
     <Stack
