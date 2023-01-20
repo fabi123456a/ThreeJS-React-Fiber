@@ -9,11 +9,9 @@ export default function Scene(props: {
   controlsRef: React.RefObject<any>;
   models: TypeObjectProps[];
   currentObjectProps: TypeObjectProps;
-  lockCamera: boolean;
   ortho: boolean;
   perspektive: string;
   setMainCurrentObjectProps: (props: TypeObjectProps) => void;
-  setLockCamRotation: (flag: boolean) => void;
   roomDimensions: TypeRoomDimensions;
   sceneRef: any;
   wallVisibility: TypeWallVisibility;
@@ -28,7 +26,6 @@ export default function Scene(props: {
       {/* Kamera */}
       <Camera
         controlsRef={props.controlsRef}
-        lockCamera={props.lockCamera}
         orthogonal={props.ortho}
         perspektive={props.perspektive}
       ></Camera>
@@ -51,7 +48,6 @@ export default function Scene(props: {
           position={model.position}
           scale={model.scale}
           rotation={model.rotation}
-          setLockCameraRototion={props.setLockCamRotation}
           removeBoundingBox={model.removeBoundingBox}
           camPerspektive={props.perspektive}
         ></SceneModel>

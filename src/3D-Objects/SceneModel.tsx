@@ -13,7 +13,6 @@ function SceneModel(
     isSelected: boolean;
     camPerspektive: string;
     setCurrentObjectProps: (props: TypeObjectProps) => void;
-    setLockCameraRototion: (flag: boolean) => void;
   }
 ) {
   // lädt das FBX-Model

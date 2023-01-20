@@ -94,7 +94,6 @@ export default function Main() {
   // cam
   const [ortho, setOrtho] = useState<boolean>(false);
   const [perspective, setPerspective] = useState<string>("0");
-  const [lockCam, setLockCam] = useState<boolean>(false);
   const [roomDimensions, setRoomDimensions] = useState<TypeRoomDimensions>({
     height: 3,
     width: 30,
@@ -133,7 +132,7 @@ export default function Main() {
   const handleModelDelete = (id: string) => {
     let indexToDelete: number = -1;
     models.forEach((prop: TypeObjectProps, index: number) => {
-      if (prop.id == id) {
+      if (prop.id === id) {
         indexToDelete = index;
         return;
       }
@@ -195,8 +194,7 @@ export default function Main() {
           deleteObject={handleModelDelete}
           objProps={currentObjectProps}
           setObjProps={setMainCurrentObjectProps}
-          setLockCamera={setLockCam}
-          lockCam={lockCam}
+          controlsRef={controlsRef}
           setWallVisibility={setWallVisiblity}
         ></ToolBar>
         <Canvas>
@@ -208,8 +206,6 @@ export default function Main() {
             currentObjectProps={currentObjectProps}
             setMainCurrentObjectProps={setMainCurrentObjectProps}
             models={models}
-            lockCamera={lockCam}
-            setLockCamRotation={setLockCam}
             roomDimensions={roomDimensions}
             sceneRef={sceneRef}
             wallVisibility={wallVisiblity}

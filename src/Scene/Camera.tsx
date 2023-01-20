@@ -5,7 +5,6 @@ import * as THREE from "three";
 
 export function Camera(props: {
   controlsRef: React.RefObject<any>;
-  lockCamera: boolean;
   orthogonal: boolean;
   perspektive: string;
 }) {

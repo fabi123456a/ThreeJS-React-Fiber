@@ -3,7 +3,7 @@ import React from "react";
 
 export default function PerspectiveSelector(props: {
   setOrtho: Function;
-  setLockCamera: Function;
+  controlsRef: React.RefObject<any>;
   setPerspective: Function;
   setWallVisibility: (flag: TypeWallVisibility) => void;
 }) {
@@ -16,10 +16,10 @@ export default function PerspectiveSelector(props: {
           // wenn Kameraperspektive geändert wurde, "0" = normale perspektive
           if (camPerspective != "0") {
             props.setOrtho(true);
-            props.setLockCamera(true);
+            props.controlsRef.current.enableRotate = false;
           } else {
             props.setOrtho(false);
-            props.setLockCamera(false);
+            props.controlsRef.current.enableRotate = false;
             props.setPerspective(camPerspective);
             props.setWallVisibility({ leftWall: true, rightWall: true });
           }

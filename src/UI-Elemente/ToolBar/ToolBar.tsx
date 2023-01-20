@@ -16,8 +16,7 @@ import PerspectiveSelector from "./PerspectiveSelector";
 function ToolBar(props: {
   objProps: TypeObjectProps; // ist gleich die currentObjectProps
   setObjProps: Function;
-  lockCam: boolean; // boolean ob die Kamera rotation gepserrt ist oder nicht
-  setLockCamera: (flag: boolean) => void; // funktion um Kamera rotation zu sperren
+  controlsRef: React.RefObject<any>;
   deleteObject: (id: string) => void; // funktion um ein Object/Model aus der Szene zu entfernen
   setOrtho: (flag: boolean) => void; // funktion die ein boolean setzt, ob gerade ein Orthografische Kamera aktiv ist
   setPerspective: (perspective: string) => void; // funktion setzt die Kamera Perspektive -> "0"=normal, "1"=topDown, "2"=frontal, "3"=leftMid, "4"=rightMid
@@ -136,7 +135,7 @@ function ToolBar(props: {
       {/* Kamera Perpektiven: normal, top-down, ... */}
       <PerspectiveSelector
         setOrtho={props.setOrtho}
-        setLockCamera={props.setLockCamera}
+        controlsRef={props.controlsRef}
         setPerspective={props.setPerspective}
         setWallVisibility={props.setWallVisibility}
       />
