@@ -1,7 +1,5 @@
 import { Button, Divider, Grid, TextField, Typography } from "@mui/material";
 import { Stack } from "@mui/system";
-import { TypeObjectProps } from "../../3D-Objects/SceneModel";
-import { TypeRoomDimensions } from "../../Scene/Scene";
 import NumberInput from "./NumberInput";
 
 // https://mui.com/material-ui/react-typography/#main-content

@@ -1,6 +1,5 @@
 import { FormControl, FormLabel, NativeSelect } from "@mui/material";
 import React from "react";
-import { TypeWallVisibility } from "../../Main";
 
 export default function PerspectiveSelector(props: {
   setOrtho: Function;

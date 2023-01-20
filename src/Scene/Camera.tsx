@@ -1,21 +1,11 @@
-import { OrbitControls, OrbitControlsProps, OrthographicCamera } from "@react-three/drei";
+import {
+  OrbitControls,
+  OrbitControlsProps,
+  OrthographicCamera,
+} from "@react-three/drei";
 import { useThree } from "@react-three/fiber";
 import { useState } from "react";
 import * as THREE from "three";
-
-type TypeCamPosition = {
-  topDown: THREE.Vector3;
-  leftToMid: THREE.Vector3;
-  rightToMid: THREE.Vector3;
-  frontal: THREE.Vector3;
-};
-
-export type TypeCamPerspektive = {
-  topDown: boolean;
-  leftToMid: boolean;
-  rightToMid: boolean;
-  frontal: boolean;
-};
 
 export function Camera(props: {
   controlsRef: React.RefObject<any>;
@@ -49,7 +39,11 @@ export function Camera(props: {
           makeDefault
         ></OrthographicCamera>
       ) : null}
-      <OrbitControls ref={props.controlsRef} /* enableRotate={props.lockCamera ? false : true} */ />
+      <OrbitControls
+        ref={
+          props.controlsRef
+        } /* enableRotate={props.lockCamera ? false : true} */
+      />
     </>
   );
 }

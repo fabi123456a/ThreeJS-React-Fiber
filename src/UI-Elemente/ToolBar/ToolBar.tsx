@@ -10,7 +10,6 @@ import {
   Typography,
 } from "@mui/material";
 import { Stack } from "@mui/system";
-import { TypeObjectProps } from "../../3D-Objects/SceneModel";
 import ExpandIcon from "@mui/icons-material/Expand";
 import OpenWithIcon from "@mui/icons-material/OpenWith";
 import LockIcon from "@mui/icons-material/Lock";
@@ -18,7 +17,6 @@ import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import ThreeSixtyIcon from "@mui/icons-material/ThreeSixty";
 import { useState } from "react";
 import PerspectiveSelector from "./PerspectiveSelector";
-import { TypeWallVisibility } from "../../Main";
 
 function ToolBar(props: {
   objProps: TypeObjectProps; // ist gleich die currentObjectProps

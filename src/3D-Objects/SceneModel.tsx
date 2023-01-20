@@ -5,41 +5,6 @@ import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader";
 import * as THREE from "three";
 import { BoxHelper, Euler, LineBasicMaterial, Vector3 } from "three";
 
-// position des Objects
-export type TypePosition = {
-  x: number;
-  y: number;
-  z: number;
-};
-
-// skalierung des Objects
-export type TypeScale = {
-  x: number;
-  y: number;
-  z: number;
-};
-
-// rotierung des Objects
-export type TypeRotation = {
-  x: number;
-  y: number;
-  z: number;
-};
-
-// schnittstelle zum currentObject
-export type TypeObjectProps = {
-  id: string;
-  position: TypePosition;
-  scale: TypeScale;
-  rotation: TypeRotation;
-  editMode: "scale" | "translate" | "rotate" | undefined;
-  showXTransform: boolean;
-  showYTransform: boolean;
-  showZTransform: boolean;
-  modelPath: string;
-  removeBoundingBox: () => void;
-};
-
 // KOMPONENTE
 
 function SceneModel(

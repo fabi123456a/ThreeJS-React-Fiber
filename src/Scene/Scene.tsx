@@ -1,20 +1,7 @@
-import SceneModel, { TypeObjectProps } from "../3D-Objects/SceneModel";
+import SceneModel from "../3D-Objects/SceneModel";
 import Room from "../3D-Objects/Room";
 import { Camera } from "./Camera";
 import { useThree } from "@react-three/fiber";
-import { TypeWallVisibility } from "../Main";
-
-type TypeCamPerspektive = {
-  topDown: boolean;
-  leftToMid: boolean;
-  rightToMid: boolean;
-  frontal: boolean;
-};
-export type TypeRoomDimensions = {
-  height: number;
-  width: number;
-  depth: number;
-};
 
 const deg2rad = (degrees: number) => degrees * (Math.PI / 180);
 

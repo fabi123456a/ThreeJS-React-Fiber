@@ -1,18 +1,12 @@
 import Stack from "@mui/material/Stack";
-import Scene, { TypeRoomDimensions } from "./Scene/Scene";
 import { useState, useEffect, useRef } from "react";
 import { Canvas } from "@react-three/fiber";
 import { Divider } from "@mui/material";
 import PropertieContainer from "./UI-Elemente/PropertieContainer/PropertieContainer";
-import { TypeObjectProps } from "./3D-Objects/SceneModel";
 import ToolBar from "./UI-Elemente/ToolBar/ToolBar";
 import { ModelList } from "./UI-Elemente/ModelList/ModelList";
 import { OrbitControlsProps } from "@react-three/drei";
-
-export type TypeWallVisibility = {
-  leftWall: boolean;
-  rightWall: boolean;
-};
+import Scene from "./Scene/Scene";
 
 export default function Main() {
   // beinhaltet alle 3D-Modelle die in der Scene vorhanden sind

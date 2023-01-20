@@ -12,11 +12,6 @@ import { Button } from "@mui/material";
 import { Group, Vector3 } from "three";
 import { PivotContext } from "@react-three/drei/web/pivotControls/context";
 
-export type BoxGeometryValue = {
-  positionXYZ: number[];
-  scaleXYZ: number[];
-};
-
 function BoxGeometrie(props: {
   // position & skalieren der Box
   geometrie: BoxGeometryValue;
