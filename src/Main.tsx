@@ -26,7 +26,7 @@ export default function Main() {
       id: "12321321367",
       position: { x: -1, y: 0, z: 0 },
       scale: { x: 0.03, y: 0.03, z: 0.03 },
-      rotation: { x: 0, y: 0, z: 0 },
+      rotation: { x: 0, y: -1.6, z: 0 },
       editMode: undefined,
       showXTransform: false,
       showYTransform: false,
@@ -36,9 +36,13 @@ export default function Main() {
     },
     {
       id: "123211231233321367",
-      position: { x: -2, y: 1, z: 0 },
+      position: {
+        x: 2.0517650695421015,
+        y: 1.83353328885948,
+        z: 3.489659672608047,
+      },
       scale: { x: 0.03, y: 0.03, z: 0.03 },
-      rotation: { x: 0, y: 0, z: 0 },
+      rotation: { x: 0, y: 1.6, z: 0 },
       editMode: undefined,
       showXTransform: false,
       showYTransform: false,
@@ -132,7 +136,9 @@ export default function Main() {
   async function saveScene() {
     const sceneJsonString = JSON.stringify(sceneRef.current);
     const link = document.createElement("a");
-    link.href=URL.createObjectURL(new Blob([sceneJsonString], {type: 'application/json'}));
+    link.href = URL.createObjectURL(
+      new Blob([sceneJsonString], { type: "application/json" })
+    );
     link.download = "Scene";
     document.body.appendChild(link);
     link.click();
@@ -145,7 +151,6 @@ export default function Main() {
       style={{ height: "100%", background: "lightGray", overflowY: "auto" }}
       divider={<Divider orientation="vertical" flexItem />}
     >
-      
       <ModelList
         addObject={handleModelAdd}
         addModel={(name: string, url: string) =>
