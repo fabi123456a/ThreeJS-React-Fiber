@@ -1,13 +1,11 @@
 import { Object3D } from "three";
+import * as THREE from 'three';
 import { GLTFExporter } from "three-stdlib";
 
 export default function exportToGLTF(
-  scene: Object3D<Event>,
-  objectControls: any
+  scene: Object3D
 ) {
   const gltfExporter = new GLTFExporter();
-  const tempControlTarget = objectControls.object;
-  objectControls.detach();
   const options = {
     binary: false,
   };
@@ -23,15 +21,15 @@ export default function exportToGLTF(
     },
     options
   );
-  if (tempControlTarget) {
-    objectControls.attach(tempControlTarget);
-  }
 }
 
+  const link = document.createElement("a");
+  document.body.appendChild(link);
+
 function save(blob: Blob, filename: string) {
-  /* link.href = URL.createObjectURL(blob);
+  link.href = URL.createObjectURL(blob);
   link.download = filename;
-  link.click(); */
+  link.click();
 }
 
 function saveString(text: string, filename: string) {

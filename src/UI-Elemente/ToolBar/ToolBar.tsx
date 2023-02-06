@@ -12,15 +12,20 @@ import LockIcon from "@mui/icons-material/Lock";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import ThreeSixtyIcon from "@mui/icons-material/ThreeSixty";
 import PerspectiveSelector from "./PerspectiveSelector";
+/*New by Miguel*/
+import ImportExportIcon from '@mui/icons-material/ImportExport';
+/*New by Miguel*/
 
 function ToolBar(props: {
   objProps: TypeObjectProps; // ist gleich die currentObjectProps
   setObjProps: Function;
   controlsRef: React.RefObject<any>;
   deleteObject: (id: string) => void; // funktion um ein Object/Model aus der Szene zu entfernen
+  exportObject: () => void;
   setOrtho: (flag: boolean) => void; // funktion die ein boolean setzt, ob gerade ein Orthografische Kamera aktiv ist
   setPerspective: (perspective: string) => void; // funktion setzt die Kamera Perspektive -> "0"=normal, "1"=topDown, "2"=frontal, "3"=leftMid, "4"=rightMid
   setWallVisibility: (flag: TypeWallVisibility) => void;
+  
 }) {
   // funktion
   const checkIfAObjectIsSelected = (): boolean => {
@@ -154,6 +159,13 @@ function ToolBar(props: {
         }}
       >
         <DeleteForeverIcon></DeleteForeverIcon>
+      </IconButton>
+      <IconButton
+        onClick={() => {
+          props.exportObject();
+        }}
+      >
+        <ImportExportIcon></ImportExportIcon>
       </IconButton>
     </Stack>
   );

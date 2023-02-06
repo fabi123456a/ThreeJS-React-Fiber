@@ -7,6 +7,12 @@ import ToolBar from "./UI-Elemente/ToolBar/ToolBar";
 import { ModelList } from "./UI-Elemente/ModelList/ModelList";
 import Scene from "./Scene/Scene";
 
+/*New */
+import * as THREE from 'three';
+import exportToGLTF from "./utils/exporting";
+import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader'
+/*New */
+
 export default function Main() {
   // beinhaltet alle 3D-Modelle die in der Scene vorhanden sind
   const [models, setModels] = useState<TypeObjectProps[]>([
@@ -123,6 +129,30 @@ export default function Main() {
     setMainCurrentObjectProps(null!);
   };
 
+/* by Miguel noch bearbeitung */
+
+  const handleModelexport = () => {
+    let modelsArrayLength = models.length;
+    const scene = new THREE.Scene();
+    const fbxLoader = new FBXLoader()
+    for (let i = 0; i < modelsArrayLength; i++) {
+    fbxLoader.load(
+      models[i].modelPath,
+      (object) => {
+        scene.add(object)
+      },
+      (xhr) => {
+          console.log((xhr.loaded / xhr.total) * 100 + '% loaded')
+      },
+      (error) => {
+          console.log(error)
+      }
+    )
+    }
+    exportToGLTF(scene);
+  };
+/* by Miguel noch bearbeitung */
+
   const updateModels = (modelID: string, newModelData: any) => {
     setModels((prev: TypeObjectProps[]) => [
       {
@@ -171,6 +201,7 @@ export default function Main() {
           setPerspective={setPerspective}
           setOrtho={setOrtho}
           deleteObject={handleModelDelete}
+          exportObject={handleModelexport}
           objProps={currentObjectProps}
           setObjProps={setMainCurrentObjectProps}
           controlsRef={controlsRef}
