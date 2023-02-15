@@ -30,7 +30,7 @@ export default function Scene(props: {
         perspektive={props.perspektive}
       ></Camera>
       {/* Licht */}
-      <ambientLight />
+      <ambientLight intensity={0.1}/>
       <pointLight position={[10, 10, 10]} />
       {/* Modelle */}
       {props.models.map((model) => (
