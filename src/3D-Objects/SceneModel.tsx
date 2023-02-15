@@ -4,6 +4,7 @@ import { useLoader } from "@react-three/fiber";
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader";
 import * as THREE from "three";
 import { BoxHelper, Euler, LineBasicMaterial, Vector3 } from "three";
+import { Console, debug } from "console";
 
 // KOMPONENTE
 
@@ -29,7 +30,6 @@ function SceneModel(
     // skalierung des Objects als Vektor3
     let vektorScale: Vector3 = new Vector3();
     refMesh.current?.getWorldScale(vektorScale);
-
 
     props.setCurrentObjectProps({
       id: props.id,
@@ -61,27 +61,33 @@ function SceneModel(
   const box = useRef<BoxHelper>(new BoxHelper(fbx, 0xff0000));
   const isBoxInserted = useRef<boolean>(false);
 
+  // boundingbox eimalig berrechnen
+  useEffect(() => {
+    box.current.geometry.computeBoundingBox();
+    const material = new LineBasicMaterial({ color: 0xff0000 });
+    box.current.material = material;
+  }, []);
+
   const insertBoundingBox = () => {
     if (!isBoxInserted.current) {
-      box.current.geometry.computeBoundingBox();
-      const material = new LineBasicMaterial({ color: 0xff0000 });
-      box.current.material = material;
       fbx.add(box.current);
-
       isBoxInserted.current = true;
     }
   };
 
   const removeBoundingBox = () => {
-    fbx.remove(box.current);
-    isBoxInserted.current = false;
+    if (isBoxInserted.current) {
+      fbx.remove(box.current);
+      isBoxInserted.current = false;
+    }
   };
 
-  useEffect(() => {
-    if (props.isSelected) {
-      insertBoundingBox();
-    }
-  });
+  // useEffect(() => {          notwendig??
+  //   if (props.isSelected) {
+  //     //insertBoundingBox();
+  //   }
+  // });
+
   return (
     <>
       <TransformControls
