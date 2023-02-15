@@ -55,12 +55,7 @@ function PropertieContainer({
   }
 
   return (
-    <Stack style={{ width: "20%", gap: "1rem" }}>
-      <b>
-        <Typography fontSize="20px" textAlign={"center"}>
-          Properties
-        </Typography>
-      </b>
+    <Stack style={{ gap: "1rem", background: "" }}>
       <Stack direction={"column"} gap="0.5rem" padding="0.5rem">
         <Typography fontSize="20px">Room</Typography>
         <Grid container spacing={2}>

@@ -1,6 +1,7 @@
 import { Button } from "@mui/material";
 import { Stack } from "@mui/system";
 
+
 export function ModelListItem(props: {
   name: string;
   pfad: string;
@@ -8,7 +9,7 @@ export function ModelListItem(props: {
 }) {
   return (
     <Stack style={{ margin: "8px" }}>
-      <Button onClick={() => props.addObject(props.pfad)} variant="outlined">
+      <Button onClick={() => props.addObject(props.pfad)} variant="contained">
         {props.name}
       </Button>
     </Stack>

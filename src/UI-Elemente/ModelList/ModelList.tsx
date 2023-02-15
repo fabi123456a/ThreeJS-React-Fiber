@@ -9,12 +9,7 @@ export function ModelList(props: {
   addModel: (name: string, url: string) => void;
 }) {
   return (
-    <Stack direction={"column"}>
-      <b>
-        <Typography fontSize="20px" textAlign={"center"}>
-          Modell-Liste
-        </Typography>
-      </b>
+    <Stack direction={"column"} style={{ backgroundColor: "ligtGray" }}>
       {props.paths.map((path) => (
         <ModelListItem
           name={path.name}

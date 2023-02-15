@@ -1,5 +1,6 @@
 import React, { useRef, useState } from "react";
-import { Button } from "@mui/material";
+import { Button, Stack } from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
 
 export default function AddModelForm({
   addModel,
@@ -36,8 +37,11 @@ export default function AddModelForm({
         type="file"
         style={{ display: "none" }}
       />
+
       <Button
-        variant="outlined"
+        color="success"
+        variant="contained"
+        style={{ margin: "4px" }}
         onClick={() => {
           const name = window.prompt("Model Name", "");
           if (!name) {
@@ -48,7 +52,7 @@ export default function AddModelForm({
           modelFileRef.current?.click();
         }}
       >
-        Add Model
+        <AddIcon></AddIcon>
       </Button>
     </>
   );

@@ -1,9 +1,9 @@
 body {
-  background: red;
+  background: white;
 }
 
 .rootFullHeightWidth {
-  background: green;
+  background: white;
 
   position: absolute;
   top: 0;

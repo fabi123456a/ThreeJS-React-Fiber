@@ -183,54 +183,80 @@ export default function Main() {
       style={{ height: "100%", background: "lightGray", overflowY: "auto" }}
       divider={<Divider orientation="vertical" flexItem />}
     >
-      <ModelList
-        addObject={handleModelAdd}
-        addModel={(name: string, url: string) =>
-          setModelPaths((prev) => [...prev, { name: name, path: url }])
-        }
-        paths={modelPaths}
-      ></ModelList>
+      {/* ModelList */}
+      <Stack
+        style={{
+          background: "#d9d9d9",
+        }}
+      >
+        <ModelList
+          addObject={handleModelAdd}
+          addModel={(name: string, url: string) =>
+            setModelPaths((prev) => [...prev, { name: name, path: url }])
+          }
+          paths={modelPaths}
+        ></ModelList>
+      </Stack>
+
+      {/* ToolBar */}
       <Stack
         direction="column"
         style={{
           height: "100%",
           width: "100%",
-          background: "lightGray",
+          background: "white",
         }}
         divider={<Divider orientation="horizontal" flexItem />}
       >
-        <ToolBar
-          setPerspective={setPerspective}
-          setOrtho={setOrtho}
-          deleteObject={handleModelDelete}
-          exportObject={handleModelexport}
-          objProps={currentObjectProps}
-          setObjProps={setMainCurrentObjectProps}
-          controlsRef={controlsRef}
-          setWallVisibility={setWallVisiblity}
-        ></ToolBar>
-        <Canvas>
-          {/*TO ACCESS THE useThree hook in the Scene component*/}
-          <Scene
+        <Stack
+          style={{
+            background: "#d9d9d9",
+          }}
+        >
+          <ToolBar
+            setPerspective={setPerspective}
+            setOrtho={setOrtho}
+            deleteObject={handleModelDelete}
+            exportObject={handleModelexport}
+            objProps={currentObjectProps}
+            setObjProps={setMainCurrentObjectProps}
             controlsRef={controlsRef}
-            perspektive={perspective}
-            ortho={ortho}
-            currentObjectProps={currentObjectProps}
-            setMainCurrentObjectProps={setMainCurrentObjectProps}
-            models={models}
-            roomDimensions={roomDimensions}
-            sceneRef={sceneRef}
-            wallVisibility={wallVisiblity}
-          ></Scene>
-        </Canvas>
+            setWallVisibility={setWallVisiblity}
+          ></ToolBar>
+        </Stack>
+
+        {/* Canvas */}
+        <Stack style={{ border: "1px solid darkgray", height: "100%" }}>
+          <Canvas>
+            {/*TO ACCESS THE useThree hook in the Scene component*/}
+            <Scene
+              controlsRef={controlsRef}
+              perspektive={perspective}
+              ortho={ortho}
+              currentObjectProps={currentObjectProps}
+              setMainCurrentObjectProps={setMainCurrentObjectProps}
+              models={models}
+              roomDimensions={roomDimensions}
+              sceneRef={sceneRef}
+              wallVisibility={wallVisiblity}
+            ></Scene>
+          </Canvas>
+        </Stack>
       </Stack>
 
-      <PropertieContainer
-        objProps={currentObjectProps}
-        setObjProps={setMainCurrentObjectProps}
-        roomDimensions={roomDimensions}
-        setRoomDimensions={setRoomDimensions}
-      ></PropertieContainer>
+      {/* PropertieContainer */}
+      <Stack
+        style={{
+          background: "#d9d9d9",
+        }}
+      >
+        <PropertieContainer
+          objProps={currentObjectProps}
+          setObjProps={setMainCurrentObjectProps}
+          roomDimensions={roomDimensions}
+          setRoomDimensions={setRoomDimensions}
+        ></PropertieContainer>
+      </Stack>
     </Stack>
   );
 }

@@ -13,7 +13,7 @@ import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import ThreeSixtyIcon from "@mui/icons-material/ThreeSixty";
 import PerspectiveSelector from "./PerspectiveSelector";
 /*New by Miguel*/
-import ImportExportIcon from '@mui/icons-material/ImportExport';
+import ImportExportIcon from "@mui/icons-material/ImportExport";
 /*New by Miguel*/
 
 function ToolBar(props: {
@@ -25,7 +25,6 @@ function ToolBar(props: {
   setOrtho: (flag: boolean) => void; // funktion die ein boolean setzt, ob gerade ein Orthografische Kamera aktiv ist
   setPerspective: (perspective: string) => void; // funktion setzt die Kamera Perspektive -> "0"=normal, "1"=topDown, "2"=frontal, "3"=leftMid, "4"=rightMid
   setWallVisibility: (flag: TypeWallVisibility) => void;
-  
 }) {
   // funktion
   const checkIfAObjectIsSelected = (): boolean => {
@@ -36,137 +35,174 @@ function ToolBar(props: {
   return (
     <Stack
       direction={"row"}
+      alignItems="stretch"
       alignContent="center"
-      justifyContent="center"
       gap="1rem"
+      justifyContent="space-evenly"
     >
-      <FormControl>
-        {props.objProps ? (
-          <>
-            <FormLabel style={{ textAlign: "center" }}>Transform</FormLabel>
-            <Stack direction={"row"}>
-              {/* Verschieben */}
-              <IconButton
-                color={
-                  props.objProps.editMode === "translate"
-                    ? "primary"
-                    : undefined
-                }
-                onClick={() => {
-                  if (!checkIfAObjectIsSelected()) return;
+      <Stack direction={"row"} style={{ width: "50%" }}>
+        <FormControl
+          style={{
+            width: "100%",
+            display: "flex",
+            alignItems: "center",
+          }}
+        >
+          {props.objProps ? (
+            <>
+              <FormLabel>Transform</FormLabel>
+              <Stack direction={"row"} style={{ width: "100%" }}>
+                <Stack
+                  direction={"row"}
+                  alignItems={"center"}
+                  justifyContent={"center"}
+                  style={{ width: "100%" }}
+                >
+                  {/* Verschieben */}
+                  <IconButton
+                    color={
+                      props.objProps.editMode === "translate"
+                        ? "primary"
+                        : undefined
+                    }
+                    onClick={() => {
+                      if (!checkIfAObjectIsSelected()) return;
 
-                  props.setObjProps((prev: TypeObjectProps) => {
-                    return {
-                      ...prev,
-                      editMode: "translate",
-                      showXTransform: true,
-                      showYTransform: true,
-                      showZTransform: true,
-                    };
-                  });
-                }}
-              >
-                <OpenWithIcon></OpenWithIcon>
-              </IconButton>
-              {/* Skalieren */}
-              <IconButton
-                color={
-                  props.objProps.editMode === "scale" ? "primary" : undefined
-                }
-                onClick={() => {
-                  if (!checkIfAObjectIsSelected()) return;
+                      props.setObjProps((prev: TypeObjectProps) => {
+                        return {
+                          ...prev,
+                          editMode: "translate",
+                          showXTransform: true,
+                          showYTransform: true,
+                          showZTransform: true,
+                        };
+                      });
+                    }}
+                  >
+                    <OpenWithIcon></OpenWithIcon>
+                  </IconButton>
+                  {/* Skalieren */}
+                  <IconButton
+                    color={
+                      props.objProps.editMode === "scale"
+                        ? "primary"
+                        : undefined
+                    }
+                    onClick={() => {
+                      if (!checkIfAObjectIsSelected()) return;
 
-                  props.setObjProps((prev: TypeObjectProps) => {
-                    return {
-                      ...prev,
-                      editMode: "scale",
-                      showXTransform: true,
-                      showYTransform: true,
-                      showZTransform: true,
-                    };
-                  });
-                }}
-              >
-                <ExpandIcon></ExpandIcon>
-              </IconButton>
-              {/* Rotieren */}
-              <IconButton
-                color={
-                  props.objProps.editMode === "rotate" ? "primary" : undefined
-                }
-                onClick={() => {
-                  if (!checkIfAObjectIsSelected()) return;
+                      props.setObjProps((prev: TypeObjectProps) => {
+                        return {
+                          ...prev,
+                          editMode: "scale",
+                          showXTransform: true,
+                          showYTransform: true,
+                          showZTransform: true,
+                        };
+                      });
+                    }}
+                  >
+                    <ExpandIcon></ExpandIcon>
+                  </IconButton>
+                  {/* Rotieren */}
+                  <IconButton
+                    color={
+                      props.objProps.editMode === "rotate"
+                        ? "primary"
+                        : undefined
+                    }
+                    onClick={() => {
+                      if (!checkIfAObjectIsSelected()) return;
 
-                  props.setObjProps((prev: TypeObjectProps) => {
-                    return {
-                      ...prev,
-                      editMode: "rotate",
-                      showXTransform: true,
-                      showYTransform: true,
-                      showZTransform: true,
-                    };
-                  });
-                }}
-              >
-                <ThreeSixtyIcon></ThreeSixtyIcon>
-              </IconButton>
-              {/* Sperren */}
-              <IconButton
-                color={
-                  props.objProps.editMode === undefined ? "primary" : undefined
-                }
-                onClick={() => {
-                  if (!checkIfAObjectIsSelected()) return;
+                      props.setObjProps((prev: TypeObjectProps) => {
+                        return {
+                          ...prev,
+                          editMode: "rotate",
+                          showXTransform: true,
+                          showYTransform: true,
+                          showZTransform: true,
+                        };
+                      });
+                    }}
+                  >
+                    <ThreeSixtyIcon></ThreeSixtyIcon>
+                  </IconButton>
+                  {/* Sperren */}
+                  <IconButton
+                    color={
+                      props.objProps.editMode === undefined
+                        ? "primary"
+                        : undefined
+                    }
+                    onClick={() => {
+                      if (!checkIfAObjectIsSelected()) return;
 
-                  props.setObjProps((prev: TypeObjectProps) => {
-                    return {
-                      ...prev,
-                      editMode: undefined,
-                      showXTransform: false,
-                      showYTransform: false,
-                      showZTransform: false,
-                    };
-                  });
-                }}
-              >
-                <LockIcon></LockIcon>
-              </IconButton>
-            </Stack>
-          </>
-        ) : (
-          <Typography>Noch keine Objekt ausgewählt.</Typography>
-        )}
-      </FormControl>
+                      props.setObjProps((prev: TypeObjectProps) => {
+                        return {
+                          ...prev,
+                          editMode: undefined,
+                          showXTransform: false,
+                          showYTransform: false,
+                          showZTransform: false,
+                        };
+                      });
+                    }}
+                  >
+                    <LockIcon></LockIcon>
+                  </IconButton>
+                </Stack>
+                <Stack>
+                  <IconButton
+                    onClick={() => {
+                      if (!checkIfAObjectIsSelected()) {
+                        alert("Kein Objekt ausgewählt");
+                        return;
+                      }
+
+                      props.deleteObject(props.objProps.id);
+                    }}
+                  >
+                    <DeleteForeverIcon></DeleteForeverIcon>
+                  </IconButton>
+                </Stack>
+              </Stack>
+            </>
+          ) : (
+            <Typography>Noch keine Objekt ausgewählt.</Typography>
+          )}
+        </FormControl>
+      </Stack>
 
       <Divider orientation="vertical" flexItem />
+
       {/* Kamera Perpektiven: normal, top-down, ... */}
-      <PerspectiveSelector
-        setOrtho={props.setOrtho}
-        controlsRef={props.controlsRef}
-        setPerspective={props.setPerspective}
-        setWallVisibility={props.setWallVisibility}
-      />
-      <Divider orientation="vertical" flexItem />
-      {/* Objekt/Model Löschen */}
-      <IconButton
-        onClick={() => {
-          if (!checkIfAObjectIsSelected()) {
-            alert("Kein Objekt ausgewählt");
-            return;
-          }
+      <Stack style={{ width: "25%" }}>
+        <PerspectiveSelector
+          setOrtho={props.setOrtho}
+          controlsRef={props.controlsRef}
+          setPerspective={props.setPerspective}
+          setWallVisibility={props.setWallVisibility}
+        />
+      </Stack>
 
-          props.deleteObject(props.objProps.id);
-        }}
+      <Divider orientation="vertical" flexItem />
+
+      {/* Objekt/Model Löschen */}
+      <Stack
+        justifyContent={"center"}
+        alignItems={"center"}
+        style={{ width: "25%" }}
       >
-        <DeleteForeverIcon></DeleteForeverIcon>
-      </IconButton>
-      <IconButton
-        onClick={() => {
-          props.exportObject();
-        }}
-      >
-        <ImportExportIcon></ImportExportIcon>
-      </IconButton>
+        <Stack style={{ width: "25%" }}>
+          <IconButton
+            onClick={() => {
+              props.exportObject();
+            }}
+          >
+            <ImportExportIcon></ImportExportIcon>
+          </IconButton>
+        </Stack>
+      </Stack>
     </Stack>
   );
 }

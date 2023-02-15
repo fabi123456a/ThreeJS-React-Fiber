@@ -8,7 +8,13 @@ export default function PerspectiveSelector(props: {
   setWallVisibility: (flag: TypeWallVisibility) => void;
 }) {
   return (
-    <FormControl>
+    <FormControl
+      style={{
+        width: "100%",
+        display: "flex",
+        alignItems: "center",
+      }}
+    >
       <FormLabel>Perspektive</FormLabel>
       <NativeSelect
         onChange={(e) => {
