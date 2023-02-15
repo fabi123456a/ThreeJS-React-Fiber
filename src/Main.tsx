@@ -8,9 +8,9 @@ import { ModelList } from "./UI-Elemente/ModelList/ModelList";
 import Scene from "./Scene/Scene";
 
 /*New */
-import * as THREE from 'three';
+import * as THREE from "three";
 import exportToGLTF from "./utils/exporting";
-import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader'
+import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader";
 /*New */
 
 export default function Main() {
@@ -100,7 +100,9 @@ export default function Main() {
     updateModels(currentObjectProps.id, currentObjectProps);
 
     if (prevObjectProps.current != null) {
-      prevObjectProps.current.removeBoundingBox();
+      if (!(prevObjectProps.current.id == currentObjectProps.id)) {
+        prevObjectProps.current.removeBoundingBox();
+      }
     }
 
     prevObjectProps.current = currentObjectProps;
@@ -129,29 +131,29 @@ export default function Main() {
     setMainCurrentObjectProps(null!);
   };
 
-/* by Miguel noch bearbeitung */
+  /* by Miguel noch bearbeitung */
 
   const handleModelexport = () => {
     let modelsArrayLength = models.length;
     const scene = new THREE.Scene();
-    const fbxLoader = new FBXLoader()
+    const fbxLoader = new FBXLoader();
     for (let i = 0; i < modelsArrayLength; i++) {
-    fbxLoader.load(
-      models[i].modelPath,
-      (object) => {
-        scene.add(object)
-      },
-      (xhr) => {
-          console.log((xhr.loaded / xhr.total) * 100 + '% loaded')
-      },
-      (error) => {
-          console.log(error)
-      }
-    )
+      fbxLoader.load(
+        models[i].modelPath,
+        (object) => {
+          scene.add(object);
+        },
+        (xhr) => {
+          console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
     }
     exportToGLTF(scene);
   };
-/* by Miguel noch bearbeitung */
+  /* by Miguel noch bearbeitung */
 
   const updateModels = (modelID: string, newModelData: any) => {
     setModels((prev: TypeObjectProps[]) => [

@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { TransformControls } from "@react-three/drei";
 import { useLoader } from "@react-three/fiber";
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader";
@@ -59,34 +59,27 @@ function SceneModel(
 
   // BoundingBox management
   const box = useRef<BoxHelper>(new BoxHelper(fbx, 0xff0000));
-  const isBoxInserted = useRef<boolean>(false);
+  const [boundingBox, setBoundingBox] = useState<boolean>(false);
 
-  // boundingbox eimalig berrechnen
-  useEffect(() => {
+  const insertBoundingBox = () => {
     box.current.geometry.computeBoundingBox();
     const material = new LineBasicMaterial({ color: 0xff0000 });
     box.current.material = material;
-  }, []);
 
-  const insertBoundingBox = () => {
-    if (!isBoxInserted.current) {
-      fbx.add(box.current);
-      isBoxInserted.current = true;
-    }
+    fbx.add(box.current);
   };
 
   const removeBoundingBox = () => {
-    if (isBoxInserted.current) {
-      fbx.remove(box.current);
-      isBoxInserted.current = false;
-    }
+    fbx.remove(box.current);
+    setBoundingBox(false);
   };
 
-  // useEffect(() => {          notwendig??
-  //   if (props.isSelected) {
-  //     //insertBoundingBox();
-  //   }
-  // });
+  useEffect(() => {
+    //alert(boundingBox);
+    if (boundingBox) {
+      insertBoundingBox();
+    }
+  });
 
   return (
     <>
@@ -131,6 +124,7 @@ function SceneModel(
             onClick={() => {
               sendCurrentObjectDataToControls();
               insertBoundingBox();
+              setBoundingBox(true);
             }}
             onDoubleClick={() => {
               removeBoundingBox();
