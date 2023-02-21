@@ -17,6 +17,7 @@ export default function PerspectiveSelector(props: {
     >
       <FormLabel>Perspektive</FormLabel>
       <NativeSelect
+        disableUnderline
         onChange={(e) => {
           const camPerspective = e.target.value;
           // wenn Kameraperspektive geändert wurde, "0" = normale perspektive

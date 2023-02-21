@@ -45,6 +45,7 @@ function ToolBar(props: {
       gap="1rem"
       justifyContent="space-evenly"
     >
+      {/* Transform: Verschieben, Rotieren & Skalieren */}
       <Stack direction={"row"} style={{ width: "50%" }}>
         <FormControl
           style={{
@@ -192,13 +193,13 @@ function ToolBar(props: {
 
       <Divider orientation="vertical" flexItem />
 
-      {/* Objekt/Model Löschen */}
+      {/* Laden/Speichern & Expotieren */}
       <Stack
         justifyContent={"center"}
         alignItems={"center"}
         style={{ width: "25%" }}
       >
-        <Stack direction="row" style={{ width: "25%" }}>
+        <Stack direction="row" style={{ background: "" }}>
           <IconButton
             onClick={() => {
               props.exportObject();
