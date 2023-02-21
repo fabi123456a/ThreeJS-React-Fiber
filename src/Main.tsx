@@ -230,6 +230,9 @@ export default function Main() {
       models: [...models],
       fbx_models: files,
     };
+    console.log("====================================");
+    console.log(toSaveObj);
+    console.log("====================================");
     const sceneJsonString = JSON.stringify(toSaveObj);
     const link = document.createElement("a");
     link.href = URL.createObjectURL(
@@ -245,20 +248,35 @@ export default function Main() {
     const reader = new FileReader();
     reader.onload = async (e) => {
       const data = JSON.parse(e?.target?.result as string);
-      console.log("====================================");
-      console.log(data);
-      console.log("====================================");
 
       const modifiedPaths = await Promise.all(
         data.fbx_models?.map(async (fbx_model: any) => {
           return {
             name: fbx_model.name,
-            path: URL.createObjectURL(base64ToBlob(fbx_model.file)), //generate a Path from the decoded base64 ArrayBuffe String, the default type is "" and means it is a binary file
+            oldPathName: fbx_model.pathName,
+            newPathName: URL.createObjectURL(base64ToBlob(fbx_model.file)), //generate a Path from the decoded base64 ArrayBuffe String, the default type is "" and means it is a binary file
           };
         })
       );
 
-      setModelPaths((prev) => [...prev, ...modifiedPaths]);
+      setModelPaths((prev) => [
+        ...prev,
+        ...modifiedPaths.map((fbx_model) => {
+          return { name: fbx_model.name, path: fbx_model.newPathName };
+        }),
+      ]);
+
+      setModels((prev) => [
+        ...data.models.map((model: any) => {
+          const newPathName = modifiedPaths.find((modelFbxPath) => {
+            return modelFbxPath?.oldPathName === model?.modelPath;
+          });
+          return {
+            ...model,
+            modelPath: newPathName?.newPathName ?? model.modelPath,
+          };
+        }),
+      ]);
     };
     reader.readAsText(file);
   }
