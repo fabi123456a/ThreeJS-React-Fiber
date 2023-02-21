@@ -12,8 +12,11 @@ import LockIcon from "@mui/icons-material/Lock";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import ThreeSixtyIcon from "@mui/icons-material/ThreeSixty";
 import PerspectiveSelector from "./PerspectiveSelector";
+import DownloadIcon from "@mui/icons-material/Download";
+import UploadIcon from "@mui/icons-material/Upload";
 /*New by Miguel*/
 import ImportExportIcon from "@mui/icons-material/ImportExport";
+import { ChangeEvent, ChangeEventHandler } from "react";
 /*New by Miguel*/
 
 function ToolBar(props: {
@@ -25,6 +28,8 @@ function ToolBar(props: {
   setOrtho: (flag: boolean) => void; // funktion die ein boolean setzt, ob gerade ein Orthografische Kamera aktiv ist
   setPerspective: (perspective: string) => void; // funktion setzt die Kamera Perspektive -> "0"=normal, "1"=topDown, "2"=frontal, "3"=leftMid, "4"=rightMid
   setWallVisibility: (flag: TypeWallVisibility) => void;
+  saveScene: () => void;
+  loadScene: (file: File | null) => void;
 }) {
   // funktion
   const checkIfAObjectIsSelected = (): boolean => {
@@ -193,13 +198,37 @@ function ToolBar(props: {
         alignItems={"center"}
         style={{ width: "25%" }}
       >
-        <Stack style={{ width: "25%" }}>
+        <Stack direction="row" style={{ width: "25%" }}>
           <IconButton
             onClick={() => {
               props.exportObject();
             }}
           >
             <ImportExportIcon></ImportExportIcon>
+          </IconButton>
+          <IconButton
+            onClick={() => {
+              const inputElement = document.createElement("input");
+              inputElement.type = "file";
+              document.body.appendChild(inputElement);
+              inputElement.click();
+              document.body.removeChild(inputElement);
+              inputElement.addEventListener("change", (e) => {
+                const target = e.target as HTMLInputElement;
+                if (target?.files && target?.files[0]) {
+                  props.loadScene(target.files[0]);
+                }
+              });
+            }}
+          >
+            <DownloadIcon></DownloadIcon>
+          </IconButton>
+          <IconButton
+            onClick={() => {
+              props.saveScene();
+            }}
+          >
+            <UploadIcon></UploadIcon>
           </IconButton>
         </Stack>
       </Stack>

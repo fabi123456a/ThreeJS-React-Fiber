@@ -6,7 +6,6 @@ import PropertieContainer from "./UI-Elemente/PropertieContainer/PropertieContai
 import ToolBar from "./UI-Elemente/ToolBar/ToolBar";
 import { ModelList } from "./UI-Elemente/ModelList/ModelList";
 import Scene from "./Scene/Scene";
-import { Buffer } from "buffer";
 
 /*New */
 import * as THREE from "three";
@@ -174,28 +173,6 @@ export default function Main() {
     );
     return btoa(binaryString);
   }
-  function base64ToArrayBuffer(base64: string) {
-    const binaryString = atob(base64);
-    const bytes = new Uint8Array(binaryString.length);
-    for (let i = 0; i < binaryString.length; i++) {
-      bytes[i] = binaryString.charCodeAt(i);
-    }
-    return bytes.buffer;
-  }
-
-  function fileToBase64(file: File) {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onload = () => {
-        const base64String = btoa(
-          unescape(encodeURIComponent(reader.result as string))
-        );
-        resolve(base64String);
-      };
-      reader.onerror = reject;
-      reader.readAsBinaryString(file);
-    });
-  }
 
   function base64ToBlob(base64String: string, sliceSize = 512) {
     const byteCharacters = atob(base64String);
@@ -215,7 +192,6 @@ export default function Main() {
 
     const blob = new Blob(byteArrays, { type: "application/octet-stream" });
     return blob;
-    //return new File([blob], fileName, { type: "application/octet-stream" });
   }
 
   async function saveScene() {
@@ -230,9 +206,6 @@ export default function Main() {
       models: [...models],
       fbx_models: files,
     };
-    console.log("====================================");
-    console.log(toSaveObj);
-    console.log("====================================");
     const sceneJsonString = JSON.stringify(toSaveObj);
     const link = document.createElement("a");
     link.href = URL.createObjectURL(
@@ -244,17 +217,19 @@ export default function Main() {
     document.body.removeChild(link);
   }
 
-  async function loadScene(file: any) {
+  async function loadScene(file: File | null) {
+    if (!file) return;
     const reader = new FileReader();
     reader.onload = async (e) => {
       const data = JSON.parse(e?.target?.result as string);
 
       const modifiedPaths = await Promise.all(
         data.fbx_models?.map(async (fbx_model: any) => {
+          const url = URL.createObjectURL(base64ToBlob(fbx_model.file)); //generate a Path from the decoded base64 ArrayBuffe String, the default type is "" and means it is a binary file
           return {
             name: fbx_model.name,
             oldPathName: fbx_model.pathName,
-            newPathName: URL.createObjectURL(base64ToBlob(fbx_model.file)), //generate a Path from the decoded base64 ArrayBuffe String, the default type is "" and means it is a binary file
+            newPathName: url,
           };
         })
       );
@@ -266,7 +241,7 @@ export default function Main() {
         }),
       ]);
 
-      setModels((prev) => [
+      setModels([
         ...data.models.map((model: any) => {
           const newPathName = modifiedPaths.find((modelFbxPath) => {
             return modelFbxPath?.oldPathName === model?.modelPath;
@@ -287,13 +262,6 @@ export default function Main() {
       style={{ height: "100%", background: "lightGray", overflowY: "auto" }}
       divider={<Divider orientation="vertical" flexItem />}
     >
-      <input
-        type="file"
-        onChange={(e) =>
-          loadScene(e?.target?.files ? e?.target?.files[0] : null)
-        }
-      />
-      <button onClick={saveScene}>Save</button>
       {/* ModelList */}
       <Stack
         style={{
@@ -344,6 +312,8 @@ export default function Main() {
             setObjProps={setMainCurrentObjectProps}
             controlsRef={controlsRef}
             setWallVisibility={setWallVisiblity}
+            saveScene={saveScene}
+            loadScene={loadScene}
           ></ToolBar>
         </Stack>
 
