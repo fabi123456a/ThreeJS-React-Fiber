@@ -82,9 +82,9 @@ export default function Main() {
   const [ortho, setOrtho] = useState<boolean>(false);
   const [perspective, setPerspective] = useState<string>("0");
   const [roomDimensions, setRoomDimensions] = useState<TypeRoomDimensions>({
-    height: 3,
-    width: 30,
-    depth: 30,
+    height: 7,
+    width: 50,
+    depth: 50,
   });
 
   // linke und rechte wand anzeigen?
