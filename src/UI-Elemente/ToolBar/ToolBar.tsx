@@ -207,6 +207,7 @@ function ToolBar(props: {
             <ImportExportIcon></ImportExportIcon>
           </IconButton>
           <IconButton
+            title="Load Scene"
             onClick={() => {
               const inputElement = document.createElement("input");
               inputElement.type = "file";
@@ -224,6 +225,7 @@ function ToolBar(props: {
             <DownloadIcon></DownloadIcon>
           </IconButton>
           <IconButton
+            title="Save current Scene"
             onClick={() => {
               props.saveScene();
             }}
