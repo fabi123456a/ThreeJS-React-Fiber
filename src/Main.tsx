@@ -203,6 +203,7 @@ export default function Main() {
       })
     );
     const toSaveObj = {
+      roomDimensions: roomDimensions,
       models: [...models],
       fbx_models: files,
     };
@@ -233,6 +234,10 @@ export default function Main() {
           };
         })
       );
+
+      if (data.roomDimensions) {
+        setRoomDimensions({ ...data.roomDimensions });
+      }
 
       setModelPaths((prev) => [
         ...prev,

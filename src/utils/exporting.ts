@@ -1,10 +1,8 @@
 import { Object3D } from "three";
-import * as THREE from 'three';
+import * as THREE from "three";
 import { GLTFExporter } from "three-stdlib";
 
-export default function exportToGLTF(
-  scene: Object3D
-) {
+export default function exportToGLTF(scene: Object3D) {
   const gltfExporter = new GLTFExporter();
   const options = {
     binary: false,
@@ -23,8 +21,8 @@ export default function exportToGLTF(
   );
 }
 
-  const link = document.createElement("a");
-  document.body.appendChild(link);
+const link = document.createElement("a");
+document.body.appendChild(link);
 
 function save(blob: Blob, filename: string) {
   link.href = URL.createObjectURL(blob);
