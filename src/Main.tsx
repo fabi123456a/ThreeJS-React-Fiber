@@ -6,6 +6,7 @@ import PropertieContainer from "./UI-Elemente/PropertieContainer/PropertieContai
 import ToolBar from "./UI-Elemente/ToolBar/ToolBar";
 import { ModelList } from "./UI-Elemente/ModelList/ModelList";
 import Scene from "./Scene/Scene";
+import { Buffer } from "buffer";
 
 /*New */
 import * as THREE from "three";
@@ -15,6 +16,7 @@ import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader";
 
 export default function Main() {
   // beinhaltet alle 3D-Modelle die in der Scene vorhanden sind
+  const [fbx_models_files, setFbx_models_files] = useState<any[]>([]);
   const [models, setModels] = useState<TypeObjectProps[]>([
     {
       id: "123567",
@@ -164,9 +166,71 @@ export default function Main() {
       ...prev.filter((model) => model.id !== modelID),
     ]);
   };
+  function arrayBufferToBase64(arrayBuffer: any) {
+    const bytes = new Uint8Array(arrayBuffer);
+    const binaryString = bytes.reduce(
+      (acc, byte) => acc + String.fromCharCode(byte),
+      ""
+    );
+    return btoa(binaryString);
+  }
+  function base64ToArrayBuffer(base64: string) {
+    const binaryString = atob(base64);
+    const bytes = new Uint8Array(binaryString.length);
+    for (let i = 0; i < binaryString.length; i++) {
+      bytes[i] = binaryString.charCodeAt(i);
+    }
+    return bytes.buffer;
+  }
+
+  function fileToBase64(file: File) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const base64String = btoa(
+          unescape(encodeURIComponent(reader.result as string))
+        );
+        resolve(base64String);
+      };
+      reader.onerror = reject;
+      reader.readAsBinaryString(file);
+    });
+  }
+
+  function base64ToBlob(base64String: string, sliceSize = 512) {
+    const byteCharacters = atob(base64String);
+    const byteArrays = [];
+
+    for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+      const slice = byteCharacters.slice(offset, offset + sliceSize);
+
+      const byteNumbers = new Array(slice.length);
+      for (let i = 0; i < slice.length; i++) {
+        byteNumbers[i] = slice.charCodeAt(i);
+      }
+
+      const byteArray = new Uint8Array(byteNumbers);
+      byteArrays.push(byteArray);
+    }
+
+    const blob = new Blob(byteArrays, { type: "application/octet-stream" });
+    return blob;
+    //return new File([blob], fileName, { type: "application/octet-stream" });
+  }
 
   async function saveScene() {
-    const sceneJsonString = JSON.stringify(sceneRef.current);
+    const files = await Promise.all(
+      fbx_models_files.map(async (fileData) => {
+        const { pathName, name, file } = fileData;
+        const base64 = arrayBufferToBase64(await file.arrayBuffer()); //Convert the arrayBuffer of the file to a base64 encoded string
+        return { pathName, name, file: base64 };
+      })
+    );
+    const toSaveObj = {
+      models: [...models],
+      fbx_models: files,
+    };
+    const sceneJsonString = JSON.stringify(toSaveObj);
     const link = document.createElement("a");
     link.href = URL.createObjectURL(
       new Blob([sceneJsonString], { type: "application/json" })
@@ -177,12 +241,41 @@ export default function Main() {
     document.body.removeChild(link);
   }
 
+  async function loadScene(file: any) {
+    const reader = new FileReader();
+    reader.onload = async (e) => {
+      const data = JSON.parse(e?.target?.result as string);
+      console.log("====================================");
+      console.log(data);
+      console.log("====================================");
+
+      const modifiedPaths = await Promise.all(
+        data.fbx_models?.map(async (fbx_model: any) => {
+          return {
+            name: fbx_model.name,
+            path: URL.createObjectURL(base64ToBlob(fbx_model.file)), //generate a Path from the decoded base64 ArrayBuffe String, the default type is "" and means it is a binary file
+          };
+        })
+      );
+
+      setModelPaths((prev) => [...prev, ...modifiedPaths]);
+    };
+    reader.readAsText(file);
+  }
+
   return (
     <Stack
       direction="row"
       style={{ height: "100%", background: "lightGray", overflowY: "auto" }}
       divider={<Divider orientation="vertical" flexItem />}
     >
+      <input
+        type="file"
+        onChange={(e) =>
+          loadScene(e?.target?.files ? e?.target?.files[0] : null)
+        }
+      />
+      <button onClick={saveScene}>Save</button>
       {/* ModelList */}
       <Stack
         style={{
@@ -191,9 +284,20 @@ export default function Main() {
       >
         <ModelList
           addObject={handleModelAdd}
-          addModel={(name: string, url: string) =>
-            setModelPaths((prev) => [...prev, { name: name, path: url }])
-          }
+          addModel={(name: string, url: string, file: any) => {
+            setModelPaths((prev) => [...prev, { name: name, path: url }]);
+            setFbx_models_files((prev: any[]) => {
+              if (prev.find((elem) => elem.pathName === url)) {
+                return prev;
+              }
+              const newFile = {
+                pathName: url,
+                name: name,
+                file: file,
+              };
+              return [...prev, newFile];
+            });
+          }}
           paths={modelPaths}
         ></ModelList>
       </Stack>

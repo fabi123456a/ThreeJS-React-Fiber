@@ -1,11 +1,12 @@
 import React, { useRef, useState } from "react";
 import { Button, Stack } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
+import { Buffer } from "buffer";
 
 export default function AddModelForm({
   addModel,
 }: {
-  addModel: (name: string, path: string) => void;
+  addModel: (name: string, path: string, file: any) => void;
 }) {
   const modelFileRef = useRef<HTMLInputElement>(null);
   const [name, setName] = useState<string>("");
@@ -31,7 +32,23 @@ export default function AddModelForm({
               );
               return;
             }
-            name && addModel(name, URL.createObjectURL(e.target.files[0]));
+            if (!e?.target?.files || !e?.target?.files[0]) return;
+            const reader = new FileReader();
+            reader.onload = async function (e2) {
+              const blob = new Blob(
+                [new Uint8Array(e2?.target?.result as ArrayBuffer)],
+                {
+                  type: e?.target?.files ? e?.target?.files[0].type : "",
+                }
+              );
+              name &&
+                addModel(
+                  name,
+                  URL.createObjectURL(blob),
+                  e?.target?.files && e?.target?.files[0]
+                );
+            };
+            reader.readAsArrayBuffer(e.target.files[0]);
           }
         }}
         type="file"

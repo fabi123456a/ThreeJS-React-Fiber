@@ -6,7 +6,7 @@ import { ModelListItem } from "./ModelListItem";
 export function ModelList(props: {
   paths: { name: string; path: string }[];
   addObject: (pfad: string) => void;
-  addModel: (name: string, url: string) => void;
+  addModel: (name: string, url: string, file: any) => void;
 }) {
   return (
     <Stack direction={"column"} style={{ backgroundColor: "ligtGray" }}>
