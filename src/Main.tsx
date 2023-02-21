@@ -11,6 +11,7 @@ import Scene from "./Scene/Scene";
 import * as THREE from "three";
 import exportToGLTF from "./utils/exporting";
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader";
+import { arrayBufferToBase64, base64ToBlob } from "./utils/converting";
 /*New */
 
 export default function Main() {
@@ -165,34 +166,6 @@ export default function Main() {
       ...prev.filter((model) => model.id !== modelID),
     ]);
   };
-  function arrayBufferToBase64(arrayBuffer: any) {
-    const bytes = new Uint8Array(arrayBuffer);
-    const binaryString = bytes.reduce(
-      (acc, byte) => acc + String.fromCharCode(byte),
-      ""
-    );
-    return btoa(binaryString);
-  }
-
-  function base64ToBlob(base64String: string, sliceSize = 512) {
-    const byteCharacters = atob(base64String);
-    const byteArrays = [];
-
-    for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
-      const slice = byteCharacters.slice(offset, offset + sliceSize);
-
-      const byteNumbers = new Array(slice.length);
-      for (let i = 0; i < slice.length; i++) {
-        byteNumbers[i] = slice.charCodeAt(i);
-      }
-
-      const byteArray = new Uint8Array(byteNumbers);
-      byteArrays.push(byteArray);
-    }
-
-    const blob = new Blob(byteArrays, { type: "application/octet-stream" });
-    return blob;
-  }
 
   async function saveScene() {
     const files = await Promise.all(
