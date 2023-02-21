@@ -174,7 +174,9 @@ function ToolBar(props: {
               </Stack>
             </>
           ) : (
-            <Typography>Noch keine Objekt ausgewählt.</Typography>
+            <Stack flexGrow={1} justifyContent={"center"} alignItems={"center"}>
+              <Typography>Noch keine Objekt ausgewählt.</Typography>
+            </Stack>
           )}
         </FormControl>
       </Stack>

@@ -244,6 +244,7 @@ export default function Main() {
       <Stack
         style={{
           background: "#d9d9d9",
+          width: "20%",
         }}
       >
         <ModelList
@@ -318,6 +319,7 @@ export default function Main() {
       <Stack
         style={{
           background: "#d9d9d9",
+          width: "30%",
         }}
       >
         <PropertieContainer

@@ -75,7 +75,6 @@ function SceneModel(
   };
 
   useEffect(() => {
-    //alert(boundingBox);
     if (boundingBox) {
       insertBoundingBox();
     }
