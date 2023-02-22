@@ -9,15 +9,17 @@ export function ModelList(props: {
   addModel: (name: string, url: string, file: any) => void;
 }) {
   return (
-    <Stack direction={"column"} style={{ backgroundColor: "ligtGray" }}>
-      {props.paths.map((path) => (
-        <ModelListItem
-          name={path.name}
-          key={path.path}
-          pfad={path.path}
-          addObject={props.addObject}
-        ></ModelListItem>
-      ))}
+    <Stack style={{ overflowY: "scroll" }}>
+      <Stack direction={"column"} style={{ overflowY: "scroll" }}>
+        {props.paths.map((path) => (
+          <ModelListItem
+            name={path.name}
+            key={path.path}
+            pfad={path.path}
+            addObject={props.addObject}
+          ></ModelListItem>
+        ))}
+      </Stack>
       <AddModelForm addModel={props.addModel} />
     </Stack>
   );
