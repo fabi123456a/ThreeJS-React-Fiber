@@ -5,8 +5,6 @@ import { useThree } from "@react-three/fiber";
 import { useEffect } from "react";
 import * as THREE from "three";
 
-//const deg2rad = (degrees: number) => degrees * (Math.PI / 180);
-
 export default function Scene(props: {
   controlsRef: React.RefObject<any>;
   models: TypeObjectProps[];

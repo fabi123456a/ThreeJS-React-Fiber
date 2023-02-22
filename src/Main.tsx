@@ -7,12 +7,10 @@ import ToolBar from "./UI-Elemente/ToolBar/ToolBar";
 import { ModelList } from "./UI-Elemente/ModelList/ModelList";
 import Scene from "./Scene/Scene";
 
-/*New */
 import * as THREE from "three";
 import exportToGLTF from "./utils/exporting";
-import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader";
+import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader';
 import { arrayBufferToBase64, base64ToBlob } from "./utils/converting";
-/*New */
 
 export default function Main() {
   // beinhaltet alle 3D-Modelle die in der Scene vorhanden sind
@@ -111,7 +109,7 @@ export default function Main() {
     updateModels(currentObjectProps.id, currentObjectProps);
 
     if (prevObjectProps.current != null) {
-      if (!(prevObjectProps.current.id == currentObjectProps.id)) {
+      if (!(prevObjectProps.current.id === currentObjectProps.id)) {
         prevObjectProps.current.removeBoundingBox();
       }
     }
@@ -142,8 +140,18 @@ export default function Main() {
     setMainCurrentObjectProps(null!);
   };
 
-  const handleModelexport = async () => { 
+  const handleModelexport = async () => {
     const scene = new THREE.Scene();
+    scene.add(new THREE.AxesHelper(5));
+
+    const light = new THREE.PointLight();
+    light.position.set(0.8, 1.4, 1.0);
+    scene.add(light);
+
+    const ambientLight = new THREE.AmbientLight();
+    scene.add(ambientLight);
+    const material = new THREE.MeshNormalMaterial();
+
     const loader = new FBXLoader();
     for (const element of models) {
       loader.load(
@@ -151,8 +159,12 @@ export default function Main() {
         (object) => {
           object.traverse(function (child) {
             if ((child as THREE.Mesh).isMesh) {
+              (child as THREE.Mesh).material = material;
               (child as THREE.Mesh).castShadow = true;
               (child as THREE.Mesh).receiveShadow = true;
+              if((child as THREE.Mesh).material){
+                ((child as THREE.Mesh).material as THREE.MeshBasicMaterial).transparent = false;
+              }
             }
           })
           object.position.set(element.position.x, element.position.y, element.position.z);
