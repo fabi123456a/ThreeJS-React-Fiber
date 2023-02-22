@@ -58,7 +58,7 @@ export default function AddModelForm({
       <Button
         color="success"
         variant="contained"
-        style={{ margin: "4px" }}
+        style={{ margin: "12px", marginLeft: "24px", marginRight: "24px" }}
         onClick={() => {
           const name = window.prompt("Model Name", "");
           if (!name) {
