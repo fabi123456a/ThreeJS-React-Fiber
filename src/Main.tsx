@@ -142,29 +142,29 @@ export default function Main() {
     setMainCurrentObjectProps(null!);
   };
 
-  /* by Miguel noch bearbeitung */
-
-  const handleModelexport = () => {
-    let modelsArrayLength = models.length;
+  const handleModelexport = async () => { 
     const scene = new THREE.Scene();
-    const fbxLoader = new FBXLoader();
-    for (let i = 0; i < modelsArrayLength; i++) {
-      fbxLoader.load(
-        models[i].modelPath,
+    const loader = new FBXLoader();
+    for (const element of models) {
+      loader.load(
+        element.modelPath,
         (object) => {
-          scene.add(object);
-        },
-        (xhr) => {
-          console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
-        },
-        (error) => {
-          console.log(error);
-        }
-      );
+          object.traverse(function (child) {
+            if ((child as THREE.Mesh).isMesh) {
+              (child as THREE.Mesh).castShadow = true;
+              (child as THREE.Mesh).receiveShadow = true;
+            }
+          })
+          object.position.set(element.position.x, element.position.y, element.position.z);
+          object.scale.set(element.scale.x, element.scale.y, element.scale.z)
+          object.rotation.set(element.rotation.x, element.rotation.y, element.rotation.z);
+          scene.add(object);            
+        })
     }
-    exportToGLTF(scene);
-  };
-  /* by Miguel noch bearbeitung */
+    setTimeout(function () {
+      exportToGLTF(scene);
+    },3000);
+  }
 
   const updateModels = (modelID: string, newModelData: any) => {
     setModels((prev: TypeObjectProps[]) => [
