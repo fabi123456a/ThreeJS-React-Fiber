@@ -1,4 +1,5 @@
 import { Object3D } from "three";
+import * as THREE from "three";
 import { GLTFExporter } from "three-stdlib";
 
 export default function exportToGLTF(scene: Object3D) {
@@ -13,20 +14,20 @@ export default function exportToGLTF(scene: Object3D) {
         saveArrayBuffer(result, "scene.glb");
       } else {
         const output = JSON.stringify(result, null, 2);
-        saveString(output, "scene.gltf"); 
+        saveString(output, "scene.gltf");
       }
     },
     options
   );
 }
 
+const link = document.createElement("a");
+document.body.appendChild(link);
+
 function save(blob: Blob, filename: string) {
-  const link = document.createElement("a");
-  document.body.appendChild(link);
   link.href = URL.createObjectURL(blob);
   link.download = filename;
   link.click();
-  document.body.removeChild(link);
 }
 
 function saveString(text: string, filename: string) {
