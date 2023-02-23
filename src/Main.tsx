@@ -73,15 +73,6 @@ export default function Main() {
     { name: "Monitor", path: "./ModelsFBX/Monitor.FBX" },
     { name: "Chair", path: "./ModelsFBX/Chair.FBX" },
     { name: "Computer Desk", path: "./ModelsFBX/Computer Desk.FBX" },
-    { name: "Car", path: "./ModelsFBX/car.fbx" },
-    { name: "Mercedes", path: "./ModelsFBX/mercedes.fbx" },
-    { name: "Couch", path: "./ModelsFBX/couch.fbx" },
-    { name: "Low Poly Tree", path: "./ModelsFBX/lowpolytree.fbx" },
-    { name: "Sofa", path: "./ModelsFBX/sofa.fbx" },
-    { name: "Table And Chairs", path: "./ModelsFBX/tableandchairs.fbx" },
-    { name: "Monitor", path: "./ModelsFBX/Monitor.FBX" },
-    { name: "Chair", path: "./ModelsFBX/Chair.FBX" },
-    { name: "Computer Desk", path: "./ModelsFBX/Computer Desk.FBX" },
   ]);
 
   // currentObjectProps

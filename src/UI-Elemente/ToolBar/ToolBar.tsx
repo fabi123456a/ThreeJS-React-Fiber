@@ -14,10 +14,7 @@ import ThreeSixtyIcon from "@mui/icons-material/ThreeSixty";
 import PerspectiveSelector from "./PerspectiveSelector";
 import DownloadIcon from "@mui/icons-material/Download";
 import UploadIcon from "@mui/icons-material/Upload";
-/*New by Miguel*/
 import ImportExportIcon from "@mui/icons-material/ImportExport";
-import { ChangeEvent, ChangeEventHandler } from "react";
-/*New by Miguel*/
 
 function ToolBar(props: {
   objProps: TypeObjectProps; // ist gleich die currentObjectProps
