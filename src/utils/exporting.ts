@@ -1,5 +1,4 @@
 import { Object3D } from "three";
-import * as THREE from "three";
 import { GLTFExporter } from "three-stdlib";
 
 export default function exportToGLTF(scene: Object3D) {
@@ -20,8 +19,6 @@ export default function exportToGLTF(scene: Object3D) {
     options
   );
 }
-
-
 
 function save(blob: Blob, filename: string) {
   const link = document.createElement("a");

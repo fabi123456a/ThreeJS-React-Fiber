@@ -3,9 +3,7 @@ import { TransformControls } from "@react-three/drei";
 import { useLoader } from "@react-three/fiber";
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader";
 import * as THREE from "three";
-import { BoxHelper, Euler, LineBasicMaterial, Vector3 } from "three";
-import { Console, debug } from "console";
-
+import { BoxHelper, LineBasicMaterial, Vector3 } from "three";
 // KOMPONENTE
 
 function SceneModel(
@@ -98,7 +96,6 @@ function SceneModel(
             console.log("Kamerarotation frei");
 
             if (props.camPerspektive === "0") {
-              //alert(props.camPerspektive);
               props.controlsRef.current.enableRotate = true;
             }
           }
