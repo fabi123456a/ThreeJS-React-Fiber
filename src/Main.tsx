@@ -103,7 +103,7 @@ export default function Main() {
     updateModels(currentObjectProps.id, currentObjectProps);
 
     if (prevObjectProps.current != null) {
-      if (!(prevObjectProps.current.id == currentObjectProps.id)) {
+      if (prevObjectProps.current.id !== currentObjectProps.id) {
         prevObjectProps.current.removeBoundingBox();
       }
     }
