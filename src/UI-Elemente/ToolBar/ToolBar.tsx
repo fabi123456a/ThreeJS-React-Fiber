@@ -200,6 +200,7 @@ function ToolBar(props: {
       >
         <Stack direction="row" style={{ background: "" }}>
           <IconButton
+            title="Export current Scene as GLTF"
             onClick={() => {
               props.exportObject();
             }}
