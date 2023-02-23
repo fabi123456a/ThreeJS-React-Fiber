@@ -12,6 +12,7 @@ import * as THREE from "three";
 import exportToGLTF from "./utils/exporting";
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader";
 import { arrayBufferToBase64, base64ToBlob } from "./utils/converting";
+
 /*New */
 
 export default function Main() {
@@ -102,7 +103,7 @@ export default function Main() {
     rightWall: true,
   });
 
-  const sceneRef = useRef(null);
+  const sceneRef = useRef<THREE.Scene>(null!);
   const controlsRef = useRef<any>(null);
   const prevObjectProps = useRef(currentObjectProps);
 
@@ -142,8 +143,8 @@ export default function Main() {
     setMainCurrentObjectProps(null!);
   };
 
-  const handleModelexport = async () => { 
-    const scene = new THREE.Scene();
+  const handleModelexport = async () => {
+    const scene: THREE.Scene = sceneRef.current;
     const loader = new FBXLoader();
     for (const element of models) {
       loader.load(
@@ -158,12 +159,75 @@ export default function Main() {
           object.position.set(element.position.x, element.position.y, element.position.z);
           object.scale.set(element.scale.x, element.scale.y, element.scale.z)
           object.rotation.set(element.rotation.x, element.rotation.y, element.rotation.z);
-          scene.add(object);         
+          scene.add(object);
         })
     }
     setTimeout(function () {
       exportToGLTF(scene);
     },3000);
+
+    /*const obj2gltf = require("obj2gltf");
+    const fs = require("fs");
+    obj2gltf("./ModelsOBJ/couch.obj").then(function (gltf: any) {
+    const data = Buffer.from(JSON.stringify(gltf));
+    fs.writeFileSync("model.gltf", data);
+    });*/
+    /*const convertedFilePath = convert(models[0].modelPath, './ModelsGLB/target.gltf', ['--khr-materials-unlit']);
+    convertedFilePath.then( (res) => {
+      console.log(res);
+    });*/
+    /*const convert = require('fbx2gltf');
+    const paths: any = [];
+    const scene = new THREE.Scene();
+    for (let index = 0; index < models.length; index++) {
+      const path = models[index].modelPath;
+      const chars = path.split("/");
+      const temp = chars[2];
+      const charstemp = temp.split('.');
+      const destpath = "./ModelsGLB/" + charstemp[0] + ".gltf";
+      convert(path, destpath, ['--khr-materials-unlit']).then(
+        (destPath: any) => {
+          // yay, do what we will with our shiny new GLB file!
+          paths[index] = destPath;
+          
+        },
+        (error: any) => {
+          // ack, conversion failed: inspect 'error' for details
+          console.log(error);
+        }
+      );
+    }
+    
+    
+    setTimeout(function () {
+      console.log(paths[0]);
+      exportToGLTF(scene);
+    },3000);*/
+   
+    //createScene(models);
+    //const buffer = new THREE.BufferGeometry();
+    /*const scene = new THREE.Scene();
+    const loader = new FBXLoader();
+    for (const element of models) {
+      loader.load(
+        element.modelPath,
+        (object) => {
+          object.traverse(function (child) {
+            if ((child as THREE.Mesh).isMesh) {
+              (child as THREE.Mesh).castShadow = true;
+              (child as THREE.Mesh).receiveShadow = true;
+            }
+          })
+          object.position.set(element.position.x, element.position.y, element.position.z);
+          object.scale.set(element.scale.x, element.scale.y, element.scale.z)
+          object.rotation.set(element.rotation.x, element.rotation.y, element.rotation.z);
+          scene.add(object);
+          console.log(object);       
+        })
+    }
+    setTimeout(function () {
+      exportToGLTF(scene);
+    },3000);*/
   }
 
   const updateModels = (modelID: string, newModelData: any) => {
