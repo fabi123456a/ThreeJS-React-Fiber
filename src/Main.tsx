@@ -7,10 +7,10 @@ import ToolBar from "./UI-Elemente/ToolBar/ToolBar";
 import { ModelList } from "./UI-Elemente/ModelList/ModelList";
 import Scene from "./Scene/Scene";
 import * as THREE from "three";
-import exportToGLTF from "./utils/exporting";
+//@ts-ignore
+import { GLTFExporter } from "three/addons/exporters/GLTFExporter.js";
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader";
 import { arrayBufferToBase64, base64ToBlob } from "./utils/converting";
-
 
 export default function Main() {
   // beinhaltet alle 3D-Modelle die in der Scene vorhanden sind
@@ -131,30 +131,36 @@ export default function Main() {
     setMainCurrentObjectProps(null!);
   };
 
-  const handleModelexport = async () => {  
-    const wholeScene = new THREE.Scene();
-    wholeScene.add(sceneRef.current);
-    const loader = new FBXLoader();
-    for (let index = 0; index < models.length; index++) {
-      loader.load(
-        models[index].modelPath, 
-        function (object) {
-          object.traverse(function (child) {
-            if ((child as THREE.Mesh).isMesh) {
-              (child as THREE.Mesh).castShadow = true;
-              (child as THREE.Mesh).receiveShadow = true;
-            }
-          })
-          wholeScene.position.set(models[index].position.x, models[index].position.y, models[index].position.z);
-          wholeScene.scale.set(models[index].scale.x, models[index].scale.y, models[index].scale.z)
-          wholeScene.rotation.set(models[index].rotation.x, models[index].rotation.y, models[index].rotation.z);
-          wholeScene.add(object);
-        })
-    };
-    setTimeout(function () {
-      exportToGLTF(wholeScene);
-    },3000);
-  }
+  const handleModelexport = async () => {
+    const gltfExporter = new GLTFExporter();
+
+    gltfExporter.parse(
+      sceneRef.current,
+      function (result: any) {
+        const output = JSON.stringify(result, null, 2);
+        console.log(output);
+        saveString(output, "scene.gltf");
+      },
+      function (error: any) {
+        console.log("An error happened during parsing", error);
+      }
+    );
+
+    function save(blob: any, filename: any) {
+      const link = document.createElement("a");
+
+      link.download = "Scene";
+      document.body.appendChild(link);
+      link.href = URL.createObjectURL(blob);
+      link.download = filename;
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    function saveString(text: any, filename: any) {
+      save(new Blob([text], { type: "text/plain" }), filename);
+    }
+  };
 
   const updateModels = (modelID: string, newModelData: any) => {
     setModels((prev: TypeObjectProps[]) => [
