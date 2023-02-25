@@ -19,7 +19,7 @@ function BoxGeometrie(props: {
         ]}
       >
         <boxBufferGeometry args={props.geometrie.scaleXYZ} />
-        <meshNormalMaterial />
+        <meshStandardMaterial />
       </mesh>
     </>
   );
