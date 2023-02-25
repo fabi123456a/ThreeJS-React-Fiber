@@ -6,14 +6,11 @@ import PropertieContainer from "./UI-Elemente/PropertieContainer/PropertieContai
 import ToolBar from "./UI-Elemente/ToolBar/ToolBar";
 import { ModelList } from "./UI-Elemente/ModelList/ModelList";
 import Scene from "./Scene/Scene";
-
-/*New */
 import * as THREE from "three";
 import exportToGLTF from "./utils/exporting";
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader";
 import { arrayBufferToBase64, base64ToBlob } from "./utils/converting";
 
-/*New */
 
 export default function Main() {
   // beinhaltet alle 3D-Modelle die in der Scene vorhanden sind
@@ -94,7 +91,7 @@ export default function Main() {
     rightWall: true,
   });
 
-  const sceneRef = useRef<THREE.Scene>(null!);
+  const sceneRef = useRef<any>(null!);
   const controlsRef = useRef<any>(null);
   const prevObjectProps = useRef(currentObjectProps);
 
@@ -134,27 +131,28 @@ export default function Main() {
     setMainCurrentObjectProps(null!);
   };
 
-  const handleModelexport = async () => {
-    const scene: THREE.Scene = sceneRef.current;
+  const handleModelexport = async () => {  
+    const wholeScene = new THREE.Scene();
+    wholeScene.add(sceneRef.current);
     const loader = new FBXLoader();
-    for (const element of models) {
+    for (let index = 0; index < models.length; index++) {
       loader.load(
-        element.modelPath,
-        (object) => {
+        models[index].modelPath, 
+        function (object) {
           object.traverse(function (child) {
             if ((child as THREE.Mesh).isMesh) {
               (child as THREE.Mesh).castShadow = true;
               (child as THREE.Mesh).receiveShadow = true;
             }
           })
-          object.position.set(element.position.x, element.position.y, element.position.z);
-          object.scale.set(element.scale.x, element.scale.y, element.scale.z)
-          object.rotation.set(element.rotation.x, element.rotation.y, element.rotation.z);
-          scene.add(object);
+          wholeScene.position.set(models[index].position.x, models[index].position.y, models[index].position.z);
+          wholeScene.scale.set(models[index].scale.x, models[index].scale.y, models[index].scale.z)
+          wholeScene.rotation.set(models[index].rotation.x, models[index].rotation.y, models[index].rotation.z);
+          wholeScene.add(object);
         })
-    }
+    };
     setTimeout(function () {
-      exportToGLTF(scene);
+      exportToGLTF(wholeScene);
     },3000);
   }
 
