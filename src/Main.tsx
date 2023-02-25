@@ -112,7 +112,7 @@ export default function Main() {
     setModels([
       ...models,
       {
-        id: "" + (window?.crypto ? crypto.randomUUID() : Math.random() * 1000), // geht im browser safari nicht
+        id: "" + Math.random() * 1000, 
         editMode: undefined,
         showXTransform: false,
         showYTransform: false,
