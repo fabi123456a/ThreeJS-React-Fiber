@@ -33,7 +33,7 @@ export default function Scene(props: {
         scene.add(mesh);
       }
     }
-  });
+  },[]);
 
   return (
     <>
