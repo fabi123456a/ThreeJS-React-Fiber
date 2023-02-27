@@ -132,10 +132,31 @@ export default function Main() {
   };
 
   const handleModelexport = async () => {
+    const scene = new THREE.Scene();
+    
+    const light = new THREE.PointLight()
+    light.position.set(0.8, 1.4, 1.0)
+    scene.add(light)
+    const ambientLight = new THREE.AmbientLight()
+    scene.add(ambientLight)
+
+    const fbxLoader = new FBXLoader();
+    for (const element of models) {
+      fbxLoader.load(
+        element.modelPath,
+        (object) => {
+            object.scale.set(element.scale.x, element.scale.y, element.scale.z);
+            object.position.set(element.position.x, element.position.y, element.position.z);
+            object.rotation.set(element.rotation.x, element.rotation.y, element.rotation.z);
+            scene.add(object)
+        }
+      )
+    }
+    setTimeout(() => {
     const gltfExporter = new GLTFExporter();
 
     gltfExporter.parse(
-      sceneRef.current,
+      scene,
       function (result: any) {
         const output = JSON.stringify(result, null, 2);
         console.log(output);
@@ -160,6 +181,8 @@ export default function Main() {
     function saveString(text: any, filename: any) {
       save(new Blob([text], { type: "text/plain" }), filename);
     }
+    }, 3000);
+
   };
 
   const updateModels = (modelID: string, newModelData: any) => {
