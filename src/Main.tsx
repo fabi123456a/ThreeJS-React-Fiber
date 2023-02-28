@@ -11,6 +11,7 @@ import * as THREE from "three";
 import { GLTFExporter } from "three/addons/exporters/GLTFExporter.js";
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader";
 import { arrayBufferToBase64, base64ToBlob } from "./utils/converting";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 
 export default function Main() {
   // beinhaltet alle 3D-Modelle die in der Scene vorhanden sind
@@ -133,13 +134,6 @@ export default function Main() {
 
   const handleModelexport = async () => {
     const scene = new THREE.Scene();
-    
-    const light = new THREE.PointLight()
-    light.position.set(0.8, 1.4, 1.0)
-    scene.add(light)
-    const ambientLight = new THREE.AmbientLight()
-    scene.add(ambientLight)
-
     const fbxLoader = new FBXLoader();
     for (const element of models) {
       fbxLoader.load(
@@ -184,6 +178,31 @@ export default function Main() {
     }, 3000);
 
   };
+  let contentGltfFile: THREE.Group;
+  const handleModelimport = async (file: File | null) => {
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = async (e) => {
+      const contents: string = JSON.parse(e?.target?.result as string); 
+      
+      
+      console.log(contents);
+      const gltfLoader = new GLTFLoader();
+      gltfLoader.parse(
+        contents, '',
+        function (gltf) {
+          sceneRef.current.add(gltf.scene); 
+          contentGltfFile = gltf.scene;         
+        }
+      )
+    };
+    reader.readAsText(file);
+  };
+
+  const handleModelRemoval = async() => {
+    const gltfLoader = new GLTFLoader();
+    sceneRef.current.remove(contentGltfFile);              
+  }
 
   const updateModels = (modelID: string, newModelData: any) => {
     setModels((prev: TypeObjectProps[]) => [
@@ -315,6 +334,8 @@ export default function Main() {
             setOrtho={setOrtho}
             deleteObject={handleModelDelete}
             exportObject={handleModelexport}
+            importObject={handleModelimport}
+            removeObject={handleModelRemoval}
             objProps={currentObjectProps}
             setObjProps={setMainCurrentObjectProps}
             controlsRef={controlsRef}

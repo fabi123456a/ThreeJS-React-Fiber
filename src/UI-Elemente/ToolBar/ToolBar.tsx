@@ -15,6 +15,8 @@ import PerspectiveSelector from "./PerspectiveSelector";
 import DownloadIcon from "@mui/icons-material/Download";
 import UploadIcon from "@mui/icons-material/Upload";
 import ImportExportIcon from "@mui/icons-material/ImportExport";
+import PublishIcon from "@mui/icons-material/Publish";
+import RemoveIcon from "@mui/icons-material/Remove";
 
 function ToolBar(props: {
   objProps: TypeObjectProps; // ist gleich die currentObjectProps
@@ -22,6 +24,8 @@ function ToolBar(props: {
   controlsRef: React.RefObject<any>;
   deleteObject: (id: string) => void; // funktion um ein Object/Model aus der Szene zu entfernen
   exportObject: () => void;
+  importObject: (file: File | null) => void;
+  removeObject:() => void;
   setOrtho: (flag: boolean) => void; // funktion die ein boolean setzt, ob gerade ein Orthografische Kamera aktiv ist
   setPerspective: (perspective: string) => void; // funktion setzt die Kamera Perspektive -> "0"=normal, "1"=topDown, "2"=frontal, "3"=leftMid, "4"=rightMid
   setWallVisibility: (flag: TypeWallVisibility) => void;
@@ -206,6 +210,32 @@ function ToolBar(props: {
             }}
           >
             <ImportExportIcon></ImportExportIcon>
+          </IconButton>
+          <IconButton
+            title="View GLTF scene"
+            onClick={() => {
+              const inputElement = document.createElement("input");
+              inputElement.type = "file";
+              document.body.appendChild(inputElement);
+              inputElement.click();
+              document.body.removeChild(inputElement);
+              inputElement.addEventListener("change", (e) => {
+                const target = e.target as HTMLInputElement;
+                if (target?.files && target?.files[0]) {
+                  props.importObject(target.files[0]);
+                }
+              });
+            }}
+          >
+            <PublishIcon></PublishIcon>
+          </IconButton>
+          <IconButton
+            title="Remove Gltf Scene"
+            onClick={() => {
+              props.removeObject();
+            }}
+          >
+            <RemoveIcon></RemoveIcon>
           </IconButton>
           <IconButton
             title="Load Scene"
