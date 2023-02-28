@@ -7,7 +7,7 @@ import ToolBar from "./UI-Elemente/ToolBar/ToolBar";
 import { ModelList } from "./UI-Elemente/ModelList/ModelList";
 import Scene from "./Scene/Scene";
 import * as THREE from "three";
-//@ts-ignore
+
 import { GLTFExporter } from "three/addons/exporters/GLTFExporter.js";
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader";
 import { arrayBufferToBase64, base64ToBlob } from "./utils/converting";
@@ -35,7 +35,7 @@ export default function Main() {
       scale: { x: 0.03, y: 0.03, z: 0.03 },
       rotation: { x: 0, y: -1.6, z: 0 },
       editMode: undefined,
-      showXTransform: false,
+      showXTransform: false, 
       showYTransform: false,
       showZTransform: false,
       modelPath: "./ModelsFBX/Chair.FBX",
@@ -181,12 +181,10 @@ export default function Main() {
   let contentGltfFile: THREE.Group;
   const handleModelimport = async (file: File | null) => {
     if (!file) return;
-    //setModels((prevModels) => prevModels.filter((model) => model.id !== id));
-    //setMainCurrentObjectProps(null!);
+    models.length = 0;
     const reader = new FileReader();
     reader.onload = async (e) => {
       const contents: string = JSON.parse(e?.target?.result as string); 
-      console.log(contents);
       const gltfLoader = new GLTFLoader();
       gltfLoader.parse(
         contents, '',
@@ -199,8 +197,12 @@ export default function Main() {
     reader.readAsText(file);
   };
 
-  const handleModelRemoval = async() => {    
-    sceneRef.current.remove(contentGltfFile);              
+  const handleModelRemoval = async() => {
+    if(contentGltfFile == null){
+        window.location.reload();
+    }else{
+        sceneRef.current.remove(contentGltfFile);              
+    } 
   }
 
   const updateModels = (modelID: string, newModelData: any) => {
