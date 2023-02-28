@@ -181,26 +181,25 @@ export default function Main() {
   let contentGltfFile: THREE.Group;
   const handleModelimport = async (file: File | null) => {
     if (!file) return;
+    //setModels((prevModels) => prevModels.filter((model) => model.id !== id));
+    //setMainCurrentObjectProps(null!);
     const reader = new FileReader();
     reader.onload = async (e) => {
       const contents: string = JSON.parse(e?.target?.result as string); 
-      
-      
       console.log(contents);
       const gltfLoader = new GLTFLoader();
       gltfLoader.parse(
         contents, '',
         function (gltf) {
-          sceneRef.current.add(gltf.scene); 
-          contentGltfFile = gltf.scene;         
+          contentGltfFile = gltf.scene;
+          sceneRef.current.add(gltf.scene);
         }
       )
     };
     reader.readAsText(file);
   };
 
-  const handleModelRemoval = async() => {
-    const gltfLoader = new GLTFLoader();
+  const handleModelRemoval = async() => {    
     sceneRef.current.remove(contentGltfFile);              
   }
 
