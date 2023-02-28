@@ -8,6 +8,7 @@ import { ModelList } from "./UI-Elemente/ModelList/ModelList";
 import Scene from "./Scene/Scene";
 import * as THREE from "three";
 
+//@ts-ignore
 import { GLTFExporter } from "three/addons/exporters/GLTFExporter.js";
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader";
 import { arrayBufferToBase64, base64ToBlob } from "./utils/converting";
@@ -35,7 +36,7 @@ export default function Main() {
       scale: { x: 0.03, y: 0.03, z: 0.03 },
       rotation: { x: 0, y: -1.6, z: 0 },
       editMode: undefined,
-      showXTransform: false, 
+      showXTransform: false,
       showYTransform: false,
       showZTransform: false,
       modelPath: "./ModelsFBX/Chair.FBX",
@@ -113,7 +114,7 @@ export default function Main() {
     setModels([
       ...models,
       {
-        id: "" + Math.random() * 1000, 
+        id: "" + Math.random() * 1000,
         editMode: undefined,
         showXTransform: false,
         showYTransform: false,
@@ -136,47 +137,51 @@ export default function Main() {
     const scene = new THREE.Scene();
     const fbxLoader = new FBXLoader();
     for (const element of models) {
-      fbxLoader.load(
-        element.modelPath,
-        (object) => {
-            object.scale.set(element.scale.x, element.scale.y, element.scale.z);
-            object.position.set(element.position.x, element.position.y, element.position.z);
-            object.rotation.set(element.rotation.x, element.rotation.y, element.rotation.z);
-            scene.add(object)
-        }
-      )
+      fbxLoader.load(element.modelPath, (object) => {
+        object.scale.set(element.scale.x, element.scale.y, element.scale.z);
+        object.position.set(
+          element.position.x,
+          element.position.y,
+          element.position.z
+        );
+        object.rotation.set(
+          element.rotation.x,
+          element.rotation.y,
+          element.rotation.z
+        );
+        scene.add(object);
+      });
     }
     setTimeout(() => {
-    const gltfExporter = new GLTFExporter();
+      const gltfExporter = new GLTFExporter();
 
-    gltfExporter.parse(
-      scene,
-      function (result: any) {
-        const output = JSON.stringify(result, null, 2);
-        console.log(output);
-        saveString(output, "scene.gltf");
-      },
-      function (error: any) {
-        console.log("An error happened during parsing", error);
+      gltfExporter.parse(
+        scene,
+        function (result: any) {
+          const output = JSON.stringify(result, null, 2);
+          console.log(output);
+          saveString(output, "scene.gltf");
+        },
+        function (error: any) {
+          console.log("An error happened during parsing", error);
+        }
+      );
+
+      function save(blob: any, filename: any) {
+        const link = document.createElement("a");
+
+        link.download = "Scene";
+        document.body.appendChild(link);
+        link.href = URL.createObjectURL(blob);
+        link.download = filename;
+        link.click();
+        document.body.removeChild(link);
       }
-    );
 
-    function save(blob: any, filename: any) {
-      const link = document.createElement("a");
-
-      link.download = "Scene";
-      document.body.appendChild(link);
-      link.href = URL.createObjectURL(blob);
-      link.download = filename;
-      link.click();
-      document.body.removeChild(link);
-    }
-
-    function saveString(text: any, filename: any) {
-      save(new Blob([text], { type: "text/plain" }), filename);
-    }
+      function saveString(text: any, filename: any) {
+        save(new Blob([text], { type: "text/plain" }), filename);
+      }
     }, 3000);
-
   };
   let contentGltfFile: THREE.Group;
   const handleModelimport = async (file: File | null) => {
@@ -184,26 +189,23 @@ export default function Main() {
     models.length = 0;
     const reader = new FileReader();
     reader.onload = async (e) => {
-      const contents: string = JSON.parse(e?.target?.result as string); 
+      const contents: string = JSON.parse(e?.target?.result as string);
       const gltfLoader = new GLTFLoader();
-      gltfLoader.parse(
-        contents, '',
-        function (gltf) {
-          contentGltfFile = gltf.scene;
-          sceneRef.current.add(gltf.scene);
-        }
-      )
+      gltfLoader.parse(contents, "", function (gltf) {
+        contentGltfFile = gltf.scene;
+        sceneRef.current.add(gltf.scene);
+      });
     };
     reader.readAsText(file);
   };
 
-  const handleModelRemoval = async() => {
-    if(contentGltfFile == null){
-        window.location.reload();
-    }else{
-        sceneRef.current.remove(contentGltfFile);              
-    } 
-  }
+  const handleModelRemoval = async () => {
+    if (contentGltfFile == null) {
+      window.location.reload();
+    } else {
+      sceneRef.current.remove(contentGltfFile);
+    }
+  };
 
   const updateModels = (modelID: string, newModelData: any) => {
     setModels((prev: TypeObjectProps[]) => [
