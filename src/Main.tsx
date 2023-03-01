@@ -299,6 +299,14 @@ export default function Main() {
       >
         <ModelList
           addObject={handleModelAdd}
+          deleteModel={(url: string) => {
+            setModelPaths((prev) => [
+              ...prev.filter((path) => path.path !== url),
+            ]);
+            setFbx_models_files((prev) => [
+              ...prev.filter((path) => path.pathName !== url),
+            ]);
+          }}
           addModel={(name: string, url: string, file: any) => {
             setModelPaths((prev) => [...prev, { name: name, path: url }]);
             setFbx_models_files((prev: any[]) => {
@@ -349,7 +357,9 @@ export default function Main() {
         </Stack>
 
         {/* Canvas */}
-        <Stack style={{ border: "1px solid darkgray", height: "100%" }}>
+        <Stack
+          style={{ border: "1px solid darkgray", height: "100%", flex: "1" }}
+        >
           <Canvas>
             {/*TO ACCESS THE useThree hook in the Scene component*/}
             <Scene

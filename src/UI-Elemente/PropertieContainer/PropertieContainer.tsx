@@ -56,8 +56,11 @@ function PropertieContainer({
 
   return (
     <Stack style={{ gap: "1rem", background: "" }}>
+      <Typography textAlign={"center"} fontSize={"1.25rem"}>
+        Eigenschaften
+      </Typography>
       <Stack direction={"column"} gap="0.5rem" padding="0.5rem">
-        <Typography fontSize="20px">Room</Typography>
+        <Typography fontSize="20px">Raum</Typography>
         <Grid container spacing={2}>
           <Grid item xs={4}>
             <NumberInput
@@ -106,7 +109,7 @@ function PropertieContainer({
       <Divider />
       {objProps ? (
         <Stack direction={"column"} padding="0.5rem">
-          <Typography fontSize="20px">Selected Object</Typography>
+          <Typography fontSize="20px">Ausgewähltes Objekt</Typography>
           <Typography>Position</Typography>
           <Grid container spacing={2}>
             <Grid item xs={4}>
@@ -143,7 +146,7 @@ function PropertieContainer({
             style={{ marginLeft: "8px", marginRight: "8px" }}
           />
           <Stack direction={"column"}>
-            <Typography>Scale</Typography>
+            <Typography>Skallierung</Typography>
             <Grid container spacing={2}>
               <Grid item xs={4}>
                 <NumberInput
@@ -175,7 +178,7 @@ function PropertieContainer({
             </Grid>
           </Stack>
           <Stack direction={"column"}>
-            <Typography>Rotate</Typography>
+            <Typography>Rotierung</Typography>
             <Grid container spacing={2}>
               <Grid item xs={4}>
                 <NumberInput

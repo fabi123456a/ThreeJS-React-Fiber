@@ -25,7 +25,7 @@ function ToolBar(props: {
   deleteObject: (id: string) => void; // funktion um ein Object/Model aus der Szene zu entfernen
   exportObject: () => void;
   importObject: (file: File | null) => void;
-  removeObject:() => void;
+  removeObject: () => void;
   setOrtho: (flag: boolean) => void; // funktion die ein boolean setzt, ob gerade ein Orthografische Kamera aktiv ist
   setPerspective: (perspective: string) => void; // funktion setzt die Kamera Perspektive -> "0"=normal, "1"=topDown, "2"=frontal, "3"=leftMid, "4"=rightMid
   setWallVisibility: (flag: TypeWallVisibility) => void;
@@ -44,10 +44,10 @@ function ToolBar(props: {
       alignItems="stretch"
       alignContent="center"
       gap="1rem"
-      justifyContent="space-evenly"
+      justifyContent="center"
     >
       {/* Transform: Verschieben, Rotieren & Skalieren */}
-      <Stack direction={"row"} style={{ width: "50%" }}>
+      <Stack direction={"row"}>
         <FormControl
           style={{
             width: "100%",
@@ -175,9 +175,12 @@ function ToolBar(props: {
               </Stack>
             </>
           ) : (
-            <Stack flexGrow={1} justifyContent={"center"} alignItems={"center"}>
-              <Typography>Noch keine Objekt ausgewählt.</Typography>
-            </Stack>
+            <>
+              <FormLabel>Transform</FormLabel>
+              <Stack direction={"row"} style={{ width: "100%" }}>
+                <Typography>Noch keine Objekt ausgewählt.</Typography>
+              </Stack>
+            </>
           )}
         </FormControl>
       </Stack>
@@ -185,7 +188,7 @@ function ToolBar(props: {
       <Divider orientation="vertical" flexItem />
 
       {/* Kamera Perpektiven: normal, top-down, ... */}
-      <Stack style={{ width: "25%" }}>
+      <Stack>
         <PerspectiveSelector
           setOrtho={props.setOrtho}
           controlsRef={props.controlsRef}
@@ -197,11 +200,8 @@ function ToolBar(props: {
       <Divider orientation="vertical" flexItem />
 
       {/* Laden/Speichern & Expotieren */}
-      <Stack
-        justifyContent={"center"}
-        alignItems={"center"}
-        style={{ width: "25%" }}
-      >
+      <Stack justifyContent={"center"} alignItems={"center"}>
+        <FormLabel>Dateien</FormLabel>
         <Stack direction="row" style={{ background: "" }}>
           <IconButton
             title="Export current Scene as GLTF"
