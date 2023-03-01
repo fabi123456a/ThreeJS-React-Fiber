@@ -230,7 +230,7 @@ function ToolBar(props: {
             <PublishIcon></PublishIcon>
           </IconButton>
           <IconButton
-            title="Remove Gltf Scene"
+            title="Remove Gltf Scene View"
             onClick={() => {
               props.removeObject();
             }}

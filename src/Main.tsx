@@ -137,19 +137,25 @@ export default function Main() {
     const scene = new THREE.Scene();
     const fbxLoader = new FBXLoader();
     for (const element of models) {
-      fbxLoader.load(element.modelPath, (object) => {
-        object.scale.set(element.scale.x, element.scale.y, element.scale.z);
-        object.position.set(
-          element.position.x,
-          element.position.y,
-          element.position.z
-        );
-        object.rotation.set(
-          element.rotation.x,
-          element.rotation.y,
-          element.rotation.z
-        );
-        scene.add(object);
+      fbxLoader.load(
+        element.modelPath,
+        (object) => {
+          object.scale.set(
+            element.scale.x,
+            element.scale.y,
+            element.scale.z
+            );
+          object.position.set(
+            element.position.x,
+            element.position.y,
+            element.position.z
+          );
+          object.rotation.set(
+            element.rotation.x,
+            element.rotation.y,
+            element.rotation.z
+          );
+          scene.add(object);
       });
     }
     setTimeout(() => {
