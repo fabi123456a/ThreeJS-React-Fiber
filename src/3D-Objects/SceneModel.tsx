@@ -63,12 +63,11 @@ function SceneModel(
     box.current.geometry.computeBoundingBox();
     const material = new LineBasicMaterial({ color: 0xff0000 });
     box.current.material = material;
-
-    fbx.add(box.current);
+    refMesh?.current?.add(box.current);
   };
 
   const removeBoundingBox = () => {
-    fbx.remove(box.current);
+    refMesh?.current?.remove(box.current);
     setBoundingBox(false);
   };
 

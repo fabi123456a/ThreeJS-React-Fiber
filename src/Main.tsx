@@ -15,8 +15,8 @@ import { arrayBufferToBase64, base64ToBlob } from "./utils/converting";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 
 export default function Main() {
-  // beinhaltet alle 3D-Modelle die in der Scene vorhanden sind
-  const [fbx_models_files, setFbx_models_files] = useState<any[]>([]);
+  const [fbx_models_files, setFbx_models_files] = useState<any[]>([]); //Contains all FBX Model Files which can be selected via the ModelList Component. Is needed to save the Scene and all FBX Model Files
+  // contains all models which are currently in the scene
   const [models, setModels] = useState<TypeObjectProps[]>([
     {
       id: "123567",
@@ -60,6 +60,7 @@ export default function Main() {
     },
   ]);
 
+  //Contains all Model Files links and their name which can be selected via the ModelList
   const [modelPaths, setModelPaths] = useState<
     { name: string; path: string }[]
   >([
@@ -87,7 +88,7 @@ export default function Main() {
     depth: 50,
   });
 
-  // linke und rechte wand anzeigen?
+  // to show the left or right wall or hide it when the camera mode changes
   const [wallVisiblity, setWallVisiblity] = useState<TypeWallVisibility>({
     leftWall: true,
     rightWall: true,
@@ -137,25 +138,19 @@ export default function Main() {
     const scene = new THREE.Scene();
     const fbxLoader = new FBXLoader();
     for (const element of models) {
-      fbxLoader.load(
-        element.modelPath,
-        (object) => {
-          object.scale.set(
-            element.scale.x,
-            element.scale.y,
-            element.scale.z
-            );
-          object.position.set(
-            element.position.x,
-            element.position.y,
-            element.position.z
-          );
-          object.rotation.set(
-            element.rotation.x,
-            element.rotation.y,
-            element.rotation.z
-          );
-          scene.add(object);
+      fbxLoader.load(element.modelPath, (object) => {
+        object.scale.set(element.scale.x, element.scale.y, element.scale.z);
+        object.position.set(
+          element.position.x,
+          element.position.y,
+          element.position.z
+        );
+        object.rotation.set(
+          element.rotation.x,
+          element.rotation.y,
+          element.rotation.z
+        );
+        scene.add(object);
       });
     }
     setTimeout(() => {
