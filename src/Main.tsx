@@ -101,6 +101,9 @@ export default function Main() {
   const prevObjectProps = useRef(currentObjectProps);
 
   function handleShortcuts(event: KeyboardEvent) {
+    if(event.key === "Backspace"){
+      setModels(prev => [...prev.filter(model => model.id !== prevObjectProps.current.id)])
+    }
     if (event.key === "c" && event.metaKey) {
       // Command + V is pressed
       // Do something here
