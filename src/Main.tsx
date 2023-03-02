@@ -284,7 +284,6 @@ export default function Main() {
     };
     reader.readAsText(file);
   }
-
   return (
     <Stack
       direction="row"

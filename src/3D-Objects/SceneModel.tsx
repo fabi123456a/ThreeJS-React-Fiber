@@ -3,7 +3,7 @@ import { TransformControls } from "@react-three/drei";
 import { useLoader } from "@react-three/fiber";
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader";
 import * as THREE from "three";
-import { BoxHelper, LineBasicMaterial, Vector3 } from "three";
+import { BoxHelper, Camera, LineBasicMaterial, Vector3 } from "three";
 // KOMPONENTE
 
 function SceneModel(
@@ -18,7 +18,7 @@ function SceneModel(
   const fbx: THREE.Group = useLoader(FBXLoader, props.modelPath);
   // referenz auf das Mesh des FBX-Models
   const refMesh = useRef<THREE.Mesh>(null);
-
+  const tcRef = useRef<any>(null);
   // function
   const sendCurrentObjectDataToControls = () => {
     // position des Objects als Vektor3
@@ -28,7 +28,8 @@ function SceneModel(
     // skalierung des Objects als Vektor3
     let vektorScale: Vector3 = new Vector3();
     refMesh.current?.getWorldScale(vektorScale);
-
+    console.log(tcRef.current);
+    
     props.setCurrentObjectProps({
       id: props.id,
       position: {
@@ -42,9 +43,9 @@ function SceneModel(
         z: vektorScale.z,
       },
       rotation: {
-        x: refMesh.current?.rotation.x ?? 0,
-        y: refMesh.current?.rotation.y ?? 0,
-        z: refMesh.current?.rotation.z ?? 0,
+        x: tcRef.current?.object.rotation.x ?? 0,
+        y: tcRef.current?.object.rotation.y ?? 0,
+        z: tcRef.current?.object.rotation.z ?? 0,
       },
       editMode: props.editMode,
       showXTransform: props.showXTransform,
@@ -80,11 +81,13 @@ function SceneModel(
   return (
     <>
       <TransformControls
+        ref={tcRef}
         mode={props.editMode ? props.editMode : "scale"}
         showX={props.isSelected && props.showXTransform}
         showY={props.isSelected && props.showYTransform}
         showZ={props.isSelected && props.showZTransform}
         scale={[props.scale.x, props.scale.y, props.scale.z]}
+        rotation={[props.rotation.x, props.rotation.y, props.rotation.z]}
         position={
           new Vector3(props.position.x, props.position.y, props.position.z)
         }
@@ -124,7 +127,6 @@ function SceneModel(
             onDoubleClick={() => {
               removeBoundingBox();
             }}
-            rotation={[props.rotation.x, props.rotation.y, props.rotation.z]}
             ref={refMesh}
             object={fbx.clone(true)}
           ></primitive>
