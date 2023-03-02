@@ -102,7 +102,8 @@ export default function Main() {
 
   function handleShortcuts(event: KeyboardEvent) {
     if(event.key === "Backspace"){
-      setModels(prev => [...prev.filter(model => model.id !== prevObjectProps.current.id)])
+      setModels(prev => [...prev.filter(model => model.id !== prevObjectProps.current.id)]);
+      setMainCurrentObjectProps(null!);
     }
     if (event.key === "c" && event.metaKey) {
       // Command + V is pressed
