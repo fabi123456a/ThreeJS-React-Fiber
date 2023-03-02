@@ -38,6 +38,18 @@ function ToolBar(props: {
     return true;
   };
 
+  function resetEditMode() {
+    props.setObjProps((prev: TypeObjectProps) => {
+      return {
+        ...prev,
+        editMode: undefined,
+        showXTransform: false,
+        showYTransform: false,
+        showZTransform: false,
+      };
+    });
+  }
+
   return (
     <Stack
       direction={"row"}
@@ -74,7 +86,10 @@ function ToolBar(props: {
                     }
                     onClick={() => {
                       if (!checkIfAObjectIsSelected()) return;
-
+                      if (props.objProps.editMode === "translate") {
+                        resetEditMode();
+                        return;
+                      }
                       props.setObjProps((prev: TypeObjectProps) => {
                         return {
                           ...prev,
@@ -97,7 +112,10 @@ function ToolBar(props: {
                     }
                     onClick={() => {
                       if (!checkIfAObjectIsSelected()) return;
-
+                      if (props.objProps.editMode === "scale") {
+                        resetEditMode();
+                        return;
+                      }
                       props.setObjProps((prev: TypeObjectProps) => {
                         return {
                           ...prev,
@@ -120,7 +138,10 @@ function ToolBar(props: {
                     }
                     onClick={() => {
                       if (!checkIfAObjectIsSelected()) return;
-
+                      if (props.objProps.editMode === "rotate") {
+                        resetEditMode();
+                        return;
+                      }
                       props.setObjProps((prev: TypeObjectProps) => {
                         return {
                           ...prev,
