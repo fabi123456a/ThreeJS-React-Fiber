@@ -78,7 +78,8 @@ export default function Main() {
   // currentObjectProps
   const [currentObjectProps, setMainCurrentObjectProps] =
     useState<TypeObjectProps>(null!);
-    const [copiedObjectProps, setCopiedObjectProps] = useState<TypeObjectProps | null>(null);
+  const [copiedObjectProps, setCopiedObjectProps] =
+    useState<TypeObjectProps | null>(null);
 
   // cam
   const [ortho, setOrtho] = useState<boolean>(false);
@@ -100,32 +101,37 @@ export default function Main() {
   const prevObjectProps = useRef(currentObjectProps);
 
   function handleShortcuts(event: KeyboardEvent) {
-    
     if (event.key === "c" && event.metaKey) {
       // Command + V is pressed
       // Do something here
       console.log("COPIED OBJECT");
-      setCopiedObjectProps(prev => {return {...prevObjectProps.current}})
+      setCopiedObjectProps((prev) => {
+        return { ...prevObjectProps.current };
+      });
     }
     if (event.key === "v" && event.metaKey) {
       // Command + V is pressed
       // Do something here
       console.log("PASTE COPIED OBJECT");
 
-      if(copiedObjectProps){  
-        setModels(prev => [...prev, {...copiedObjectProps, id: "" + Math.random() * 1000}])
+      if (copiedObjectProps) {
+        console.log(models);
+        
+        setModels([
+          ...models,
+          { ...copiedObjectProps, id: "" + Math.random() * 1000 },
+        ]);
       }
     }
   }
-  
 
   //Shortcuts
   useEffect(() => {
-    document.addEventListener('keydown', handleShortcuts);
+    document.addEventListener("keydown", handleShortcuts);
     return () => {
       document.removeEventListener("keydown", () => {});
-    }
-  },[copiedObjectProps]);
+    };
+  }, [copiedObjectProps]);
 
   useEffect(() => {
     if (!currentObjectProps) return;
@@ -247,9 +253,7 @@ export default function Main() {
     ]);
   };
 
-  function copyCurrentModel(){
-
-  }
+  function copyCurrentModel() {}
 
   async function saveScene() {
     const files = await Promise.all(
