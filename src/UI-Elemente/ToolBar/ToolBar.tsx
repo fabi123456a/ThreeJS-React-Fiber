@@ -50,6 +50,18 @@ function ToolBar(props: {
     });
   }
 
+  function setEditMode(editMode: "translate" | "scale" | "rotate") {
+    props.setObjProps((prev: TypeObjectProps) => {
+      return {
+        ...prev,
+        editMode: editMode,
+        showXTransform: true,
+        showYTransform: true,
+        showZTransform: true,
+      };
+    });
+  }
+
   return (
     <Stack
       direction={"row"}
@@ -90,15 +102,7 @@ function ToolBar(props: {
                         resetEditMode();
                         return;
                       }
-                      props.setObjProps((prev: TypeObjectProps) => {
-                        return {
-                          ...prev,
-                          editMode: "translate",
-                          showXTransform: true,
-                          showYTransform: true,
-                          showZTransform: true,
-                        };
-                      });
+                      setEditMode("translate");
                     }}
                   >
                     <OpenWithIcon></OpenWithIcon>
@@ -116,15 +120,7 @@ function ToolBar(props: {
                         resetEditMode();
                         return;
                       }
-                      props.setObjProps((prev: TypeObjectProps) => {
-                        return {
-                          ...prev,
-                          editMode: "scale",
-                          showXTransform: true,
-                          showYTransform: true,
-                          showZTransform: true,
-                        };
-                      });
+                      setEditMode("scale");
                     }}
                   >
                     <ExpandIcon></ExpandIcon>
@@ -142,15 +138,7 @@ function ToolBar(props: {
                         resetEditMode();
                         return;
                       }
-                      props.setObjProps((prev: TypeObjectProps) => {
-                        return {
-                          ...prev,
-                          editMode: "rotate",
-                          showXTransform: true,
-                          showYTransform: true,
-                          showZTransform: true,
-                        };
-                      });
+                      setEditMode("rotate");
                     }}
                   >
                     <ThreeSixtyIcon></ThreeSixtyIcon>
@@ -164,16 +152,7 @@ function ToolBar(props: {
                     }
                     onClick={() => {
                       if (!checkIfAObjectIsSelected()) return;
-
-                      props.setObjProps((prev: TypeObjectProps) => {
-                        return {
-                          ...prev,
-                          editMode: undefined,
-                          showXTransform: false,
-                          showYTransform: false,
-                          showZTransform: false,
-                        };
-                      });
+                      resetEditMode();
                     }}
                   >
                     <LockIcon></LockIcon>
