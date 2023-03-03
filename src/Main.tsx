@@ -124,8 +124,8 @@ export default function Main() {
       // Do something here
 
       if (copiedObjectProps) {
-        setModels([
-          ...models,
+        setModels((prev) => [
+          ...prev,
           { ...copiedObjectProps, id: "" + Math.random() * 1000 },
         ]);
         textRef.current = "Model Eingefügt";
