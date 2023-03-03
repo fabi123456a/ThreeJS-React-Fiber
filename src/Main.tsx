@@ -80,7 +80,6 @@ export default function Main() {
     useState<TypeObjectProps>(null!);
   const [copiedObjectProps, setCopiedObjectProps] =
     useState<TypeObjectProps | null>(null);
-  const [infoText, setInfoText] = useState("");
   const textRef = useRef<string>("");
 
   // cam
@@ -103,17 +102,16 @@ export default function Main() {
   const prevObjectProps = useRef(currentObjectProps);
 
   function handleShortcuts(event: KeyboardEvent) {
-    if (event.key === "Backspace") {
+    /* if (event.key === "Backspace") {
       setModels((prev) => [
         ...prev.filter((model) => model.id !== prevObjectProps.current.id),
       ]);
       setMainCurrentObjectProps(null!);
       textRef.current = "Model Gelöscht";
-    }
+    } */
     if (event.key === "c" && (event.metaKey || "Control")) {
       // Command + V is pressed
       // Do something here
-      console.log("copie");
 
       setCopiedObjectProps((prev) => {
         return { ...prevObjectProps.current };
@@ -125,8 +123,6 @@ export default function Main() {
       // Do something here
 
       if (copiedObjectProps) {
-        console.log(models);
-
         setModels([
           ...models,
           { ...copiedObjectProps, id: "" + Math.random() * 1000 },
@@ -138,8 +134,6 @@ export default function Main() {
 
   //Shortcuts
   useEffect(() => {
-    console.log("TEST");
-
     document.addEventListener("keydown", handleShortcuts);
     return () => {
       document.removeEventListener("keydown", handleShortcuts);
@@ -185,52 +179,56 @@ export default function Main() {
   const handleModelexport = async () => {
     const scene = new THREE.Scene();
     const fbxLoader = new FBXLoader();
+
     for (const element of models) {
-      fbxLoader.load(element.modelPath, (object) => {
-        object.scale.set(element.scale.x, element.scale.y, element.scale.z);
-        object.position.set(
-          element.position.x,
-          element.position.y,
-          element.position.z
-        );
-        object.rotation.set(
-          element.rotation.x,
-          element.rotation.y,
-          element.rotation.z
-        );
-        scene.add(object);
+      await new Promise((resolve, reject) => {
+        fbxLoader.load(element.modelPath, (object) => {
+          object.scale.set(element.scale.x, element.scale.y, element.scale.z);
+          object.position.set(
+            element.position.x,
+            element.position.y,
+            element.position.z
+          );
+          object.rotation.set(
+            element.rotation.x,
+            element.rotation.y,
+            element.rotation.z
+          );
+          scene.add(object);
+          resolve("");
+        });
       });
     }
-    setTimeout(() => {
-      const gltfExporter = new GLTFExporter();
 
-      gltfExporter.parse(
-        scene,
-        function (result: any) {
-          const output = JSON.stringify(result, null, 2);
-          console.log(output);
-          saveString(output, "scene.gltf");
-        },
-        function (error: any) {
-          console.log("An error happened during parsing", error);
-        }
-      );
+    const gltfExporter = new GLTFExporter();
 
-      function save(blob: any, filename: any) {
-        const link = document.createElement("a");
+    gltfExporter.parse(
+      scene,
+      function (result: any) {
+        console.log("PARSED");
 
-        link.download = "Scene";
-        document.body.appendChild(link);
-        link.href = URL.createObjectURL(blob);
-        link.download = filename;
-        link.click();
-        document.body.removeChild(link);
+        const output = JSON.stringify(result, null, 2);
+        saveString(output, "scene.gltf");
+      },
+      function (error: any) {
+        console.log("An error happened during parsing", error);
       }
+    );
 
-      function saveString(text: any, filename: any) {
-        save(new Blob([text], { type: "text/plain" }), filename);
-      }
-    }, 3000);
+    function save(blob: any, filename: any) {
+      const link = document.createElement("a");
+
+      link.download = "Scene";
+      document.body.appendChild(link);
+      link.href = URL.createObjectURL(blob);
+      link.download = filename;
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    function saveString(text: any, filename: any) {
+      save(new Blob([text], { type: "text/plain" }), filename);
+    }
   };
   let contentGltfFile: THREE.Group;
   const handleModelimport = async (file: File | null) => {
