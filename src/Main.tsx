@@ -1,7 +1,7 @@
 import Stack from "@mui/material/Stack";
 import { useState, useEffect, useRef } from "react";
 import { Canvas } from "@react-three/fiber";
-import { Alert, Divider, Snackbar } from "@mui/material";
+import { Alert, Divider, Snackbar, Typography } from "@mui/material";
 import PropertieContainer from "./UI-Elements/PropertieContainer/PropertieContainer";
 import ToolBar from "./UI-Elements/ToolBar/ToolBar";
 import { ModelList } from "./UI-Elements/ModelList/ModelList";
@@ -15,6 +15,7 @@ import { arrayBufferToBase64, base64ToBlob } from "./utils/converting";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 
 export default function Main() {
+  const [showControlsInfo, setShowControlsInfo] = useState(true);
   const [fbx_models_files, setFbx_models_files] = useState<any[]>([]); //Contains all FBX Model Files which can be selected via the ModelList Component. Is needed to save the Scene and all FBX Model Files
   // contains all models which are currently in the scene
   const [models, setModels] = useState<TypeObjectProps[]>([
@@ -350,6 +351,29 @@ export default function Main() {
         }}
       >
         <Alert severity="info">{textRef.current}</Alert>
+      </Snackbar>
+      <Snackbar
+        open={showControlsInfo}
+        onClose={(event?: React.SyntheticEvent | Event, reason?: string) => {
+          if (reason === "clickaway") {
+            return;
+          }
+          setShowControlsInfo(false);
+        }}
+      >
+        <Alert
+          severity="info"
+          onClose={(event?: React.SyntheticEvent | Event, reason?: string) => {
+            if (reason === "clickaway") {
+              return;
+            }
+            setShowControlsInfo(false);
+          }}
+        >
+          <Typography>Controls: </Typography>
+          Modelle Kopieren: COMMAND + C, <br />
+          Modelle Eingfügen: COMMAND + V
+        </Alert>
       </Snackbar>
       {/* ModelList */}
       <Stack
