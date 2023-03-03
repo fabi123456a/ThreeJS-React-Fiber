@@ -1,7 +1,7 @@
 import Stack from "@mui/material/Stack";
 import { useState, useEffect, useRef } from "react";
 import { Canvas } from "@react-three/fiber";
-import { Divider } from "@mui/material";
+import { Alert, Divider, Snackbar } from "@mui/material";
 import PropertieContainer from "./UI-Elemente/PropertieContainer/PropertieContainer";
 import ToolBar from "./UI-Elemente/ToolBar/ToolBar";
 import { ModelList } from "./UI-Elemente/ModelList/ModelList";
@@ -80,6 +80,8 @@ export default function Main() {
     useState<TypeObjectProps>(null!);
   const [copiedObjectProps, setCopiedObjectProps] =
     useState<TypeObjectProps | null>(null);
+  const [infoText, setInfoText] = useState("");
+  const textRef = useRef<string>("");
 
   // cam
   const [ortho, setOrtho] = useState<boolean>(false);
@@ -101,30 +103,33 @@ export default function Main() {
   const prevObjectProps = useRef(currentObjectProps);
 
   function handleShortcuts(event: KeyboardEvent) {
-    if(event.key === "Backspace"){
-      setModels(prev => [...prev.filter(model => model.id !== prevObjectProps.current.id)]);
+    if (event.key === "Backspace") {
+      setModels((prev) => [
+        ...prev.filter((model) => model.id !== prevObjectProps.current.id),
+      ]);
       setMainCurrentObjectProps(null!);
+      textRef.current = "Model Gelöscht";
     }
-    if (event.key === "c" && event.metaKey) {
+    if (event.key === "c" && (event.metaKey || "Control")) {
       // Command + V is pressed
       // Do something here
-      console.log("COPIED OBJECT");
       setCopiedObjectProps((prev) => {
         return { ...prevObjectProps.current };
       });
+      textRef.current = "Model Kopiert";
     }
-    if (event.key === "v" && event.metaKey) {
+    if (event.key === "v" && (event.metaKey || "Control")) {
       // Command + V is pressed
       // Do something here
-      console.log("PASTE COPIED OBJECT");
 
       if (copiedObjectProps) {
         console.log(models);
-        
+
         setModels([
           ...models,
           { ...copiedObjectProps, id: "" + Math.random() * 1000 },
         ]);
+        textRef.current = "Model Eingefügt";
       }
     }
   }
@@ -257,8 +262,6 @@ export default function Main() {
     ]);
   };
 
-  function copyCurrentModel() {}
-
   async function saveScene() {
     const files = await Promise.all(
       fbx_models_files.map(async (fileData) => {
@@ -331,6 +334,18 @@ export default function Main() {
       style={{ height: "100%", background: "lightGray", overflowY: "auto" }}
       divider={<Divider orientation="vertical" flexItem />}
     >
+      <Snackbar
+        autoHideDuration={4000}
+        open={textRef.current !== ""}
+        onClose={(event?: React.SyntheticEvent | Event, reason?: string) => {
+          if (reason === "clickaway") {
+            return;
+          }
+          textRef.current = "";
+        }}
+      >
+        <Alert severity="info">{textRef.current}</Alert>
+      </Snackbar>
       {/* ModelList */}
       <Stack
         style={{
