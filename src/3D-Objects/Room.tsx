@@ -20,6 +20,7 @@ export default function Room({
       {/* Boden */}
       <BoxGeometrie
         geometrie={{ positionXYZ: [0, 0, 0], scaleXYZ: [width, 0.001, depth] }}
+        color="grey"
       ></BoxGeometrie>
       {/* Wand Links */}
       {leftWall ? (
@@ -28,6 +29,7 @@ export default function Room({
             positionXYZ: [-width / 2, height / 2, 0],
             scaleXYZ: [0.001, height, depth],
           }}
+          color="#328da8"
         ></BoxGeometrie>
       ) : null}
       {/* Wand Rechts */}
@@ -37,6 +39,7 @@ export default function Room({
             positionXYZ: [width / 2, height / 2, 0],
             scaleXYZ: [0.001, height, depth],
           }}
+          color="#328da8"
         ></BoxGeometrie>
       ) : null}
       {/* Wand Hinten */}
@@ -45,6 +48,7 @@ export default function Room({
           positionXYZ: [0, height / 2, -depth / 2],
           scaleXYZ: [width, height, 0.001],
         }}
+        color="#328da8"
       ></BoxGeometrie>
     </>
   );

@@ -4,6 +4,7 @@ import * as THREE from "three";
 function BoxGeometrie(props: {
   // position & skalieren der Box
   geometrie: BoxGeometryValue;
+  color?: string;
 }) {
   // ref auf das mesh der Box
   const ref = useRef<THREE.Mesh>(null);
@@ -19,7 +20,7 @@ function BoxGeometrie(props: {
         ]}
       >
         <boxBufferGeometry args={props.geometrie.scaleXYZ} />
-        <meshStandardMaterial />
+        <meshStandardMaterial color={props.color} />
       </mesh>
     </>
   );
