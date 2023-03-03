@@ -1,22 +1,20 @@
 import { Object3D } from "three";
-import { GLTFExporter } from "three-stdlib";
+//@ts-ignore
+import { GLTFExporter } from "three/addons/exporters/GLTFExporter.js";
 
 export default function exportToGLTF(scene: Object3D) {
   const gltfExporter = new GLTFExporter();
-  const options = {
-    binary: false,
-  };
   gltfExporter.parse(
     scene,
-    function (result) {
-      if (result instanceof ArrayBuffer) {
-        saveArrayBuffer(result, "scene.glb");
-      } else {
-        const output = JSON.stringify(result, null, 2);
-        saveString(output, "scene.gltf");
-      }
+    function (result: any) {
+      console.log("PARSED");
+
+      const output = JSON.stringify(result, null, 2);
+      saveString(output, "scene.gltf");
     },
-    options
+    function (error: any) {
+      console.log("An error happened during parsing", error);
+    }
   );
 }
 

@@ -13,6 +13,7 @@ import { GLTFExporter } from "three/addons/exporters/GLTFExporter.js";
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader";
 import { arrayBufferToBase64, base64ToBlob } from "./utils/converting";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
+import exportToGLTF from "./utils/exporting";
 
 export default function Main() {
   const [showControlsInfo, setShowControlsInfo] = useState(true);
@@ -102,39 +103,34 @@ export default function Main() {
   const controlsRef = useRef<any>(null);
   const prevObjectProps = useRef(currentObjectProps);
 
-  function handleShortcuts(event: KeyboardEvent) {
-    /* if (event.key === "Backspace") {
-      setModels((prev) => [
-        ...prev.filter((model) => model.id !== prevObjectProps.current.id),
-      ]);
-      setMainCurrentObjectProps(null!);
-      textRef.current = "Model Gelöscht";
-    } */
-    if (event.key === "c" && (event.metaKey || "Control")) {
-      // Command + V is pressed
-      // Do something here
-
-      setCopiedObjectProps((prev) => {
-        return { ...prevObjectProps.current };
-      });
-      textRef.current = "Model Kopiert";
-    }
-    if (event.key === "v" && (event.metaKey || "Control")) {
-      // Command + V is pressed
-      // Do something here
-
-      if (copiedObjectProps) {
-        setModels((prev) => [
-          ...prev,
-          { ...copiedObjectProps, id: "" + Math.random() * 1000 },
-        ]);
-        textRef.current = "Model Eingefügt";
-      }
-    }
-  }
-
   //Shortcuts
   useEffect(() => {
+    function handleShortcuts(event: KeyboardEvent) {
+      /* if (event.key === "Backspace") {
+        setModels((prev) => [
+          ...prev.filter((model) => model.id !== prevObjectProps.current.id),
+        ]);
+        setMainCurrentObjectProps(null!);
+        textRef.current = "Model Gelöscht";
+      } */
+      if (event.key === "c" && (event.metaKey || "Control")) {
+        // Command + C is pressed
+        setCopiedObjectProps((prev) => {
+          return { ...prevObjectProps.current };
+        });
+        textRef.current = "Model Kopiert";
+      }
+      if (event.key === "v" && (event.metaKey || "Control")) {
+        // Command + V is pressed
+        if (copiedObjectProps) {
+          setModels((prev) => [
+            ...prev,
+            { ...copiedObjectProps, id: "" + Math.random() * 1000 },
+          ]);
+          textRef.current = "Model Eingefügt";
+        }
+      }
+    }
     document.addEventListener("keydown", handleShortcuts);
     return () => {
       document.removeEventListener("keydown", handleShortcuts);
@@ -200,36 +196,7 @@ export default function Main() {
         });
       });
     }
-
-    const gltfExporter = new GLTFExporter();
-
-    gltfExporter.parse(
-      scene,
-      function (result: any) {
-        console.log("PARSED");
-
-        const output = JSON.stringify(result, null, 2);
-        saveString(output, "scene.gltf");
-      },
-      function (error: any) {
-        console.log("An error happened during parsing", error);
-      }
-    );
-
-    function save(blob: any, filename: any) {
-      const link = document.createElement("a");
-
-      link.download = "Scene";
-      document.body.appendChild(link);
-      link.href = URL.createObjectURL(blob);
-      link.download = filename;
-      link.click();
-      document.body.removeChild(link);
-    }
-
-    function saveString(text: any, filename: any) {
-      save(new Blob([text], { type: "text/plain" }), filename);
-    }
+    exportToGLTF(scene);
   };
   const [valueGltf, setValueGltf] = useState<THREE.Group>(null!);
   const handleModelimport = async (file: File | null) => {
