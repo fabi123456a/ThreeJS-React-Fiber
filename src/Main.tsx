@@ -113,6 +113,8 @@ export default function Main() {
     if (event.key === "c" && (event.metaKey || "Control")) {
       // Command + V is pressed
       // Do something here
+      console.log("copie");
+
       setCopiedObjectProps((prev) => {
         return { ...prevObjectProps.current };
       });
@@ -136,9 +138,11 @@ export default function Main() {
 
   //Shortcuts
   useEffect(() => {
+    console.log("TEST");
+
     document.addEventListener("keydown", handleShortcuts);
     return () => {
-      document.removeEventListener("keydown", () => {});
+      document.removeEventListener("keydown", handleShortcuts);
     };
   }, [copiedObjectProps]);
 
