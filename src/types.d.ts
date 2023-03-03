@@ -8,6 +8,8 @@ type BoxGeometryValue = {
   scaleXYZ: number[];
 };
 
+type TypeModel = { name: string; path: string };
+
 // position des Objects
 type TypePosition = {
   x: number;
@@ -59,4 +61,10 @@ type TypeCamPosition = {
   leftToMid: THREE.Vector3;
   rightToMid: THREE.Vector3;
   frontal: THREE.Vector3;
+};
+
+type ExportedScene = {
+  roomDimensions: TypeRoomDimensions;
+  models: TypeModel[];
+  fbx_models: { pathName: string; name: string; file: string }[];
 };
