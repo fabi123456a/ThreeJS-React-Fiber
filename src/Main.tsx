@@ -230,16 +230,18 @@ export default function Main() {
       save(new Blob([text], { type: "text/plain" }), filename);
     }
   };
-  let contentGltfFile: THREE.Group;
+  //let contentGltfFile: THREE.Group;
+  const [valueGltf, setValueGltf] = useState<THREE.Group>(null!);
   const handleModelimport = async (file: File | null) => {
     if (!file) return;
-    models.length = 0;
+    //models.length = 0;
     const reader = new FileReader();
     reader.onload = async (e) => {
       const contents: string = JSON.parse(e?.target?.result as string);
       const gltfLoader = new GLTFLoader();
       gltfLoader.parse(contents, "", function (gltf) {
-        contentGltfFile = gltf.scene;
+        //contentGltfFile = gltf.scene;
+        setValueGltf(gltf.scene);
         sceneRef.current.add(gltf.scene);
       });
     };
@@ -247,11 +249,12 @@ export default function Main() {
   };
 
   const handleModelRemoval = async () => {
-    if (contentGltfFile == null) {
+    /*if (contentGltfFile == null) {
       window.location.reload();
     } else {
       sceneRef.current.remove(contentGltfFile);
-    }
+    }*/
+    sceneRef.current.remove(valueGltf);
   };
 
   const updateModels = (modelID: string, newModelData: any) => {
