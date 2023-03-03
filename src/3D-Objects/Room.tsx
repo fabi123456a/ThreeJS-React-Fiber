@@ -1,5 +1,5 @@
 import React from "react";
-import BoxGeometrie from "./BoxGeometrie";
+import BoxGeometry from "./BoxGeometry";
 
 export default function Room({
   height,
@@ -18,38 +18,38 @@ export default function Room({
     <>
       {/* Raum */} {/* TODO: eigene Komponete für den Raum */}
       {/* Boden */}
-      <BoxGeometrie
+      <BoxGeometry
         geometrie={{ positionXYZ: [0, 0, 0], scaleXYZ: [width, 0.001, depth] }}
         color="grey"
-      ></BoxGeometrie>
+      ></BoxGeometry>
       {/* Wand Links */}
       {leftWall ? (
-        <BoxGeometrie
+        <BoxGeometry
           geometrie={{
             positionXYZ: [-width / 2, height / 2, 0],
             scaleXYZ: [0.001, height, depth],
           }}
           color="#328da8"
-        ></BoxGeometrie>
+        ></BoxGeometry>
       ) : null}
       {/* Wand Rechts */}
       {rightWall ? (
-        <BoxGeometrie
+        <BoxGeometry
           geometrie={{
             positionXYZ: [width / 2, height / 2, 0],
             scaleXYZ: [0.001, height, depth],
           }}
           color="#328da8"
-        ></BoxGeometrie>
+        ></BoxGeometry>
       ) : null}
       {/* Wand Hinten */}
-      <BoxGeometrie
+      <BoxGeometry
         geometrie={{
           positionXYZ: [0, height / 2, -depth / 2],
           scaleXYZ: [width, height, 0.001],
         }}
         color="#328da8"
-      ></BoxGeometrie>
+      ></BoxGeometry>
     </>
   );
 }

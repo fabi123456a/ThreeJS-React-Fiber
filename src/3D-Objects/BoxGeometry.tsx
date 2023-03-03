@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import * as THREE from "three";
 
-function BoxGeometrie(props: {
+function BoxGeometry(props: {
   // position & skalieren der Box
   geometrie: BoxGeometryValue;
   color?: string;
@@ -26,4 +26,4 @@ function BoxGeometrie(props: {
   );
 }
 
-export default BoxGeometrie;
+export default BoxGeometry;

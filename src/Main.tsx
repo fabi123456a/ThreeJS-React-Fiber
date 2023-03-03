@@ -2,9 +2,9 @@ import Stack from "@mui/material/Stack";
 import { useState, useEffect, useRef } from "react";
 import { Canvas } from "@react-three/fiber";
 import { Alert, Divider, Snackbar } from "@mui/material";
-import PropertieContainer from "./UI-Elemente/PropertieContainer/PropertieContainer";
-import ToolBar from "./UI-Elemente/ToolBar/ToolBar";
-import { ModelList } from "./UI-Elemente/ModelList/ModelList";
+import PropertieContainer from "./UI-Elements/PropertieContainer/PropertieContainer";
+import ToolBar from "./UI-Elements/ToolBar/ToolBar";
+import { ModelList } from "./UI-Elements/ModelList/ModelList";
 import Scene from "./Scene/Scene";
 import * as THREE from "three";
 
