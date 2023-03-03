@@ -13,7 +13,7 @@ import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import ThreeSixtyIcon from "@mui/icons-material/ThreeSixty";
 import PerspectiveSelector from "./PerspectiveSelector";
 import DownloadIcon from "@mui/icons-material/Download";
-import UploadIcon from "@mui/icons-material/Upload";
+import SaveIcon from "@mui/icons-material/Save";
 import ImportExportIcon from "@mui/icons-material/ImportExport";
 import PublishIcon from "@mui/icons-material/Publish";
 import RemoveIcon from "@mui/icons-material/Remove";
@@ -61,6 +61,13 @@ function ToolBar(props: {
       };
     });
   }
+
+  const buttonWithTextStyle = {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    padding: "0",
+  };
 
   return (
     <Stack
@@ -202,17 +209,20 @@ function ToolBar(props: {
       {/* Laden/Speichern & Expotieren */}
       <Stack justifyContent={"center"} alignItems={"center"}>
         <FormLabel>Dateien</FormLabel>
-        <Stack direction="row" style={{ background: "" }}>
+        <Stack direction="row" gap="1rem" style={{ background: "" }}>
           <IconButton
             title="Export current Scene as GLTF"
+            style={{ ...(buttonWithTextStyle as any) }}
             onClick={() => {
               props.exportObject();
             }}
           >
             <ImportExportIcon></ImportExportIcon>
+            <Typography fontSize=".75rem">Export</Typography>
           </IconButton>
           <IconButton
             title="View GLTF scene"
+            style={{ ...(buttonWithTextStyle as any) }}
             onClick={() => {
               const inputElement = document.createElement("input");
               inputElement.type = "file";
@@ -228,17 +238,21 @@ function ToolBar(props: {
             }}
           >
             <PublishIcon></PublishIcon>
+            <Typography fontSize=".75rem">Add View</Typography>
           </IconButton>
           <IconButton
             title="Remove Gltf Scene View"
+            style={{ ...(buttonWithTextStyle as any) }}
             onClick={() => {
               props.removeObject();
             }}
           >
             <RemoveIcon></RemoveIcon>
+            <Typography fontSize=".75rem">Remove View</Typography>
           </IconButton>
           <IconButton
             title="Load Scene"
+            style={{ ...(buttonWithTextStyle as any) }}
             onClick={() => {
               const inputElement = document.createElement("input");
               inputElement.type = "file";
@@ -254,14 +268,17 @@ function ToolBar(props: {
             }}
           >
             <DownloadIcon></DownloadIcon>
+            <Typography fontSize=".75rem">Load</Typography>
           </IconButton>
           <IconButton
+            style={{ ...(buttonWithTextStyle as any) }}
             title="Save current Scene"
             onClick={() => {
               props.saveScene();
             }}
           >
-            <UploadIcon></UploadIcon>
+            <SaveIcon></SaveIcon>
+            <Typography fontSize=".75rem">Save</Typography>
           </IconButton>
         </Stack>
       </Stack>
