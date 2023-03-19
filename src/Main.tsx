@@ -63,8 +63,7 @@ export default function Main() {
   ]);
 
   //Contains all Model Files links and their name which can be selected via the ModelList
-  const [modelPaths, setModelPaths] = useState<
-    { name: string; path: string }[]
+  const [modelPaths, setModelPaths] = useState<TypeModel[]
   >([
     { name: "Car", path: "./ModelsFBX/car.fbx" },
     { name: "Mercedes", path: "./ModelsFBX/mercedes.fbx" },
@@ -251,11 +250,26 @@ export default function Main() {
     document.body.removeChild(link);
   }
 
+  function isExportedScene(data: any): data is ExportedScene {
+    return (
+      typeof data === 'object' &&
+      data !== null &&
+      'roomDimensions' in data &&
+      'models' in data &&
+      'fbx_models' in data
+    );
+  }
+  
   async function loadScene(file: File | null) {
     if (!file) return;
+    
     const reader = new FileReader();
     reader.onload = async (e) => {
       const data = JSON.parse(e?.target?.result as string);
+      if (!isExportedScene(data)) {
+        alert("The File type is not correct");
+        return;
+      }
 
       const modifiedPaths = await Promise.all(
         data.fbx_models?.map(async (fbx_model: any) => {
