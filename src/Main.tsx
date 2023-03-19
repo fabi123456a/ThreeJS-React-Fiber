@@ -9,7 +9,6 @@ import Scene from "./Scene/Scene";
 import * as THREE from "three";
 
 //@ts-ignore
-import { GLTFExporter } from "three/addons/exporters/GLTFExporter.js";
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader";
 import { arrayBufferToBase64, base64ToBlob } from "./utils/converting";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
@@ -63,8 +62,7 @@ export default function Main() {
   ]);
 
   //Contains all Model Files links and their name which can be selected via the ModelList
-  const [modelPaths, setModelPaths] = useState<TypeModel[]
-  >([
+  const [modelPaths, setModelPaths] = useState<TypeModel[]>([
     { name: "Car", path: "./ModelsFBX/car.fbx" },
     { name: "Mercedes", path: "./ModelsFBX/mercedes.fbx" },
     { name: "Couch", path: "./ModelsFBX/couch.fbx" },
@@ -252,17 +250,17 @@ export default function Main() {
 
   function isExportedScene(data: any): data is ExportedScene {
     return (
-      typeof data === 'object' &&
+      typeof data === "object" &&
       data !== null &&
-      'roomDimensions' in data &&
-      'models' in data &&
-      'fbx_models' in data
+      "roomDimensions" in data &&
+      "models" in data &&
+      "fbx_models" in data
     );
   }
-  
+
   async function loadScene(file: File | null) {
     if (!file) return;
-    
+
     const reader = new FileReader();
     reader.onload = async (e) => {
       const data = JSON.parse(e?.target?.result as string);
