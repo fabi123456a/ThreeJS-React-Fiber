@@ -1,3 +1,4 @@
+import ErrorBoundary from "./utils/ErrorBoundary";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import Main from "./Main";
@@ -11,6 +12,8 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <Main />
+    <ErrorBoundary>
+      <Main />
+    </ErrorBoundary>
   </React.StrictMode>
 );

@@ -34,7 +34,6 @@ export default function Scene(props: {
       }
     }
   }, [scene]);
-
   return (
     <>
       {/* Canvas nimmt größe von parent container */}
