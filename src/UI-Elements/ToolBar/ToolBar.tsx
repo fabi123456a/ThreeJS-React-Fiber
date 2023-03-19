@@ -185,7 +185,9 @@ function ToolBar(props: {
             <>
               <FormLabel>Transform</FormLabel>
               <Stack direction={"row"} style={{ width: "100%" }}>
-                <Typography>Noch keine Objekt ausgewählt.</Typography>
+                <Typography color="grey">
+                  Noch kein Objekt ausgewählt.
+                </Typography>
               </Stack>
             </>
           )}
