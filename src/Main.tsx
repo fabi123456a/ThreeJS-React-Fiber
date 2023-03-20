@@ -232,6 +232,9 @@ export default function Main() {
         return { pathName, name, file: base64 };
       })
     );
+    console.log("====================================");
+    console.log(files);
+    console.log("====================================");
     const toSaveObj = {
       roomDimensions: roomDimensions,
       models: [...models],

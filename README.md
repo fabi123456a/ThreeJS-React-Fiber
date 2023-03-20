@@ -22,7 +22,7 @@ Den Inhalt des build Ordners in den public Ordner des Servers ziehen
 
 ## Bekannte Bugs
 
-Beim Laden einer gespeicherten Szene mit von Usern hinzugefügten Modellen kann es dazu kommen, dass die Szene nicht geladen werden kann. Da die FBX Modelle als blob hinterlegt sind, kann es bei manchen dazu kommen, dass sie auf einen Pfad zugreifen wollen, welcher durch CORS nicht erlaubt wird. Hier muss die option Zugriff zu diesen Pfaden zu erlauben aktiviert werden.
+Beim Laden einer gespeicherten Szene mit von Usern hinzugefügten Modellen kann es dazu kommen, dass die Szene nicht geladen werden kann. Da die FBX Modelle als blob hinterlegt sind, kann es bei manchen dazu kommen, dass sie auf einen Pfad zugreifen wollen, welcher sehr wahschreinlich durch CORS nicht erlaubt wird.
 
 ## Sonsitiges
 
