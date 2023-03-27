@@ -28,7 +28,7 @@ function SceneModel(
     // skalierung des Objects als Vektor3
     let vektorScale: Vector3 = new Vector3();
     refMesh.current?.getWorldScale(vektorScale);
-    
+
     props.setCurrentObjectProps({
       id: props.id,
       position: {
