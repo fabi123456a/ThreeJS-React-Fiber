@@ -11,7 +11,7 @@
 
 ## Inbetriebnahme
 
-Development start: `npm run start`\
+Development start: `npm run dev`\
 **Die App startet auf http://localhost:3000**
 
 Builden der App: `npm run build`
